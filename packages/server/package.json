@@ -6,7 +6,8 @@
   "scripts": {
     "start": "micro",
     "dev": "micro-dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "inspect": "node --inspect node_modules/.bin/micro-dev"
   },
   "repository": {
     "type": "git",
