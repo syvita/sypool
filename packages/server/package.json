@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/mtavrse/pool/issues"
   },
-  "homepage": "https://github.com/mtavrse/pool#readme"
+  "homepage": "https://github.com/mtavrse/pool#readme",
+  "dependencies": {
+    "micro": "^9.3.4"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  }
 }
