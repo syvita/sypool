@@ -19,6 +19,8 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+console.log(`now listening on port ${port}`);
+
 // normalize a port into a number, string, or false
 
 function normalizePort(val) {
