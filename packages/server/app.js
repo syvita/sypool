@@ -1,6 +1,6 @@
 // module dependencies
 
-var app = require('../app');
+var app = require('./express');
 var debug = require('debug')('server:server');
 var http = require('http');
 
