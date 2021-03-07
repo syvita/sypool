@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+// GET '/'
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send("yo what's good? don't know what you're tryna load this for. i'm useless. like ethereum. lol");
 });
 
 module.exports = router;
