@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "docker build -t ghcr.io/mtavrse/poolserver:latest .",
+    "push": "docker push ghcr.io/mtavrse/poolserver"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
