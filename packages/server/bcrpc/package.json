@@ -1,0 +1,35 @@
+{
+  "name": "bcrpc",
+  "version": "0.2.2",
+  "description": "Bitcoin RPC wrapper",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgarage/bcrpc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dgarage/bcrpc/issues"
+  },
+  "keywords": [
+    "bitcoin",
+    "rpc",
+    "module",
+    "utility"
+  ],
+  "author": "Karl-Johan Alm",
+  "license": "ISC",
+  "devDependencies": {
+    "async": "^2.0.1",
+    "babel-eslint": "^6.1.2",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0"
+  }
+}
