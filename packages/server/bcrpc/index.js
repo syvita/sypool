@@ -179,7 +179,7 @@ const BC_RPC = {
 
 const slice = (arr, start, end) => Array.prototype.slice.call(arr, start, end);
 
-function RpcAgent (opts = {}) {
+function rpcClient (opts = {}) {
   this.host = opts.host || '127.0.0.1';
   this.port = opts.port || 8332;
   this.user = opts.user;
@@ -188,7 +188,7 @@ function RpcAgent (opts = {}) {
   this.prot = opts.ssl ? https : http;
 }
 
-RpcAgent.prototype.get_auth = function() {
+rpcClient.prototype.get_auth = function() {
   var auth;
   if (this.user && this.pass) {
     auth = `${this.user}:${this.pass}`;
@@ -280,7 +280,7 @@ function rpc (request, callback) {
 }
 
 for (const cmd of Object.keys(BC_RPC)) {
-  RpcAgent.prototype[cmd] = function rpccmd (...args) {
+  rpcClient.prototype[cmd] = function rpccmd (...args) {
     this.calb = typeof args[args.length - 1] === 'function';
     if (this.calb) {
       return rpc.call(this, {
@@ -297,4 +297,4 @@ for (const cmd of Object.keys(BC_RPC)) {
   };
 }
 
-module.exports = RpcAgent;
+module.exports = rpcClient;
