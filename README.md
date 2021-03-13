@@ -1,2 +1,2 @@
-# pool
+# metapool
 metaverse stx mining pool
