@@ -4,7 +4,7 @@
 
 (define-fungible-token metapool)
 
-(define-private (mintMetapool (address string-ascii) (amount int))
+(define-private (mintMetapool (address principle) (amount int))
     (ft-mint? metapool amount address))
 
 ;; known addresses of the pool and control servers
@@ -14,7 +14,7 @@
 
 ;; map for storing all contributions to the pool
 
-(define-map contributions { stxAddress: string-utf8 } { currentSatsContributed: int } { committedAtBlock: int })
+(define-map contributions { stxAddress: principle } { currentSatsContributed: int } { committedAtBlock: int })
 
 ;; if contract caller is control address return true
 
@@ -25,13 +25,13 @@
 
 ;; sets an address' contribution in the contributions map
 
-(define-private (setContributionTo (address string-ascii) (currentSatsContributed int))
+(define-private (setContributionTo (address principle) (currentSatsContributed int))
     (map-set contributions { stxAddress: address } { currentSatsContributed: currentSatsContributed } { committedAtBlock: block-height })
 
 ;; redeems the rewards for an address. sends them their share of STX rewards and burns their metapool tokens
 ;; rewards are only available after the address' contribution has been in the pool for 1000 blocks (1 cycle)
 
-(define-private (redeemRewardsFor (address string-ascii))
+(define-private (redeemRewardsFor (address principle))
 
 ;; if the address committed bitcoin 1000 or more blocks ago, return true
 
@@ -67,7 +67,7 @@
 ;; requests to update the contribution by an address
 ;; only allows changes from calls from the control address
 
-(define-public (changeContribution (amountInSats int) (stxAddress string-ascii))
+(define-public (changeContribution (amountInSats int) (stxAddress principle))
     ;; check if contract caller is one of the control addresses 
     (if (contractCallerIsControlAddress)
         ;; set address
