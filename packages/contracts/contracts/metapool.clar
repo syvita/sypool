@@ -1,72 +1,61 @@
 ;; created by @pxydn
 
 ;; metapool token and functions
+;; redundant functions are for requests offchain
 
 (define-fungible-token metapool)
 
-(define-read-only  (getMetapoolSupply)
+(define-read-only  (getPoolTotal)
     (ft-get-supply metapool))
 
-;; known addresses of the pool and control servers
+(define-read-only (getAddressContribution (address principle)) 
+    (ft-get-balance metapool address))
+
+;; addresses of the pool and control addresses
 
 (define-constant controlAddress "SP3HXQGX95WRVMQ3WESCMC4JCTJPJEBHGP7BEFRGE")
 (define-constant poolAddress "SP1N6FAZTJZ360QAZGRDCJC2S38RZ1EZ62SPF93CC")
 
-;; map for storing all contributions to the pool
+(define-constant controlTestnetAddress "ST3HXQGX95WRVMQ3WESCMC4JCTJPJEBHGP5H2JRS0")
+(define-constant poolTestnetAddress "ST1N6FAZTJZ360QAZGRDCJC2S38RZ1EZ62VK43RFQ")
+
+;; map for storing contributions to the pool
 
 (define-map contributions { address: principle } { committedAtBlock: uint })
 
-;; if contract caller is control address return true
-
-(define-private (contractCallerIsControlAddress)
+;; requests to add a contribution by an address
+;; only allows calls from the control addresses
+(define-public (addContribution (address principle) (amount uint))
     (if (is-eq contract-caller controlAddress)
-        true
-        false))
+        (if (map-insert contributions { address: address } { committedAtBlock: block-height }) 
+            (begin 
+                ;; if insertion is successful mint metapool tokens to their address
+                (ft-mint? metapool amount address) 
+                (ok true)) 
+            ;; fail if address already exists 
+            (ok false))
+        ;; fail if not from a control address    
+        (ok false)))
 
-;; redeems the rewards for an address. sends them their share of STX rewards and burns their metapool tokens
-;; rewards are only available after the address' contribution has been in the pool for 1000 blocks (1 cycle)
-
-(define-private (redeemRewardsFor (address principle))
-
-;; if the address committed bitcoin 1000 or more blocks ago, return true
-
-(define-private (addressCommitted1000BlocksAgo)
-    ;; returns true if the contract caller committed their bitcoin 1000 or more blocks before
-    (if 
-        (>= 
-            (- block-height 
-                (try! (map-get? contributions { address: contract-caller })))))
-
-;; requests to redeem rewards for an address. request is denied if addressCommitted1000BlocksAgo returns false. rewards given if returns true.
-
-(define-public (redeemRewards)
-    (if (>= block-height (map-get? contributions )))
-
-    ;; amount of sats this address contributed to the pool
-    (define-data-var satsContributed uint 
-        (ft-get-balance metapool contract-caller))
-
-    ;; total of sats all address have committed to the pool
-    (define-data-var totalSatsContributed uint
-        (ft-get-supply metapool))
-    
-    ;; 90% of the total STX rewards the pool generated (10% fee) 
-    (define-data-var totalRewards uint 
-        (* 0.9 (stx-get-balance (as-contract tx-sender))))
-
-    (define-data-var rewardAmount uint 
-        (* totalRewards (/ satsContributed totalSatsContributed)))
-    (as-contract
-        (stx-transfer? rewardAmount tx-sender address))
-
-;; requests to update the contribution by an address
-;; only allows changes from calls from the control address
-
-(define-public (updateContribution (address principle) (amount uint))
-    ;; check if contract caller is one of the control addresses 
-    (if (contractCallerIsControlAddress)
+;; requests to increase a contribution by an address
+;; only allows calls from the control addresses
+(define-public (increaseContribution (address principle) (amount uint))
+    (if (is-eq contract-caller controlAddress)
         (begin 
-            (map-set contributions { address: address } { amount: amount } { committedAtBlock: block-height })
-            (ft-muint? metapool amount address)
+            (ft-mint? metapool amount address)
             (ok true))
+        (ok false)))
+
+;; requests to redeem rewards for an address
+(define-public (redeemRewards)
+    (if (>= (- block-height (unwrap! (map-get? contributions { address: contract-caller }))) 1000)
+        (if (>= (ft-get-balance metapool contract-caller) 1000) 
+            (begin
+                (var-set rewardAmount (* (* 0.9 (stx-get-balance (as-contract tx-sender))) (/ (ft-get-balance metapool contract-caller) (ft-get-supply metapool))))
+                (as-contract (stx-transfer? rewardAmount tx-sender address))
+                (ft-burn? metapool rewardAmount address)
+                (ok true))
+            ;; fail if address contributed less than 1000 sats
+            (ok false))
+        ;; fail if address contributed less than 1000 blocks before
         (ok false)))
