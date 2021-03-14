@@ -14,7 +14,7 @@
 
 ;; map for storing all contributions to the pool
 
-(define-map contributions { address: principle } { amount: int } { committedAtBlock: int })
+(define-map contributions { address: principle } { committedAtBlock: int })
 
 ;; if contract caller is control address return true
 
