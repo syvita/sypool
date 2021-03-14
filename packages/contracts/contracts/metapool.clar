@@ -14,7 +14,7 @@
 
 ;; map for storing all contributions to the pool
 
-(define-map contributions { address: principle } { committedAtBlock: int })
+(define-map contributions { address: principle } { committedAtBlock: uint })
 
 ;; if contract caller is control address return true
 
@@ -43,18 +43,18 @@
     (if (>= block-height (map-get? contributions )))
 
     ;; amount of sats this address contributed to the pool
-    (define-data-var satsContributed int 
+    (define-data-var satsContributed uint 
         (ft-get-balance metapool contract-caller))
 
     ;; total of sats all address have committed to the pool
-    (define-data-var totalSatsContributed int
+    (define-data-var totalSatsContributed uint
         (ft-get-supply metapool))
     
     ;; 90% of the total STX rewards the pool generated (10% fee) 
-    (define-data-var totalRewards int 
+    (define-data-var totalRewards uint 
         (* 0.9 (stx-get-balance (as-contract tx-sender))))
 
-    (define-data-var rewardAmount int 
+    (define-data-var rewardAmount uint 
         (* totalRewards (/ satsContributed totalSatsContributed)))
     (as-contract
         (stx-transfer? rewardAmount tx-sender address))
@@ -62,11 +62,11 @@
 ;; requests to update the contribution by an address
 ;; only allows changes from calls from the control address
 
-(define-public (updateContribution (address principle) (amount int))
+(define-public (updateContribution (address principle) (amount uint))
     ;; check if contract caller is one of the control addresses 
     (if (contractCallerIsControlAddress)
         (begin 
             (map-set contributions { address: address } { amount: amount } { committedAtBlock: block-height })
-            (ft-mint? metapool amount address)
+            (ft-muint? metapool amount address)
             (ok true))
         (ok false)))
