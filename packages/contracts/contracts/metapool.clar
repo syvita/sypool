@@ -4,8 +4,8 @@
 
 (define-fungible-token metapool)
 
-(define-private (mintMetapool (address principle) (amount int))
-    (ft-mint? metapool amount address))
+(define-read-only  (getMetapoolSupply)
+    (ft-get-supply metapool))
 
 ;; known addresses of the pool and control servers
 
@@ -14,7 +14,7 @@
 
 ;; map for storing all contributions to the pool
 
-(define-map contributions { stxAddress: principle } { currentSatsContributed: int } { committedAtBlock: int })
+(define-map contributions { address: principle } { amount: int } { committedAtBlock: int })
 
 ;; if contract caller is control address return true
 
@@ -22,11 +22,6 @@
     (if (is-eq contract-caller controlAddress)
         true
         false))
-
-;; sets an address' contribution in the contributions map
-
-(define-private (setContributionTo (address principle) (currentSatsContributed int))
-    (map-set contributions { stxAddress: address } { currentSatsContributed: currentSatsContributed } { committedAtBlock: block-height })
 
 ;; redeems the rewards for an address. sends them their share of STX rewards and burns their metapool tokens
 ;; rewards are only available after the address' contribution has been in the pool for 1000 blocks (1 cycle)
@@ -40,7 +35,7 @@
     (if 
         (>= 
             (- block-height 
-                (try! (map-get? contributions { stxAddress: contract-caller })))))
+                (try! (map-get? contributions { address: contract-caller })))))
 
 ;; requests to redeem rewards for an address. request is denied if addressCommitted1000BlocksAgo returns false. rewards given if returns true.
 
@@ -67,10 +62,11 @@
 ;; requests to update the contribution by an address
 ;; only allows changes from calls from the control address
 
-(define-public (changeContribution (amountInSats int) (stxAddress principle))
+(define-public (updateContribution (address principle) (amount int))
     ;; check if contract caller is one of the control addresses 
     (if (contractCallerIsControlAddress)
-        ;; set address
-        (setContributionTo stxAddress amountInSats)
-        ;; mint metapool tokens
-        (mintMetapool stxAddress amountInSats)
+        (begin 
+            (map-set contributions { address: address } { amount: amount } { committedAtBlock: block-height })
+            (ft-mint? metapool amount address)
+            (ok true))
+        (ok false)))
