@@ -1,4 +1,4 @@
-# metapool
+# metaPool
 
 *the first STX mining pool!*
 
