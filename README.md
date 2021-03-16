@@ -1,10 +1,10 @@
 # MetaPool
 
-The first STX mining pool!
+the first STX mining pool!
 
 ---
 
-## How it works
+## how it works
 
 mining STX tokens is a game of numbers. in order to mine profitably, an estimated ~1BTC is required initially. many people don't have 1BTC to throw at a new miner, so i made this!
 
@@ -28,7 +28,7 @@ once the pool gains 100K USD worth of bitcoin, Daemon Technologies will kindly g
 
 my current roadmap is available [here on my profile](https://github.com/pxydn). this is what i plan to be doing after the pool, and the projects i plan on developing for free for all.
 
-## Technically...
+## technically...
 
 all of the code for the pool is open-source so you can see we're not doing anything shady. most of the heavy lifting is done by the smart contract, on-chain. 
 
