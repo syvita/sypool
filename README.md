@@ -1,4 +1,4 @@
-# MetaPool
+# metaverse pool
 
 the first STX mining pool!
 
@@ -14,7 +14,7 @@ there is a 10% fee, so we can pay for servers and hosting etc. we pay for all th
 
 ### the MetaPool token
 
-when you commit your sats, we'll send an equal amount of metapool tokens to your stacks address. if you contribute 500,000 sats, you get 500,000 metapool tokens to your stacks address.
+when you commit your sats, we'll send an equal amount of MetaPool tokens to your stacks address. if you contribute 500,000 sats, you get 500,000 metapool tokens to your stacks address.
 
 what can you do with these tokens? you can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards. this makes metapool a DAO, or Decentralised Autonomous Organisation.
 
