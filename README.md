@@ -10,7 +10,7 @@ mining STX tokens is a game of numbers. in order to mine profitably, an estimate
 
 this 'pool' combines lots of people's bitcoin together to mine STX profitably. you put bitcoin in and get stx tokens out. you commit bitcoin at our site, which will then add you to the list of contributors in the smart contract.
 
-there is a 10% fee, so we can pay for servers and hosting etc. we pay for all the transaction fees out of this too.
+there is a 5% fee, so we can pay for servers and hosting etc. we pay for all the transaction fees out of this too.
 
 ### the MetaPool token
 
