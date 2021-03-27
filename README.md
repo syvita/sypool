@@ -22,7 +22,9 @@ after 1000 blocks (1 cycle), you'll be able to redeem your STX rewards.
 
 ### dem fees seem a lil' high
 
-10% is sorta high for a pool. i know many people will think this is a lot and i understand that. i have the intention to make this mining pool free in the future. i don't currently have a source of income, so the fees from this will go towards my pile of stx, which i can stack to effectively live off the bitcoin rewards. after i gain enough from this pool, i'll lower the fees, potentially removing the fees all together when i can.
+5% is sorta high for a pool. i know many people will think this is a lot and i understand that. i have the intention to make this mining pool free in the future. i don't currently have a source of income, so the fees from this will go towards my pile of stx, which i can stack to effectively live off the bitcoin rewards. after i gain enough from this pool, i'll lower the fees, potentially removing the fees all together when i can.
+
+what's that you say? that's not very business like? oh well. i'm just nice ig
 
 once the pool gains 100K USD worth of bitcoin, Daemon Technologies will kindly give us a bounty of 100K STX tokens. this will help along significantly. once i have enough and can live off stacking, i'll be able to devote all my time to Stacks. i'll be able to build free services for everyone, which i think will give you more value than the 10% cut i take from this.
 
