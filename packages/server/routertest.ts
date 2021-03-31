@@ -1,5 +1,5 @@
 import { Application } from "https://deno.land/x/abc@v1.3.0/mod.ts";
-import { makeContractCall, BufferCV, broadcastTransaction, FungibleConditionCode, makeStandardSTXPostCondition } from "https://x.mtavr.se/transactions.ts";
+import { makeContractCall, bufferCVFromString, broadcastTransaction, FungibleConditionCode, makeStandardSTXPostCondition } from "https://x.mtavr.se/transactions.ts";
 import { StacksTestnet, StacksMainnet } from "https://x.mtavr.se/network.ts";
 import * as BigNum from "https://x.mtavr.se/bn.js";
 
