@@ -1,4 +1,4 @@
-# metaverse pool
+# labs³ pool
 
 the first STX mining pool!
 
@@ -12,9 +12,9 @@ this 'pool' combines lots of people's bitcoin together to mine STX profitably. y
 
 there is a 5% fee, so we can pay for servers and hosting etc. we pay for all the transaction fees out of this too.
 
-### the MetaPool token
+### the Pool³ token
 
-when you commit your sats, we'll send an equal amount of MetaPool tokens to your stacks address. if you contribute 500,000 sats, you get 500,000 metapool tokens to your stacks address.
+when you commit your sats, we'll send an equal amount of Pool³ tokens to your stacks address. if you contribute 500,000 sats, you get 500,000 metapool tokens to your stacks address.
 
 what can you do with these tokens? you can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards. this makes metapool a DAO, or Decentralised Autonomous Organisation.
 
@@ -26,7 +26,7 @@ after 1000 blocks (1 cycle), you'll be able to redeem your STX rewards.
 
 what's that you say? that's not very business like? oh well. i'm just nice ig
 
-once the pool gains 100K USD worth of bitcoin, Daemon Technologies will kindly give us a bounty of 100K STX tokens. this will help along significantly. once i have enough and can live off stacking, i'll be able to devote all my time to Stacks. i'll be able to build free services for everyone, which i think will give you more value than the 10% cut i take from this.
+once the pool gains 100K USD worth of bitcoin, Daemon Technologies will kindly give us a bounty of 100K STX tokens. this will help along significantly. once i have enough and can live off stacking, i'll be able to devote all my time to Stacks. i'll be able to build free services for everyone, which i think will give you more value than the 5% cut i take from this.
 
 my current roadmap is available [here on my profile](https://github.com/pxydn). this is what i plan to be doing after the pool, and the projects i plan on developing for free for all.
 
