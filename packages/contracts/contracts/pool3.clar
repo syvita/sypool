@@ -1,7 +1,7 @@
 ;; created by @pxydn for the labs³ mining pool
 
 ;; Pool³ token and functions
-;; the token implements the SIP-009 standard
+;; the token implements the SIP-010 standard
 
 (define-fungible-token P3)
 (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
