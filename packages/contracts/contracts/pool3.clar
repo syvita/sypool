@@ -1,15 +1,40 @@
 ;; created by @pxydn for the labs³ mining pool
 
 ;; Pool³ token and functions
-;; redundant functions are for requests offchain
+;; the token implements the SIP-009 standard
 
-(define-fungible-token Pool³)
+(define-fungible-token P3)
+(impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
 
-(define-read-only  (get-pool-total)
-    (ft-get-supply Pool³))
+;; get the token balance of owner
+(define-read-only (balance-of (owner principal))
+  (begin
+    (ok (ft-get-balance P3 owner))))
 
-(define-read-only (get-address-contribution (address principle)) 
-    (ft-get-balance Pool³ address))
+;; returns the total number of tokens
+(define-read-only (total-supply)
+  (ok (ft-get-supply P3)))
+
+;; returns the token name
+(define-read-only (name)
+  (ok "Pool³"))
+
+;; the symbol or "ticker" for this token
+(define-read-only (symbol)
+  (ok "P3"))
+
+;; the number of decimals used
+(define-read-only (decimals)
+  (ok u0))
+
+;; Transfers tokens to a recipient
+(define-public (transfer (amount uint) (sender principal) (recipient principal))
+  (if (is-eq tx-sender sender)
+    (ft-transfer? P3 amount sender recipient)
+    (err u4)))
+
+(define-read-only (get-token-uri) 
+    (ok "https://x.labs3.co/ft/P3.json"))
 
 ;; addresses of the pool contracts and control addresses
 
@@ -33,7 +58,7 @@
     ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool
     ;; 4: if 1,2,3 return true, continue, else return the respective error
     ;; 5: extract value sent in transaction
-    ;; 6: mint Pool³ tokens to address and return (ok true)
+    ;; 6: mint P3 tokens to address and return (ok true)
 )
 
 ;; all below code will probs be changed
@@ -44,8 +69,8 @@
     (if (is-eq contract-caller control-address)
         (if (map-insert contributions { address: address } { committed-at-block: block-height }) 
             (begin 
-                ;; if insertion is successful mint Pool³ tokens to their address
-                (ft-mint? Pool³ amount address) 
+                ;; if insertion is successful mint P3 tokens to their address
+                (ft-mint? P3 amount address) 
                 (ok true)) 
             ;; fail if address already exists 
             (ok false))
@@ -57,22 +82,22 @@
 (define-public (increase-contribution (address principle) (amount uint))
     (if (is-eq contract-caller control-address)
         (begin 
-            (ft-mint? Pool³ amount address)
+            (ft-mint? P3 amount address)
             (ok true))
         (ok false)))
 
 ;; requests to redeem rewards for an address
 (define-public (redeem-rewards)
     (if (>= (- block-height (unwrap! (map-get? contributions { address: contract-caller }))) 1000)
-        (if (>= (ft-get-balance Pool³ contract-caller) 1000) 
+        (if (>= (ft-get-balance P3 contract-caller) 1000) 
             (begin
                 (as-contract 
                     (stx-transfer? 
                         (* (* 0.9 (stx-get-balance (as-contract tx-sender))) 
-                            (/ (ft-get-balance Pool³ contract-caller) 
-                            (ft-get-supply Pool³))) 
+                            (/ (ft-get-balance P3 contract-caller) 
+                            (ft-get-supply P3))) 
                         tx-sender address))
-                (ft-burn? Pool³ rewardAmount address)
+                (ft-burn? P3 rewardAmount address)
                 (ok true))
             ;; fail if address contributed less than 1000 sats
             (ok false))
