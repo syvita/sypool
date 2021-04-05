@@ -1,15 +1,15 @@
 ;; created by @pxydn for the labs³ mining pool
 
-;; metapool token and functions
+;; Pool³ token and functions
 ;; redundant functions are for requests offchain
 
-(define-fungible-token metapool)
+(define-fungible-token Pool³)
 
 (define-read-only  (get-pool-total)
-    (ft-get-supply metapool))
+    (ft-get-supply Pool³))
 
 (define-read-only (get-address-contribution (address principle)) 
-    (ft-get-balance metapool address))
+    (ft-get-balance Pool³ address))
 
 ;; addresses of the pool contracts and control addresses
 
@@ -33,7 +33,7 @@
     ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool
     ;; 4: if 1,2,3 return true, continue, else return the respective error
     ;; 5: extract value sent in transaction
-    ;; 6: mint metapool token to address and return (ok true)
+    ;; 6: mint Pool³ tokens to address and return (ok true)
 )
 
 ;; all below code will probs be changed
@@ -44,8 +44,8 @@
     (if (is-eq contract-caller control-address)
         (if (map-insert contributions { address: address } { committed-at-block: block-height }) 
             (begin 
-                ;; if insertion is successful mint metapool tokens to their address
-                (ft-mint? metapool amount address) 
+                ;; if insertion is successful mint Pool³ tokens to their address
+                (ft-mint? Pool³ amount address) 
                 (ok true)) 
             ;; fail if address already exists 
             (ok false))
@@ -57,22 +57,22 @@
 (define-public (increase-contribution (address principle) (amount uint))
     (if (is-eq contract-caller control-address)
         (begin 
-            (ft-mint? metapool amount address)
+            (ft-mint? Pool³ amount address)
             (ok true))
         (ok false)))
 
 ;; requests to redeem rewards for an address
 (define-public (redeem-rewards)
     (if (>= (- block-height (unwrap! (map-get? contributions { address: contract-caller }))) 1000)
-        (if (>= (ft-get-balance metapool contract-caller) 1000) 
+        (if (>= (ft-get-balance Pool³ contract-caller) 1000) 
             (begin
                 (as-contract 
                     (stx-transfer? 
                         (* (* 0.9 (stx-get-balance (as-contract tx-sender))) 
-                            (/ (ft-get-balance metapool contract-caller) 
-                            (ft-get-supply metapool))) 
+                            (/ (ft-get-balance Pool³ contract-caller) 
+                            (ft-get-supply Pool³))) 
                         tx-sender address))
-                (ft-burn? metapool rewardAmount address)
+                (ft-burn? Pool³ rewardAmount address)
                 (ok true))
             ;; fail if address contributed less than 1000 sats
             (ok false))
