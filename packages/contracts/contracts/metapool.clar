@@ -1,4 +1,4 @@
-;; created by @pxydn
+;; created by @pxydn for the labs³ mining pool
 
 ;; metapool token and functions
 ;; redundant functions are for requests offchain
@@ -11,7 +11,7 @@
 (define-read-only (get-address-contribution (address principle)) 
     (ft-get-balance metapool address))
 
-;; addresses of the pool and control addresses
+;; addresses of the pool contracts and control addresses
 
 (define-constant control-address "SP3HXQGX95WRVMQ3WESCMC4JCTJPJEBHGP7BEFRGE")
 (define-constant pool-address "SP1N6FAZTJZ360QAZGRDCJC2S38RZ1EZ62SPF93CC")
@@ -21,7 +21,22 @@
 
 ;; map for storing contributions to the pool
 
-(define-map contributions { address: principle } { committed-at-block: uint })
+(define-map hash-map ((tx-sender principle) ((hash (buff 32))))
+(define-map contributions ((address principle)) ((committed-at-block uint)))
+
+(define-public (register-hash (hash (buff 32)))
+    (map-insert hash-map tx-sender hash))
+
+(define-public (reveal-hash (btc-txid (buff 64) (merkle-proof (buff 64) (secret))))
+    ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
+    ;; 2: verify that secret hashes to an entry in hash-map
+    ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool
+    ;; 4: if 1,2,3 return true, continue, else return the respective error
+    ;; 5: extract value sent in transaction
+    ;; 6: mint metapool token to address and return (ok true)
+)
+
+;; all below code will probs be changed
 
 ;; requests to add a contribution by an address
 ;; only allows calls from the control addresses
