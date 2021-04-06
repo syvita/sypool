@@ -14,9 +14,9 @@ there is a 5% fee, so we can pay for servers and hosting etc. we pay for all the
 
 ### the Pool³ token
 
-when you commit your sats, we'll send an equal amount of Pool³ tokens to your stacks address. if you contribute 500,000 sats, you get 500,000 metapool tokens to your stacks address.
+when you commit your sats, we'll send an equal amount of Pool³ tokens to your stacks address. if you contribute 500,000 sats, you get 500,000 Pool³ tokens to your stacks address.
 
-what can you do with these tokens? you can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards. this makes metapool a DAO, or Decentralised Autonomous Organisation.
+what can you do with these tokens? you can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards. this makes the pool a DAO, or Decentralised Autonomous Organisation.
 
 after 1000 blocks (1 cycle), you'll be able to redeem your STX rewards.
 
