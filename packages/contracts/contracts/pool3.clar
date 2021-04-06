@@ -52,7 +52,7 @@
 (define-public (register-hash (hash (buff 32)))
     (map-insert hash-map tx-sender hash))
 
-(define-public (reveal-hash (btc-txid (buff 64) (merkle-proof (buff 64) (secret))))
+(define-public (reveal-hash (btc-txid (buff 32) (merkle-proof (buff 32) (secret))))
     ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
     ;; 2: verify that secret hashes to an entry in hash-map
     ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool
