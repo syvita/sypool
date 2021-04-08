@@ -773,6 +773,8 @@
     )
 )
 
+
+
 ;; top-level verification code to determine whether or not a Bitcoin transaction was mined in a prior Bitcoin block.
 ;; takes a block header, block height, transaction & merkle proof
 
@@ -858,7 +860,23 @@
 (define-public (register-hash (hash (buff 32)))
     (map-insert hash-map tx-sender hash))
 
-(define-public (reveal-hash (btc-txid (buff 32)) (merkle-proof (buff 32)) (secret (buff 32)))))
+(define-public (reveal-hash (btc-txid (buff 32)) (btc-blo) (merkle-proof (buff 32)) (secret (buff 32)))))
+    (if 
+        (and 
+            (was-tx-mined 
+                (block { 
+                    header: (buff 80), 
+                    height: uint 
+                }) 
+                (tx (buff 1024))
+                (proof { 
+                    tx-index: uint, 
+                    hashes: (list 12 (buff 32)), 
+                    tree-depth: uint
+                })
+            )
+        ) expr-if-true expr-if-false)
+        
     ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
     ;; 2: verify that secret hashes to an entry in hash-map
     ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool
