@@ -1,13 +1,19 @@
 ;; created by @pxydn for the labs³ mining pool
 ;; s/o to @jcnelson for the bitcoin tx parsing code
 
-;;    :sdmmmmmy/      
-;;  `dNo-://-/omm-    /MMhhdMm:    :NM+ `dMy`    hMd`  yMd`   `MMdhdNNy`    .MMd.  /MM
-;;  hM::NdosmM+`Nd    /MN   sMd     .dMymMo       sMd.hMy     `MM-   sMm    .MMNN/ /MM
-;;  MN dM`  /M+ NN    /MMoosNM+      .NMMs         +MMMs      `MM-   -MM.   .MM-yMy/MM
-;;  dM-/Mh++mMyoMo    /MM+++:`      .mMsmMs         yMh       `MM-  `yMd    .MM. +NMMM
-;;  .mN+:+o+./s+-     /MN          /NM/ `hMh`       sMh       `MMmdmMNs`    .MM.  .dMM
-;;    /ymNmmmm+       
+;;                                                                     /ydNNNmho. 
+;; yhhhhhhhhhhys/.                                             hhhhh   hNNmo++hMMN.
+;; NMMMMMMMMMMMMMMd:                                           MMMMM   ...`..-oMMm.
+;; NMMMM+::::+yNMMMM+        `````               `````         MMMMM      -NNMMNh: 
+;; NMMMM.      /MMMMN`   `:ohdmmmdhs/.       `/shdmmmdhs:`     MMMMM  `````--:+NMMy
+;; NMMMM.      .MMMMM`  :dMMMMmmmNMMMmo`   `omMMMNmmmMMMMd/    MMMMM  -dmmy/:/oNMMd
+;; NMMMM-````.:dMMMMh  /MMMMm:.``-yMMMMh   yMMMMy-```:dMMMM+   MMMMM   -sdmNNNNmh+`
+;; NMMMMmmmmmNMMMMNy` `NMMMM-      dMMMM/ :MMMMm`     .NMMMN`  MMMMM     `..-..`   
+;; NMMMMNNNNNNmdho-   .MMMMN       sMMMMo +MMMMy       mMMMM-  MMMMM               
+;; NMMMM:.....``      `NMMMM.      dMMMM/ :MMMMm      .NMMMN`  MMMMM               
+;; NMMMM.              +MMMMm:`  -yMMMMh   yMMMMh-  `:dMMMMo   MMMMM               
+;; NMMMM.               /mMMMMNmNNMMMNs`    oNMMMMNmNMMMMm/    MMMMM               
+;; hdddd.                 :shmNMNNdy/`       `/ydNNMNmds:`     ddddd                   
 
 ;; error codes
 (define-constant ERR-OUT-OF-BOUNDS u1)
