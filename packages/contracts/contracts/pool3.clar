@@ -854,21 +854,28 @@
 
 ;; map for storing contributions to the pool
 
-(define-map hash-map ((tx-sender principle) ((hash (buff 32))))
+(define-map hash-map ((hash (buff 64)) ((tx-sender principle)))
 (define-map contributions ((address principle)) ((committed-at-block uint)))
 
 ;; private functions
 
 (define-private (validateMerkleProof (proof (buff 32))))
-(define-private (verifySecret (secret (buff 32))))
+
+(define-private (verifySecret (secret (buff 32)))
+    (is-some (map-get? hash-map { hash: (sha512 secret)})))
+
+
+;; call parse-tx and do some stuff to verify that the output of the transaction sends to the known mining pool address. return (ok true) if all is good otherwise throw error
 (define-private (verifyPayoutAddress ()) body)
 
-(define-public (register-hash (hash (buff 32)))
+(define-public (register-hash (hash (buff 64)))
     (map-insert hash-map tx-sender hash))
 
 (define-public (reveal-hash (btc-txid (buff 32)) (btc-blo) (merkle-proof (buff 32)) (secret (buff 32)))))
     (if 
         (and 
+            ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
+            ;; this isn't finished
             (was-tx-mined 
                 (block { 
                     header: (buff 80), 
@@ -881,34 +888,26 @@
                     tree-depth: uint
                 })
             )
-        ) expr-if-true expr-if-false)
-        
-    ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
-    ;; 2: verify that secret hashes to an entry in hash-map
-    ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool
-    ;; 4: if 1,2,3 return true, continue, else return the respective error
-    ;; 5: extract value sent in transaction
-    ;; 6: mint P3 tokens to address and return (ok true)
+            ;; 2: verify that secret hashes to an entry in hash-map
+            (verifySecret secret)
+            ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool (not done yet)
+            (verifyPayoutAddress tx)
+        )
+        ;; if all is good continue
+        (begin
+        ;; extract amount of sats sent to pool by parsing the tx
+        ;; mint P3 tokens to the address and return (ok true)
+            ) 
+        ;; throw error if 1,2 or 3 returned false.
+    )
 )
 
 ;; all below code will probs be changed
 
-;; requests to add a contribution by an address
-;; only allows calls from the control addresses
-(define-public (add-contribution (address principle) (amount uint))
-    (if (is-eq contract-caller control-address)
-        (if (map-insert contributions { address: address } { committed-at-block: block-height }) 
-            (begin 
-                ;; if insertion is successful mint P3 tokens to their address
-                (ft-mint? P3 amount address) 
-                (ok true)) 
-            ;; fail if address already exists 
-            (ok false))
-        ;; fail if not from a control address    
-        (ok false)))
-
 ;; requests to increase a contribution by an address
 ;; only allows calls from the control addresses
+
+;; NEED TO FIGURE OUT HOW TO DO THIS WITH NEW VERIFICATION METHOD
 (define-public (increase-contribution (address principle) (amount uint))
     (if (is-eq contract-caller control-address)
         (begin 
@@ -916,6 +915,8 @@
             (ok true))
         (ok false)))
 
+
+;; this might be okay
 ;; requests to redeem rewards for an address
 (define-public (redeem-rewards)
     (if (>= (- block-height (unwrap! (map-get? contributions { address: contract-caller }))) 1000)
@@ -934,6 +935,7 @@
         ;; fail if address contributed less than 1000 blocks before
         (ok false)))
 
+;; want to rework the fee mechanism. this probably won't make alpha
 (define-public (redeemFees)
     (if (is-eq contract-caller control-address) expr-if-true expr-if-false))
     ;; ... haven't finished this yet
