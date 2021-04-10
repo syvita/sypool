@@ -1,7 +1,7 @@
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
 # labs³ pool
 
-the first STX mining pool!
+![repo header gradient](readme-img/repo-header.png "repo header gradient")
 
 ## how it works (simple)
 
