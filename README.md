@@ -21,13 +21,13 @@ after 1000 blocks (1 cycle), you'll be able to redeem your STX rewards.
 
 ### dem fees seem a lil' high
 
-5% is sorta high for a pool. i know many people will think this is a lot and i understand that. i have the intention to make this mining pool free in the future. i don't currently have a source of income, so the fees from this will go towards my pile of stx, which i can stack to effectively live off the bitcoin rewards. after i gain enough from this pool, i'll lower the fees, potentially removing the fees all together when i can.
+many people will think the 5% cut is a lot and i understand that. i have the intention to make this mining pool free in the future. i don't currently have a source of income, so this will help me personally significantly. after some time, i'll lower the fees, potentially removing the fees all together when i can.
 
-what's that you say? that's not very business like? oh well. i'm just nice ig
+what's that you say? that's not very business like? oh well. we're just nice :)
 
-once the pool gains 100K USD worth of bitcoin, Daemon Technologies will kindly give us a bounty of 100K STX tokens. this will help along significantly. once i have enough and can live off stacking, i'll be able to devote all my time to Stacks. i'll be able to build free services for everyone, which i think will give you more value than the 5% cut i take from this.
+once the pool gains 100K USD worth of bitcoin, the pool will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). this will help along L3 significantly. 
 
-my current roadmap is available [here on my profile](https://github.com/pxydn). this is what i plan to be doing after the pool, and the projects i plan on developing for free for all.
+my current (maybe outdated) roadmap is available [here on my profile](https://github.com/pxydn). this constantly changes and we're adding new projects and members to L3 rapidly. lots of the fees from this pool will go towards funding L3 and its endeavours. you can see what projects we work on [here](https://github.com/labs3). 
 
 ### bro i got trust issues
 
@@ -38,3 +38,27 @@ once you commit bitcoin, after the cooldown, you can take your share out (if you
 the only trust is that we use the bitcoin to mine. basically everything else is automated and trustless through the contract
 
 ## ok but how does it *really* work
+
+**warning: nerdy bits ahead**
+
+L3's pool is not unique in that it is primarily controlled by a smart contract. however, it is unique in how it verifies contributions cross-chain through hashing, merkle roots and some other cool stuff. big s/o to [Jude](https://github.com/jcnelson) at the Stacks Foundation for how this works. he wrote the majority of the functions that the pool uses to verify contributions.
+
+### from start to finish
+
+first, a user that wants to contribute bitcoin hashes a `secret` with `SHA512`. this is generated in the UI client-side for ease-of-use. this hash is then added to the `hash-map`  in the smart contract through the public function `register-hash`. once they've done this, the hash is stored along with the `tx-sender`, in this case, the Stacks address the user wants their rewards to be redeemable to.
+
+once the smart contract call confirmed and is ok, the user sends a bitcoin transaction to add their bitcoin to the pool's publicly known BTC address with `secret` in the `OP_RETURN` output of the transaction. this can be from any bitcoin address or key, and doesn't have to be one tied to the Stacks address.
+
+once *that* confirms on the BTC chain, the user calls the `reveal-hash` function with the transaction, a Merkle proof and `secret`. this function verifies that:
+1. the transaction was mined on the Bitcoin chain
+2. `secret` is registered in `hash-map` that was stored in the first step
+3. the transaction pays out to the known pool BTC address that's used to mine.
+if all of those return ok, the contract extracts how many sats were added to the pool and mints that amount of P3 fungible tokens to the `tx-sender` in `hash-map`.
+
+cool. all done. and now for the (relatively) simpler mining process. the bitcoins that are sent to the pool are then transferred to Stackers to try to win the ability to mine the block. if the miner wins this lottery against other miners, the miner gets the block reward and all transaction fees in that.
+
+the miner also will mine microblocks when it has won a block, which you can read more about [here](https://docs.blockstack.org/understand-stacks/mining#transaction-fees), along with other cool stuff for mining.
+
+when the miner gets the rewards, it creates a transaction in that block that immediately sends the STX rewards to the smart contract. over time, these will average out and make it so each user of the mining pool makes a healthy profit.
+
+also i needa work out how the 5% fee will be taken, that's still a WIP :)
