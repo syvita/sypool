@@ -37,6 +37,8 @@ once you commit bitcoin, after the cooldown, you can take your share out (if you
 
 the only trust is that we use the bitcoin to mine. basically everything else is automated and trustless through the contract
 
+![repo header gradient](readme-img/repo-header.png "repo header gradient")
+
 ## ok but how does it *really* work
 
 **warning: nerdy bits ahead**
