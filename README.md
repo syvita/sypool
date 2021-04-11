@@ -58,7 +58,7 @@ once *that* confirms on the BTC chain, the user calls the `reveal-hash` function
 
 if all of those return ok, the contract extracts how many sats were added to the pool and mints that amount of P3 fungible tokens to the `tx-sender` in `hash-map`.
 
-worth noting that these fields will be autofilled by the UI to improve ease-of-use, though can be set manually (if something goes wrong with the UI). the user will enter their txid once it has been mined, then the UI will pull the necessary info from an L3 bitcoin node. worth saying, that all these values can be entered manually by you in the UI (or the [Stacks Explorer](https://explorer.stacks.co) even) if you don't trust what the UI is doing. UI is also open-source and in this repo for you to read through if you want :)
+worth noting that these fields will be autofilled by the UI to improve ease-of-use, though can be set manually (if something goes wrong with the UI). the user will enter their txid once it has been mined, then the UI will pull the necessary info from an L3 bitcoin node. also worth saying - all these values can be entered manually by you in the UI (or the [Stacks Explorer](https://explorer.stacks.co) even) if you don't trust what the UI is doing. UI is also open-source and in this repo for you to read through if you want :)
 
 cool. all done. and now for the (relatively) simpler mining process. the bitcoins that are sent to the pool are then transferred to Stackers to try to win the ability to mine the block. if the miner wins this lottery against other miners, the miner gets the block reward and all transaction fees in that.
 
