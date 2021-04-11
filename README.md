@@ -17,7 +17,7 @@ when you commit your sats, we'll send an equal amount of Pool³ tokens to your s
 
 what can you do with these tokens? you can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards.
 
-after 1000 blocks (1 cycle), you'll be able to redeem your STX rewards.
+after 1000 blocks (1 cycle), you'll be able to redeem your STX rewards. you will probably not make a profit after this 1000 block cooldown, as all of your bitcoin would not have been used for mining yet. don't worry if you don't make a profit, as the miner will eventually use up all your BTC.
 
 ### dem fees seem a lil' high
 
@@ -67,3 +67,21 @@ the miner also will mine microblocks when it has won a block, which you can read
 when the miner gets the rewards, it creates a transaction in that block that immediately sends the STX rewards to the smart contract. over time, these will average out and make it so each user of the mining pool makes a healthy profit.
 
 also i needa work out how the 5% fee will be taken, that's still a WIP :)
+
+### architecture
+
+there are 5 parts to the mining pool infrastructure wise.
+
+1. the smart contract (on the Stacks blockchain).
+2. the website/UI
+3. the Bitcoin node, used to spend bitcoin with
+4. Stacks node A, running in miner mode and connected to the local bitcoin node
+5. Stacks node B, running in follower mode as a publicly available API.
+
+the web UI will be hosted as a static nextjs site on Cloudflare's edge, alike other L3 sites. the static site will make API requests to Stacks node B as default. the code for this site is in this repo.
+
+the Bitcoin node & Stacks node A (the miner) will be hosted on a Mac Mini owned and managed by [@pxydn](https://github.com/pxydn). this will be locally controlled and not accessable to the public internet as the private keys to the pool Bitcoin wallet are held here. the Mac is connected only via Mullvad VPN, as to not expose the IP address, open any public ports to the machine and reduce the attack surface. the bitcoin node is [Bitcoin Core](https://bitcoincore.org/) and the Stacks node is the [one created by Hiro](https://github.com/blockstack/stacks-blockchain)
+
+Stacks node B will be run as a VM on [Bitlaunch](https://bitlaunch.io/). no private keys or funds are stored on this machine. it will be connected to requests to it via a [Cloudflare Argo Tunnel](https://www.cloudflare.com/en-gb/products/argo-tunnel/), to protect from attacks. this node runs [stacks-blockchain-api](https://github.com/blockstack/stacks-blockchain-api), created by [Hiro](https://hiro.so).
+
+both Stacks nodes will be updated as new releases of the Stacks node software are released. Stacks node B will have a 2nd VM booted and connected to Cloudflare until it has caught up with the chain, then traffic will be routed to it via Cloudflare and the other VM will be destroyed. Stacks node A will use a similar method, but will start a new instance on the same machine instead.
