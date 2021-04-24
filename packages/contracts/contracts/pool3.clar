@@ -859,14 +859,12 @@
 
 ;; private functions
 
-(define-private (validateMerkleProof (proof (buff 32))))
-
-(define-private (verifySecret (secret (buff 32)))
+(define-private (verify-secret (secret (buff 32)))
     (is-some (map-get? HashMap { hash: (sha512 secret)})))
 
 
 ;; call parse-tx and do some stuff to verify that the output of the transaction sends to the known mining pool address. return (ok true) if all is good otherwise throw error
-(define-private (verifyPayoutAddress ()) body)
+(define-private (verify-payout-address ()) body)
 
 (define-public (register-hash (hash (buff 64)))
     (map-insert HashMap tx-sender hash))
@@ -889,9 +887,9 @@
                 })
             ))
             ;; 2: verify that secret hashes to an entry in HashMap
-            (unwrap! (verifySecret secret))
+            (unwrap! (verify-secret secret))
             ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool (not done yet)
-            (unwrap! (verifyPayoutAddress tx))
+            (unwrap! (verify-payout-address tx))
         )
         ;; if all is good continue
         (begin
