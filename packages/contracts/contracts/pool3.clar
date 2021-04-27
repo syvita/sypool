@@ -862,7 +862,6 @@
 (define-private (verify-secret (secret (buff 32)))
     (is-some (map-get? HashMap { hash: (sha512 secret)})))
 
-
 ;; call parse-tx and do some stuff to verify that the output of the transaction sends to the known mining pool address. return (ok true) if all is good otherwise throw error
 (define-private (verify-payout-address ()) body)
 
@@ -887,7 +886,7 @@
                 })
             ))
             ;; 2: verify that secret hashes to an entry in HashMap
-            (unwrap! (verify-secret secret))
+            (verify-secret secret)
             ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool (not done yet)
             (unwrap! (verify-payout-address tx))
         )
