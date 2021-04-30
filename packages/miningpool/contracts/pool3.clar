@@ -808,10 +808,25 @@
     )
 )
 
-;; Pool³ token and functions
-;; the token implements the SIP-010 standard
+
+
+
+;; Pool³ (P3) engine
+
+;; this token is the primary token of the pool
+;; it manages native Bitcoin contributions to the pool that will be used to mine
+;; P3 token holders are allocated 95% of profits
+
+;; during redemption of rewards:
+;;    if the user has made a profit, they theoretically get 100% worth of what they put in
+;;    and 95% of the profit they made on top. 5% is taken as a fee which is split 4:1 to @pxydn's
+;;    known address (SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66) and the configured collateral engine
+;;
+;;    if the user made a loss, they get their percentage back, and no profits (obv). the pool
+;;    doesn't take fees on losses.
 
 (define-fungible-token P3)
+;; the token implements the SIP-010 standard
 (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
 
 ;; get the token balance of owner
@@ -844,14 +859,6 @@
 (define-read-only (get-token-uri) 
     (ok "https://x.<labs3domain>/ft/P3.json"))
 
-;; addresses of the pool contracts and control addresses
-
-(define-constant control-address "SP3HXQGX95WRVMQ3WESCMC4JCTJPJEBHGP7BEFRGE")
-(define-constant pool-address "SP1N6FAZTJZ360QAZGRDCJC2S38RZ1EZ62SPF93CC")
-
-(define-constant control-testnet-address "ST3HXQGX95WRVMQ3WESCMC4JCTJPJEBHGP5H2JRS0")
-(define-constant pool-testnet-address "ST1N6FAZTJZ360QAZGRDCJC2S38RZ1EZ62VK43RFQ")
-
 ;; map for storing contributions to the pool
 
 (define-map HashMap ((hash (buff 64)) ((tx-sender principle)))
@@ -865,14 +872,15 @@
 ;; call parse-tx and do some stuff to verify that the output of the transaction sends to the known mining pool address. return (ok true) if all is good otherwise throw error
 (define-private (verify-payout-address ()) body)
 
+(define-private (get-contribution-value (tx (buff 1024)))  )
+
 (define-public (register-hash (hash (buff 64)))
     (map-insert HashMap tx-sender hash))
 
-(define-public (reveal-hash (btc-txid (buff 32)) (btc-blo) (merkle-proof (buff 32)) (secret (buff 32)))))
+(define-public (reveal-hash (btcBlock { header: (buff 80), height: uint }) (rawTx (buff 1024)) (merkleProof { txIndex: uint, hashes: (list 12 (buff 32)), treeDepth: uint }) (secret (buff 32)))))
     (if 
         (and 
             ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
-            ;; this isn't finished
             (unwrap! (was-tx-mined 
                 (block { 
                     header: (buff 80), 
@@ -892,10 +900,10 @@
         )
         ;; if all is good continue
         (begin
-        ;; extract amount of sats sent to pool by parsing the tx
-        ;; mint P3 tokens to the address and return (ok true)
-            ) 
-        ;; throw error if 1,2 or 3 returned false.
+            (ft-mint? P3 (get-contribution-value tx) (unwrap! (map-get? HashMap { hash: (sha512 secret)} ) (err "mint error")))
+            (ok true)
+        ) 
+        (err "of some sorts")
     )
 )
 
