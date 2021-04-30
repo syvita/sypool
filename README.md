@@ -1,4 +1,4 @@
-**UPDATE: the grant request for hardware to the Stacks Foundation has been submitted [here](https://github.com/stacksgov/Stacks-Grants/issues/83) ($2500)**
+**UPDATE: the grant request for hardware to the Stacks Foundation has been approved [here](https://github.com/stacksgov/Stacks-Grants/issues/83) ($2500)**
 
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
 # labs³ pool
