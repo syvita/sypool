@@ -825,6 +825,18 @@
 ;;    if the user made a loss, they get their percentage back, and no profits (obv). the pool
 ;;    doesn't take fees on losses.
 
+;; error codes
+
+(define-constant ERR_TX_VERIFICATION_FAILED u7)
+(define-constant ERR_TOKEN_MINT_FAILURE u8)
+(define-constant ERR_UNAUTHORIZED u9)
+(define-constant ERR_COLLATERAL_ENGINE_ALREADY_SET u10)
+
+(define-constant POOL_STX_ADDRESS "SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66")
+(define-constant POOL_BTC_ADDRESS "omitted till release ;)")
+(define-data-var collateralEngine principle 'SP000000000000000000002Q6VF78)
+(define-data-var hasCollateralEngineBeenSet bool false)
+
 (define-fungible-token P3)
 ;; the token implements the SIP-010 standard
 (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
@@ -874,10 +886,21 @@
 
 (define-private (get-contribution-value (tx (buff 1024)))  )
 
+(define-public (register-collateral-engine (enginePrincipal principal))
+    (if (not hasCollateralEngineBeenSet)
+        (if 
+            (is-eq (contract-caller) (POOL_STX_ADDRESS))
+            (var-set collateralEngine enginePrincipal)
+            (err ERR_UNAUTHORIZED)
+        )
+        (err ERR_COLLATERAL_ENGINE_ALREADY_SET)
+    )
+)
+
 (define-public (register-hash (hash (buff 64)))
     (map-insert HashMap tx-sender hash))
 
-(define-public (reveal-hash (btcBlock { header: (buff 80), height: uint }) (rawTx (buff 1024)) (merkleProof { txIndex: uint, hashes: (list 12 (buff 32)), treeDepth: uint }) (secret (buff 32)))))
+(define-public (reveal-hash (btcBlock { header: (buff 80), height: uint }) (rawTx (buff 1024)) (merkleProof { txIndex: uint, hashes: (list 12 (buff 32)), treeDepth: uint }) (secret (buff 32)))
     (if 
         (and 
             ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
@@ -900,10 +923,10 @@
         )
         ;; if all is good continue
         (begin
-            (ft-mint? P3 (get-contribution-value tx) (unwrap! (map-get? HashMap { hash: (sha512 secret)} ) (err "mint error")))
+            (ft-mint? P3 (get-contribution-value tx) (unwrap! (map-get? HashMap { hash: (sha512 secret)} ) (err ERR_TOKEN_MINT_FAILURE)))
             (ok true)
         ) 
-        (err "of some sorts")
+        (err ERR_TX_VERIFICATION_FAILED)
     )
 )
 
@@ -913,12 +936,7 @@
 ;; only allows calls from the control addresses
 
 ;; NEED TO FIGURE OUT HOW TO DO THIS WITH NEW VERIFICATION METHOD
-(define-public (increase-contribution (address principle) (amount uint))
-    (if (is-eq contract-caller control-address)
-        (begin 
-            (ft-mint? P3 amount address)
-            (ok true))
-        (ok false)))
+(define-public (increase-contribution))
 
 
 ;; this might be okay
@@ -930,12 +948,18 @@
             (begin
                 (as-contract 
                     (stx-transfer? 
-                        (* (* 0.95 (stx-get-balance (as-contract tx-sender))) 
-                            (/ (ft-get-balance P3 contract-caller) 
-                            (ft-get-supply P3))) 
-                        tx-sender address)
-                    stx-transfer?
-                        (* ))
+                        (* (* 0.95 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
+                            (/ (ft-get-balance P3 contract-caller) (ft-get-supply P3))) ;; amount of P3 / total P3
+                        tx-sender address))
+                    (stx-transfer? 
+                        (* (* 0.04 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
+                            (/ (ft-get-balance P3 contract-caller) (ft-get-supply P3))) ;; amount of P3 / total P3
+                        tx-sender POOL_STX_ADDRESS)
+                    ()
+                    (stx-transfer? 
+                        (* (* 0.01 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
+                            (/ (ft-get-balance P3 contract-caller) (ft-get-supply P3))) ;; amount of P3 / total P3
+                        tx-sender collateralEngine)))
                 (ft-burn? P3 rewardAmount address)
                 (ok true))
             ;; fail if address contributed less than 1000 sats
