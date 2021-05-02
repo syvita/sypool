@@ -1,6 +1,6 @@
-**UPDATE: the grant request for mining hardware to the Stacks Foundation has been approved [here](https://github.com/stacksgov/Stacks-Grants/issues/83) ($2500)**
-
 ![repo header gradient](readme-img/sypoolheader.png "repo header gradient")
+
+**UPDATE: the grant request for mining hardware to the Stacks Foundation has been approved [here](https://github.com/stacksgov/Stacks-Grants/issues/83) ($2500)**
 
 ---
 
