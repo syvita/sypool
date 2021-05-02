@@ -1,21 +1,7 @@
-;; created by @pxydn for the labs³ mining pool
+;; created by @pxydn for the Syvita mining pool (https://pool.syvita.org)
 ;; s/o to @jcnelson for the bitcoin tx parsing code
 
-;;                                                                     /ydNNNmho. 
-;; yhhhhhhhhhhys/.                                             hhhhh   hNNmo++hMMN.
-;; NMMMMMMMMMMMMMMd:                                           MMMMM   ...`..-oMMm.
-;; NMMMM+::::+yNMMMM+        `````               `````         MMMMM      -NNMMNh: 
-;; NMMMM.      /MMMMN`   `:ohdmmmdhs/.       `/shdmmmdhs:`     MMMMM  `````--:+NMMy
-;; NMMMM.      .MMMMM`  :dMMMMmmmNMMMmo`   `omMMMNmmmMMMMd/    MMMMM  -dmmy/:/oNMMd
-;; NMMMM-````.:dMMMMh  /MMMMm:.``-yMMMMh   yMMMMy-```:dMMMM+   MMMMM   -sdmNNNNmh+`
-;; NMMMMmmmmmNMMMMNy` `NMMMM-      dMMMM/ :MMMMm`     .NMMMN`  MMMMM     `..-..`   
-;; NMMMMNNNNNNmdho-   .MMMMN       sMMMMo +MMMMy       mMMMM-  MMMMM               
-;; NMMMM:.....``      `NMMMM.      dMMMM/ :MMMMm      .NMMMN`  MMMMM               
-;; NMMMM.              +MMMMm:`  -yMMMMh   yMMMMh-  `:dMMMMo   MMMMM               
-;; NMMMM.               /mMMMMNmNNMMMNs`    oNMMMMNmNMMMMm/    MMMMM               
-;; hdddd.                 :shmNMNNdy/`       `/ydNNMNmds:`     ddddd                   
-
-;; error codes
+;; error codes for bitcoinlib
 (define-constant ERR_OUT_OF_BOUNDS u1)
 (define-constant ERR_TOO_MANY_TXINS u2)
 (define-constant ERR_TOO_MANY_TXOUTS u3)
@@ -811,11 +797,11 @@
 
 
 
-;; Pool³ (P3) engine
+;; Sypool ($SYPL) engine
 
 ;; this token is the primary token of the pool
 ;; it manages native Bitcoin contributions to the pool that will be used to mine
-;; P3 token holders are allocated 95% of profits
+;; SYPL token holders are allocated 95% of profits
 
 ;; during redemption of rewards:
 ;;    if the user has made a profit, they theoretically get 100% worth of what they put in
@@ -837,26 +823,26 @@
 (define-data-var collateralEngine principle 'SP000000000000000000002Q6VF78)
 (define-data-var hasCollateralEngineBeenSet bool false)
 
-(define-fungible-token P3)
+(define-fungible-token SYPL)
 ;; the token implements the SIP-010 standard
 (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
 
 ;; get the token balance of owner
 (define-read-only (balance-of (owner principal))
   (begin
-    (ok (ft-get-balance P3 owner))))
+    (ok (ft-get-balance SYPL owner))))
 
 ;; returns the total number of tokens
 (define-read-only (total-supply)
-  (ok (ft-get-supply P3)))
+  (ok (ft-get-supply SYPL)))
 
 ;; returns the token name
 (define-read-only (name)
-  (ok "Pool³"))
+  (ok "Sypool"))
 
 ;; the symbol or "ticker" for this token
 (define-read-only (symbol)
-  (ok "P3"))
+  (ok "SYPL"))
 
 ;; the number of decimals used
 (define-read-only (decimals)
@@ -865,11 +851,11 @@
 ;; Transfers tokens to a recipient
 (define-public (transfer (amount uint) (sender principal) (recipient principal))
   (if (is-eq tx-sender sender)
-    (ft-transfer? P3 amount sender recipient)
+    (ft-transfer? SYPL amount sender recipient)
     (err u4)))
 
 (define-read-only (get-token-uri) 
-    (ok "https://x.<labs3domain>/ft/P3.json"))
+    (ok "https://x.syvita.org/ft/SYPL.json"))
 
 ;; map for storing contributions to the pool
 
@@ -923,7 +909,7 @@
         )
         ;; if all is good continue
         (begin
-            (ft-mint? P3 (get-contribution-value tx) (unwrap! (map-get? HashMap { hash: (sha512 secret)} ) (err ERR_TOKEN_MINT_FAILURE)))
+            (ft-mint? SYPL (get-contribution-value tx) (unwrap! (map-get? HashMap { hash: (sha512 secret)} ) (err ERR_TOKEN_MINT_FAILURE)))
             (ok true)
         ) 
         (err ERR_TX_VERIFICATION_FAILED)
@@ -944,23 +930,23 @@
 ;; rewards then redeemed to the STX address and fee sent back to the contract owner.
 (define-public (redeem-rewards)
     (if (>= (- block-height (unwrap! (map-get? Contributions { address: contract-caller }))) 1000)
-        (if (>= (ft-get-balance P3 contract-caller) 1000) 
+        (if (>= (ft-get-balance SYPL contract-caller) 1000) 
             (begin
                 (as-contract 
                     (stx-transfer? 
                         (* (* 0.95 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
-                            (/ (ft-get-balance P3 contract-caller) (ft-get-supply P3))) ;; amount of P3 / total P3
+                            (/ (ft-get-balance SYPL contract-caller) (ft-get-supply SYPL))) ;; amount of SYPL / total SYPL
                         tx-sender address))
                     (stx-transfer? 
                         (* (* 0.04 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
-                            (/ (ft-get-balance P3 contract-caller) (ft-get-supply P3))) ;; amount of P3 / total P3
+                            (/ (ft-get-balance SYPL contract-caller) (ft-get-supply SYPL))) ;; amount of SYPL / total SYPL
                         tx-sender POOL_STX_ADDRESS)
                     ()
                     (stx-transfer? 
                         (* (* 0.01 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
-                            (/ (ft-get-balance P3 contract-caller) (ft-get-supply P3))) ;; amount of P3 / total P3
+                            (/ (ft-get-balance SYPL contract-caller) (ft-get-supply SYPL))) ;; amount of SYPL / total SYPL
                         tx-sender collateralEngine)))
-                (ft-burn? P3 rewardAmount address)
+                (ft-burn? SYPL rewardAmount address)
                 (ok true))
             ;; fail if address contributed less than 1000 sats
             (ok false))
