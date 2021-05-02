@@ -1,7 +1,7 @@
 **UPDATE: the grant request for mining hardware to the Stacks Foundation has been approved [here](https://github.com/stacksgov/Stacks-Grants/issues/83) ($2500)**
 
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
-# Pool³
+# Syvita Pool
 
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
 
@@ -15,7 +15,7 @@ There is a 5% fee, so we can pay for servers and hosting etc. we pay for all the
 
 ### The Pool³ token
 
-When you commit your sats, we'll send an equal amount of Pool³ tokens to your stacks address. If you contribute 500,000 sats, you get 500,000 Pool³ (P3) tokens to your stacks address.
+When you commit your sats, we'll send an equal amount of Pool³ tokens to your stacks address. If you contribute 500,000 sats, you get 500,000 Sypool (SYPOOL) tokens to your stacks address.
 
 What can you do with these tokens? You can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards.
 
@@ -29,7 +29,7 @@ What's that you say? That's not very business like? Oh well. we're just nice :)
 
 Once the pool gains 100K USD worth of bitcoin, Pool³ will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). This will help to support L3 significantly. 
 
-My current (maybe outdated) roadmap is available [here on my profile](https://github.com/pxydn). This constantly changes and we're adding new projects and members to L3 rapidly. Lots of the fees from this pool will go towards funding L3 and its endeavours. you can see what projects we work on [here](https://github.com/labs3). 
+My current (maybe outdated) roadmap is available [here on my profile](https://github.com/pxydn). This constantly changes and we're adding new projects and members to L3 rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita). 
 
 ### bro i got trust issues
 
@@ -45,7 +45,7 @@ The only trust is that we use the Bitcoin to mine. Basically everything else is 
 
 **warning: nerdy bits ahead**
 
-L3's pool is not unique in that it is primarily controlled by a smart contract. However, it is unique in how it verifies contributions cross-chain through hashing, merkle roots and some other cool stuff. Big s/o to [Jude](https://github.com/jcnelson) at the Stacks Foundation for how this works. He wrote the majority of the Bitcoin library functions that the pool uses to verify contributions.
+Syvita's pool is not unique in that it is primarily controlled by a smart contract. However, it is unique in how it verifies contributions cross-chain through hashing, merkle roots and some other cool stuff. Big s/o to [Jude](https://github.com/jcnelson) at the Stacks Foundation for how this works. He wrote the majority of the Bitcoin library functions that the pool uses to verify contributions.
 
 ### From start to finish
 
