@@ -1,7 +1,7 @@
 **UPDATE: the grant request for mining hardware to the Stacks Foundation has been approved [here](https://github.com/stacksgov/Stacks-Grants/issues/83) ($2500)**
 
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
-# Syvita Pool
+# Sypool
 
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
 
@@ -13,9 +13,9 @@ This 'pool' combines lots of people's bitcoin together to mine STX profitably. Y
 
 There is a 5% fee, so we can pay for servers and hosting etc. we pay for all the transaction fees out of this too.
 
-### The Pool³ token
+### The Sypool ($SYPL) token
 
-When you commit your sats, we'll send an equal amount of Pool³ tokens to your stacks address. If you contribute 500,000 sats, you get 500,000 Sypool (SYPOOL) tokens to your stacks address.
+When you commit your sats, we'll send an equal amount of Sypool tokens to your stacks address. If you contribute 500,000 sats, you get 500,000 Sypool tokens to your stacks address.
 
 What can you do with these tokens? You can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards.
 
@@ -27,9 +27,9 @@ Many people will think the 5% cut is a lot and I understand that. I have the int
 
 What's that you say? That's not very business like? Oh well. we're just nice :)
 
-Once the pool gains 100K USD worth of bitcoin, Pool³ will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). This will help to support L3 significantly. 
+Once the pool gains 100K USD worth of bitcoin, Sypool will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). This will help to support Syvita significantly. 
 
-My current (maybe outdated) roadmap is available [here on my profile](https://github.com/pxydn). This constantly changes and we're adding new projects and members to L3 rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita). 
+My current (maybe outdated) roadmap is available [here on my profile](https://github.com/pxydn). This constantly changes and we're adding new projects and members to Syvita rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita). 
 
 ### bro i got trust issues
 
