@@ -2,6 +2,10 @@
 [project]
 name = "miningpool"
 
-[contracts]
+[contracts.sypool]
+path = "contracts/sypool.clar"
+
+[contracts.sypool-collateral]
+path = "contracts/sypool-collateral.clar"
 
 [notebooks]

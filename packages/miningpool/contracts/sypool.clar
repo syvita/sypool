@@ -916,14 +916,6 @@
     )
 )
 
-;; all below code will probs be changed
-
-;; requests to increase a contribution by an address
-;; only allows calls from the control addresses
-
-;; NEED TO FIGURE OUT HOW TO DO THIS WITH NEW VERIFICATION METHOD
-(define-public (increase-contribution))
-
 
 ;; this might be okay
 ;; requests to redeem rewards for an address
