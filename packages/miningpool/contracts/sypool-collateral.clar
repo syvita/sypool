@@ -15,7 +15,7 @@
 
 (define-fungible-token SYPLC)
 ;; the token implements the SIP-010 standard
-(impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
+;; (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
 
 ;; get the token balance of owner
 (define-read-only (balance-of (owner principal))
@@ -48,20 +48,14 @@
     (ok "https://x.syvita.org/ft/SYPLC.json"))
 
 (define-read-only (get-collateral-pool-ratio)
-    (ok (* (/ (total-supply) (ft-get-supply P3)) 100 )))
+    (ok (* (/ (ft-get-supply SYPLC) (ft-get-supply SYPLC)) u100 )))
 
 ;; public functions for adding/removing collateral
 
 (define-public (add-collateral (amountInXBTC uint)) 
-    (begin 
-        (ft-mint? SYPLC amountInXBTC tx-sender)
-        (ok true)
-    )
+  (ft-mint? SYPLC amountInXBTC tx-sender)
 )
 
 (define-public (refund-collateral (amountInXBTC uint))
-    (begin 
-        (ft-burn? SYPLC amountInXBTC tx-sender)
-        (ok true)
-    )
+  (ft-burn? SYPLC amountInXBTC tx-sender)
 )

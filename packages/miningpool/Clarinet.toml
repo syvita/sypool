@@ -2,10 +2,16 @@
 [project]
 name = "miningpool"
 
+[contracts.clarity-bitcoin]
+path = "contracts/clarity-bitcoin.clar"
+depends_on = []
+
 [contracts.sypool]
 path = "contracts/sypool.clar"
+depends_on = []
 
 [contracts.sypool-collateral]
 path = "contracts/sypool-collateral.clar"
+depends_on = []
 
 [notebooks]
