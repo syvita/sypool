@@ -19,10 +19,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-
-      - name: Install Clarinet
-        run: $ cargo install clarinet --locked
+      - uses: actions-rs/cargo@v1
+        with:
+          command: install clarinet
+          args: --locked
 
       - name: Run tests
         run: |
