@@ -16,10 +16,14 @@
 
 ;; error codes
 
-(define-constant ERR_TX_VERIFICATION_FAILED u7)
-(define-constant ERR_TOKEN_MINT_FAILURE u8)
-(define-constant ERR_UNAUTHORIZED u9)
-(define-constant ERR_COLLATERAL_ENGINE_ALREADY_SET u10)
+(define-constant ERR_TX_VERIFICATION_FAILED u1)
+(define-constant ERR_TOKEN_MINT_FAILURE u2)
+(define-constant ERR_UNAUTHORIZED u3)
+(define-constant ERR_COLLATERAL_ENGINE_ALREADY_SET u4)
+(define-constant ERR_BITCOIN_TX_VERIFICATION_ERROR u5)
+(define-constant ERR_HASH_NOT_REGISTERED u6)
+(define-constant ERR_DOESNT_PAY_2_POOL u7)
+(define-constant ERR_CONTRIBUTION_BELOW_MINIMUM u8)
 
 (define-constant POOL_STX_ADDRESS 'SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66)
 (define-constant POOL_BTC_ADDRESS "omitted till release ;)")
@@ -62,20 +66,38 @@
 
 ;; map for storing contributions to the pool
 
-(define-map HashMap {hash: (buff 64)} {tx-sender: principal})
+(define-map HashMap {hash: (buff 32)} {tx-sender: principal})
 (define-map Contributions {address: principal} {committed-at-block: uint})
 
 ;; private functions
 
-(define-private (verify-secret (secret (buff 32)))
-    (is-some (map-get? HashMap { hash: (sha512 secret)})))
+(define-private (scriptpubkey-to-p2pkh (scriptPubKey (buff 128)))
+    (ok (hash160 (sha256 scriptPubKey)))
 
-;; call parse-tx and do some stuff to verify that the output of the transaction sends to the known mining pool address. return (ok true) if all is good otherwise throw error
-(define-private (verify-payout-address (tx (buff 1024))) true)
+(define-private (verify-secret (secret (buff 32)))
+    (ok (is-some (map-get? HashMap { hash: (sha256 secret)}))))
+
+(define-private (verify-individual-out (out { value: uint, scriptPubKey: (buff 128) }))
+    (ok (is-eq (scriptpubkey-to-p2pkh (get scriptPubKey out)) POOL_BTC_ADDRESS)))
+
+(define-private (get-outs-from-tx (tx (buff 1024)))
+    (fold verify-individual-out
+        (get outs (unwrap! (contract-call? .clarity-bitcoin parse-tx tx))) ;; returns a list of tuples of outs of tx
+        (ok false) ;; if none are verified to be to the pool, return (ok false), otherwise (ok true)
+    )
+)
+
+(define-private (get-individual-out-value (out { value: uint, scriptPubKey: (buff 128) }))
+    (ok (get value out)))
 
 (define-private (get-contribution-value (tx (buff 1024)))
- u1
+    (fold get-individual-out-value
+        (get outs (unwrap! (contract-call? .clarity-bitcoin parse-tx tx))) ;; returns a list of tuples of outs of tx
+        (ok u0)
+    ) ;; this is only designed to accept one output in a tx and only uses fold bc it's passed as a list
 )
+
+;; public functions
 
 (define-public (register-collateral-engine (enginePrincipal principal))
     (if (not (var-get hasCollateralEngineBeenSet))
@@ -98,29 +120,29 @@
     (if 
         (and 
             ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
-            (unwrap! (contract-call? .clarity-bitcoin was-tx-mined?
+            (asserts! (unwrap! (contract-call? .clarity-bitcoin was-tx-mined?
                 btcBlock
                 rawTx
                 merkleProof
-            ) (err ERR_BITCOIN_TX_VERIFICATION_ERROR))
+            )) (err ERR_MERKLE_PROOF_INVALID))
             ;; 2: verify that secret hashes to an entry in HashMap
-            (verify-secret secret)
+            (asserts! (unwrap! (verify-secret secret)) (err ERR_HASH_NOT_REGISTERED))
             ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool (not done yet)
-            (verify-payout-address rawTx)
+            (asserts! (unwrap! (get-outs-from-tx rawTx)) (err ERR_DOESNT_PAY_2_POOL))
         )
-        ;; if all is good continue
-        (begin
-            (unwrap-panic (ft-mint? SYPL (get-contribution-value rawTx) (unwrap! (get tx-sender (map-get? HashMap { hash: (sha512 secret)})) (err ERR_TOKEN_MINT_FAILURE))))
-            (ok true)
-        ) 
-        (err ERR_TX_VERIFICATION_FAILED)
+
+        ;; if no errors occurred, continue to mint SYPL tokens
+        (if (>= (get-contribution-value rawTx) u1000)
+            (begin
+                (unwrap-panic (ft-mint? SYPL (get-contribution-value rawTx) (unwrap! (get tx-sender (map-get? HashMap { hash: (sha512 secret)})) (err ERR_TOKEN_MINT_FAILURE))))
+                (ok true)
+            )
+            (err ERR_CONTRIBUTION_BELOW_MINIMUM)
+        )
     )
 )
 
-
-;; this might be okay
-;; requests to redeem rewards for an address
-;; rewards then redeemed to the STX address and fee sent back to the contract owner.
+;; redeems rewards for an address
 (define-public (redeem-rewards (address principal) (rewardAmount uint))
     (if (>= (- block-height (unwrap-panic (get committed-at-block (map-get? Contributions { address: contract-caller })))) u1000)
         (if (>= (ft-get-balance SYPL contract-caller) u1000)
