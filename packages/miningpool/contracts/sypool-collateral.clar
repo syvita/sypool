@@ -48,7 +48,7 @@
     (ok "https://x.syvita.org/ft/SYPLC.json"))
 
 (define-read-only (get-collateral-pool-ratio)
-    (ok (* (/ (ft-get-supply SYPLC) (ft-get-supply SYPLC)) u100 )))
+    (ok (/ (ft-get-supply SYPLC) (ft-get-supply SYPLC))))
 
 ;; public functions for adding/removing collateral
 
