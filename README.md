@@ -28,7 +28,7 @@ What's that you say? That's not very business like? Oh well. we're just nice :)
 
 Once the pool gains 100K USD worth of bitcoin, Sypool will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). This will help to support Syvita significantly. 
 
-My current (maybe outdated) roadmap is available [here on my profile](https://github.com/pxydn). This constantly changes and we're adding new projects and members to Syvita rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita).
+My current (maybe outdated) roadmap is available [here on my profile](https://github.com/asteriabtc). This constantly changes and we're adding new projects and members to Syvita rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita).
 
 ### bro i got trust issues
 
@@ -83,7 +83,7 @@ There are 5 parts to the mining pool infrastructure wise.
 
 The web UI will be hosted as a static Next.js site on Cloudflare's edge, alike other Syvita sites. The static site will make API requests to Stacks node B as default. The code for this site is in this repo.
 
-The Bitcoin node & Stacks node A (the miner) will be hosted on a Mac Mini owned and managed by [@pxydn](https://github.com/pxydn). This will be locally controlled and not accessable to the public internet as the private keys to the pool Bitcoin wallet are held here. The Mac is connected only via a VPN, as to not expose the IP address, open any public ports to the machine and reduce the attack surface. The Bitcoin node is [Bitcoin Core](https://bitcoincore.org/) and the Stacks node is the [one created by Hiro](https://github.com/blockstack/stacks-blockchain).
+The Bitcoin node & Stacks node A (the miner) will be hosted on a Mac Mini owned and managed by [Asteria](https://github.com/asteriabtc). This will be locally controlled and not accessable to the public internet as the private keys to the pool Bitcoin wallet are held here. The Mac is connected only via a VPN, as to not expose the IP address, open any public ports to the machine and reduce the attack surface. The Bitcoin node is [Bitcoin Core](https://bitcoincore.org/) and the Stacks node is the [one created by Hiro](https://github.com/blockstack/stacks-blockchain).
 
 Stacks node B will be run as a VM on [Bitlaunch](https://bitlaunch.io/). No private keys or funds are stored on this machine. It will be connected to requests to it via a [Cloudflare Argo Tunnel](https://www.cloudflare.com/en-gb/products/argo-tunnel/), to protect from attacks. This node runs [stacks-blockchain-api](https://github.com/blockstack/stacks-blockchain-api), created by [Hiro](https://hiro.so).
 
