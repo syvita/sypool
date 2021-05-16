@@ -147,20 +147,26 @@
     (if (>= (- block-height (unwrap-panic (get committed-at-block (map-get? Contributions { address: contract-caller })))) u1000)
         (if (>= (ft-get-balance SYPL contract-caller) u1000)
             (begin
-                (as-contract 
-                    (unwrap-panic (stx-transfer?
-                        (* (* u95 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
-                            (/ (ft-get-balance SYPL contract-caller) (* u100 (ft-get-supply SYPL)))) ;; amount of SYPL / total SYPL
-                        tx-sender address)))
-                    (unwrap-panic (stx-transfer?
-                        (* (* u4 (stx-get-balance (as-contract tx-sender))) ;; 0.95 x STX rewards in contract
-                            (/ (ft-get-balance SYPL contract-caller) (* u100 (ft-get-supply SYPL)))) ;; amount of SYPL / total SYPL
-                        tx-sender POOL_STX_ADDRESS))
-
-                    (unwrap-panic (stx-transfer?
-                        (* (* (stx-get-balance (as-contract tx-sender))) ;; 0.01 x STX rewards in contract
-                            (/ (ft-get-balance SYPL contract-caller) (* u100 (ft-get-supply SYPL)))) ;; amount of SYPL / total SYPL
-                        tx-sender (var-get collateralEngine)))
+                (as-contract
+                    (if (is-eq (var-get hasCollateralEngineBeenSet) false)
+                        ;; if collateral engine is NOT active
+                        (begin
+                            ;; if user made profit:
+                            ;;    user receives 95% of their profit + whatever they put in initially
+                            ;;    5% of profits to contract owner
+                            ;; if user made loss:
+                            ;;    user receives whatever they put in initially. no fee
+                        )
+                        ;; if collateral IS active
+                        (begin
+                            ;; if user made profit:
+                            ;;    user receives 95% of their profit + whatever they put in initially
+                            ;;    4% of profits to contract owner
+                            ;;    1% of profits to collateral providers
+                            ;; if user made loss:
+                            ;;    user receives whatever they put in initially. no fee
+                        )
+                    )
                 (unwrap-panic (ft-burn? SYPL rewardAmount address))
                 (ok true))
             ;; fail if address contributed less than 1000 sats
