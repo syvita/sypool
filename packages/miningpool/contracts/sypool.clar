@@ -98,25 +98,37 @@
 )
 
 (define-private (get-stx-price-in-sats)
-    ;; this should return the stx price in sats as a uint, eg - u3380
+    ;; this should return the stx price in sats as a response type, eg - (ok u3380)
     ;; needs to use an oracle of some sort but haven't finalised the details here
+)
+
+(define-private (get-caller-rewards) ;; returns the total amount of STX of the contract-caller
+    (ok (* 
+        (/ (ft-get-balance SYPL contract-caller) (ft-get-supply SYPL)) 
+        (stx-get-balance (as-contract tx-sender))
+    ))
+)
+
+(define-private (get-caller-profit) ;; returns the profit in STX of the contract-caller
+    ;; profit = caller rewards - initial cost
+    (ok 
+        (- (get-caller-rewards) (/ (ft-get-balance SYPL contract-caller) (get-stx-price-in-sats)))    
+    )
 )
 
 (define-private (user-has-made-profit)
     (if
         (> 
             (* 
-                (* 
-                    (/ (ft-get-balance SYPL contract-caller) (ft-get-supply SYPL)) 
-                    (stx-get-balance (as-contract tx-sender))
-                ) 
-                (get-stx-price-in-sats)
+                (unwrap-panic (get-caller-rewards)) 
+                (unwrap-panic (get-stx-price-in-sats))
             ) 
             (ft-get-balance SYPL contract-caller)
         )
         (ok true)
         (ok false)
-))
+    )
+)
 
 ;; public functions
 
@@ -138,7 +150,6 @@
 ;; registers a hashed secret with a stacks address to provide rewards to
 (define-public (register-hash (hash (buff 64)))
     (ok (map-insert HashMap {hash: hash} {tx-sender: tx-sender})))
-
 
 ;; 'activates' rewards for a stacks address
 
@@ -184,12 +195,29 @@
                         ;; if collateral engine is NOT active
                         (begin
                             (if (user-has-made-profit)
-                                (begin 
-                                    ;; user receives 95% of their profit + whatever they put in initially
-                                    ;; 5% of profits to contract owner
-                                )
+                                ;; if user has made profit
                                 (begin
-                                    ;; user receives their proportion of rewards, no fee    
+                                    ;; user receives 95% of profit + all non-profit
+                                    (unwrap-panic (stx-transfer? (+ 
+                                        (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                        (- (get-caller-rewards) (get-caller-profits)))
+                                        (as-contract tx-sender) contract-caller
+                                    ))
+                                    ;; 5% of profit to pool owner
+                                    (unwrap-panic (stx-transfer? (/ 
+                                        (* u5 (unwrap-panic (get-caller-profit))) 
+                                        u100)
+                                        contract-caller POOL_STX_ADDRESS
+                                    ))
+                                )
+                                ;; if user hasn't made profit
+                                (begin
+                                    ;; user receives their proportion of rewards, no fee
+                                    (unwrap-panic (stx-transfer? (+ 
+                                        (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                        (- (get-caller-rewards) (get-caller-profits)))
+                                        (as-contract tx-sender) contract-caller
+                                    ))
                                 )
                             )
                         )
@@ -197,13 +225,33 @@
                         (begin
                             (begin
                                 (if (user-has-made-profit)
-                                    (begin 
-                                        ;; user receives 95% of their profit + whatever they put in initially
-                                        ;; 4% of profits to contract owner
-                                        ;; 1% of profits to collateral providers
+                                    (begin
+                                        ;; user receives 95% of profit + all non-profit
+                                        (unwrap-panic (stx-transfer? (+ 
+                                            (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                            (- (get-caller-rewards) (get-caller-profits)))
+                                            (as-contract tx-sender) contract-caller
+                                        ))
+                                        ;; 4% of profit to pool owner
+                                        (unwrap-panic (stx-transfer? (/ 
+                                            (* u4 (unwrap-panic (get-caller-profit))) 
+                                            u100)
+                                            contract-caller POOL_STX_ADDRESS
+                                        ))
+                                        ;; 1% of profit to collateral providers
+                                        (unwrap-panic (stx-transfer? (/ 
+                                            (* u1 (unwrap-panic (get-caller-profit))) 
+                                            u100)
+                                            contract-caller collateralEngine
+                                        ))
                                     )
                                     (begin
-                                        ;; user receives their proportion of rewards, no fee    
+                                        ;; user receives their proportion of rewards, no fee
+                                        (unwrap-panic (stx-transfer? (+ 
+                                            (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                            (- (get-caller-rewards) (get-caller-profits)))
+                                            (as-contract tx-sender) contract-caller
+                                        )) 
                                     )
                                 )
                             )
@@ -214,4 +262,7 @@
             ;; fail if address contributed less than 1000 sats
             (ok false))
         ;; fail if address contributed less than 1000 blocks before
-        (ok false)))
+        (ok false)
+        )
+    )
+)
