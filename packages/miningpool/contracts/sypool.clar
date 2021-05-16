@@ -1,4 +1,4 @@
-;; created by @pxydn for the Syvita mining pool (https://pool.syvita.org)
+;; created by Asteria for the Syvita mining pool (https://pool.syvita.org)
 
 ;; Sypool ($SYPL) engine
 
@@ -9,7 +9,7 @@
 ;; during redemption of rewards:
 ;;    if the user has made a profit, they theoretically get 100% worth of what they put in
 ;;    and 95% of the profit they made on top. 5% is taken as a fee which is split 4:1 to @pxydn's
-;;    known address (SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66) and the configured collateral engine
+;;    known address (SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66) and the configured collateral engine (if active)
 ;;
 ;;    if the user made a loss, they get their percentage back, and no profits (obv). the pool
 ;;    doesn't take fees on losses.
@@ -99,6 +99,7 @@
 
 ;; public functions
 
+;; registers a separate collateral engine smart contract to the pool
 (define-public (register-collateral-engine (enginePrincipal principal))
     (if (not (var-get hasCollateralEngineBeenSet))
         (if 
@@ -113,8 +114,18 @@
     )
 )
 
+;; registers a hashed secret with a stacks address to provide rewards to
 (define-public (register-hash (hash (buff 64)))
     (ok (map-insert HashMap {hash: hash} {tx-sender: tx-sender})))
+
+
+;; 'activates' rewards for a stacks address
+
+;; verifies that the contribution indeed happened, the secret provided hashes 
+;; to a stacks address for rewards and that the contribution was to the pool
+
+;; Sypool tokens are minted 1:1 to sats contributed to the pool btc address. 
+;; rewards are calculated based on the proportion of sats user has contributed overall
 
 (define-public (reveal-hash (btcBlock { header: (buff 80), height: uint }) (rawTx (buff 1024)) (merkleProof { tx-index: uint, hashes: (list 12 (buff 32)), tree-depth: uint }) (secret (buff 32)))
     (if 
