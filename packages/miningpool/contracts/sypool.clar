@@ -97,6 +97,27 @@
     ) ;; this is only designed to accept one output in a tx and only uses fold bc it's passed as a list
 )
 
+(define-private (get-stx-price-in-sats)
+    ;; this should return the stx price in sats as a uint, eg - u3380
+    ;; needs to use an oracle of some sort but haven't finalised the details here
+)
+
+(define-private (user-has-made-profit)
+    (if
+        (> 
+            (* 
+                (* 
+                    (/ (ft-get-balance SYPL contract-caller) (ft-get-supply SYPL)) 
+                    (stx-get-balance (as-contract tx-sender))
+                ) 
+                (get-stx-price-in-sats)
+            ) 
+            (ft-get-balance SYPL contract-caller)
+        )
+        (ok true)
+        (ok false)
+))
+
 ;; public functions
 
 ;; registers a separate collateral engine smart contract to the pool
@@ -162,20 +183,30 @@
                     (if (is-eq (var-get hasCollateralEngineBeenSet) false)
                         ;; if collateral engine is NOT active
                         (begin
-                            ;; if user made profit:
-                            ;;    user receives 95% of their profit + whatever they put in initially
-                            ;;    5% of profits to contract owner
-                            ;; if user made loss:
-                            ;;    user receives whatever they put in initially. no fee
+                            (if (user-has-made-profit)
+                                (begin 
+                                    ;; user receives 95% of their profit + whatever they put in initially
+                                    ;; 5% of profits to contract owner
+                                )
+                                (begin
+                                    ;; user receives their proportion of rewards, no fee    
+                                )
+                            )
                         )
                         ;; if collateral IS active
                         (begin
-                            ;; if user made profit:
-                            ;;    user receives 95% of their profit + whatever they put in initially
-                            ;;    4% of profits to contract owner
-                            ;;    1% of profits to collateral providers
-                            ;; if user made loss:
-                            ;;    user receives whatever they put in initially. no fee
+                            (begin
+                                (if (user-has-made-profit)
+                                    (begin 
+                                        ;; user receives 95% of their profit + whatever they put in initially
+                                        ;; 4% of profits to contract owner
+                                        ;; 1% of profits to collateral providers
+                                    )
+                                    (begin
+                                        ;; user receives their proportion of rewards, no fee    
+                                    )
+                                )
+                            )
                         )
                     )
                 (unwrap-panic (ft-burn? SYPL rewardAmount address))

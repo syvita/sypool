@@ -1,3 +1,6 @@
+;; Bitcoin parsing library for Clarity
+;; provides merkle proof parsing & verification, btc block header parsing, btc tx parsing & more
+
 ;; Error codes
 (define-constant ERR-OUT-OF-BOUNDS u1)
 (define-constant ERR-TOO-MANY-TXINS u2)
