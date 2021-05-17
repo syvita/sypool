@@ -54,9 +54,9 @@ Once the smart contract call confirmed and is ok, the user sends a Bitcoin trans
 
 Once *that* confirms on the BTC chain, the user calls the `reveal-hash` function with the transaction, a Merkle proof and `secret`. this function verifies that:
 
-1. The transaction was mined on the Bitcoin chain (using the Merkle proof)
-2. `secret` is registered in `hash-map` that was stored in the first step
-3. `SHA256(secret)` is in the OP_RETURN field of the passed transaction
+1. The transaction was mined on the Bitcoin chain using the Merkle proof (verifies it's a valid transaction)
+2. `secret` is registered in `hash-map` that was stored in the first step (`secret` is needed for adding btc)
+3. `SHA256(secret)` is in the OP_RETURN field of the passed transaction (makes sure you were the one who sent the transaction)
 4. The transaction pays out to the known pool BTC address that's used to mine. (self-explanatory)
 
 If all of those return ok, the contract extracts how many sats were added to the pool and mints that amount of Sypool fungible tokens to the `tx-sender` in `hash-map`.
