@@ -10,7 +10,7 @@ Mining STX tokens is a game of numbers and probability. In order to mine profita
 
 This 'pool' combines lots of people's Bitcoin together to mine STX profitably. You put Bitcoin in and get STX tokens out. You commit Bitcoin at our site, which will then add you to the list of contributors in the smart contract.
 
-There is a 5% fee, so we can pay for servers and hosting etc. we pay for all the transaction fees out of this too. 20% of this fee is distributed to Sypool Collateral holders.
+There is a 5% fee, so we can pay for servers and hosting etc. we pay for all the transaction fees out of this too. 20% of this fee is distributed to Sypool Collateral holders (when collateral gets activated).
 
 ### The Sypool ($SYPL) token
 
@@ -18,7 +18,7 @@ When you commit your sats, we'll send an equal amount of Sypool tokens to your S
 
 What can you do with these tokens? You can vote on decisions that we as a community might make in the future, and more importantly, you can redeem your STX rewards.
 
-After 1000 blocks (1 cycle), you'll be able to redeem your STX rewards. You will probably not make a profit after this 1000 block cooldown, as not all of your Bitcoin would have been spent for mining yet. Don't worry if you don't make a profit, as the miner will eventually use up all your BTC.
+After 1000 blocks (1 cycle), you'll be able to redeem your STX rewards. You might not make a profit after this 1000 block cooldown, as not all of your Bitcoin would have been spent for mining yet. Don't worry if you don't make a profit, as the miner will eventually use up all your BTC.
 
 ### dem fees seem a lil' high
 
@@ -36,7 +36,7 @@ Understandably. We're as transparent as possible, and automate as much as we can
 
 Once you commit Bitcoin, after the cooldown, you can take your share out (if you want), even if all our services go down. This is ensured by the smart contract and requires no manual intervention from us.
 
-The only trust is that we use the Bitcoin to mine. Basically everything else is automated and trustless through the contract. And if we don't use the Bitcoin to mine, 20% of the 5% fee goes towards collateral providers, to reduce risk.
+The only trust is that we use the Bitcoin to mine. Basically everything else is automated and trustless through the contract. And if we don't use the Bitcoin to mine, 20% of the 5% fee goes towards collateral providers, to reduce risk (when activated).
 
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
 
@@ -56,7 +56,8 @@ Once *that* confirms on the BTC chain, the user calls the `reveal-hash` function
 
 1. The transaction was mined on the Bitcoin chain (using the Merkle proof)
 2. `secret` is registered in `hash-map` that was stored in the first step
-3. The transaction pays out to the known pool BTC address that's used to mine.
+3. `SHA256(secret)` is in the OP_RETURN field of the passed transaction
+4. The transaction pays out to the known pool BTC address that's used to mine. (self-explanatory)
 
 If all of those return ok, the contract extracts how many sats were added to the pool and mints that amount of Sypool fungible tokens to the `tx-sender` in `hash-map`.
 
@@ -72,7 +73,7 @@ The 5% fee only applies on profit. The contract will get the current STX/BTC fro
 
 ### Architecture
 
-There are 5 parts to the mining pool infrastructure wise.
+There are 6 parts to the mining pool infrastructure wise.
 
 1. Sypool Engine (smart contract on the Stacks blockchain)
 2. Sypool Collateral Engine (smart contract on the Stacks blockchain)
