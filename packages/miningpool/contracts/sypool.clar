@@ -1,4 +1,5 @@
 ;; created by Asteria for the Syvita mining pool (https://pool.syvita.org)
+;;                                               (hypr://sypool)
 
 ;; Sypool ($SYPL) engine
 
@@ -24,9 +25,13 @@
 (define-constant ERR_HASH_NOT_REGISTERED u6)
 (define-constant ERR_DOESNT_PAY_2_POOL u7)
 (define-constant ERR_CONTRIBUTION_BELOW_MINIMUM u8)
+(define-constant ERR_COULD_NOT_VERIFY_SECRET u9)
+(define-constant ERR_COULD_NOT_GET_TX_OUTS u10)
+(define-constant ERR_COULD_NOT_GET_TX_SENDER u11)
 
 (define-constant POOL_STX_ADDRESS 'SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66)
-(define-constant POOL_BTC_ADDRESS "omitted till release ;)")
+(define-constant POOL_BTC_ADDRESS 0x123456)
+(define-constant POOL_BTC_ADDRESS_AS_SCRIPT_PUB_KEY (concat (concat 0xa914 POOL_BTC_ADDRESS) 0x87)))
 (define-data-var collateralEngine principal 'SP000000000000000000002Q6VF78)
 (define-data-var hasCollateralEngineBeenSet bool false)
 
@@ -72,34 +77,37 @@
 ;; private functions
 
 (define-private (scriptpubkey-to-p2pkh (scriptPubKey (buff 128)))
-    (ok (hash160 (sha256 scriptPubKey)))
+    (hash160 (sha256 scriptPubKey)))
 
 (define-private (verify-secret (secret (buff 32)))
-    (ok (is-some (map-get? HashMap { hash: (sha256 secret)}))))
+    (is-some (map-get? HashMap { hash: (sha256 secret)})))
 
-(define-private (verify-individual-out (out { value: uint, scriptPubKey: (buff 128) }))
-    (ok (is-eq (scriptpubkey-to-p2pkh (get scriptPubKey out)) POOL_BTC_ADDRESS)))
+(define-private (verify-individual-out (out { value: uint, scriptPubKey: (buff 128) }) (result bool))
+    (or result (is-eq (scriptpubkey-to-p2pkh (get scriptPubKey out)) POOL_BTC_ADDRESS)))
 
 (define-private (get-outs-from-tx (tx (buff 1024)))
     (fold verify-individual-out
-        (get outs (unwrap! (contract-call? .clarity-bitcoin parse-tx tx))) ;; returns a list of tuples of outs of tx
-        (ok false) ;; if none are verified to be to the pool, return (ok false), otherwise (ok true)
+        (get outs (unwrap! (contract-call? .clarity-bitcoin parse-tx tx) (err ERR_BITCOIN_TX_VERIFICATION_ERROR))) ;; returns a list of tuples of outs of tx
+        false ;; if none are verified to be to the pool, return false), otherwise true
     )
 )
 
-(define-private (get-individual-out-value (out { value: uint, scriptPubKey: (buff 128) }))
-    (ok (get value out)))
+(define-private (get-individual-out-value (out { value: uint, scriptPubKey: (buff 128) }) (result uint))
+  (if (is-eq (get scriptPubKey out) POOL_BTC_ADDRESS_AS_SCRIPT_PUB_KEY)
+    (get value out)
+    result))
 
 (define-private (get-contribution-value (tx (buff 1024)))
     (fold get-individual-out-value
-        (get outs (unwrap! (contract-call? .clarity-bitcoin parse-tx tx))) ;; returns a list of tuples of outs of tx
-        (ok u0)
+        (get outs (unwrap (contract-call? .clarity-bitcoin parse-tx tx) (err ERR_BITCOIN_TX_VERIFICATION_ERROR))) ;; returns a list of tuples of outs of tx
+        u0
     ) ;; this is only designed to accept one output in a tx and only uses fold bc it's passed as a list
 )
 
 (define-private (get-stx-price-in-sats)
     ;; this should return the stx price in sats as a response type, eg - (ok u3380)
     ;; needs to use an oracle of some sort but haven't finalised the details here
+    (ok u3380) ;; will be changed
 )
 
 (define-private (get-caller-rewards) ;; returns the total amount of STX of the contract-caller
@@ -109,7 +117,7 @@
     ))
 )
 
-(define-private (get-caller-profit) ;; returns the profit in STX of the contract-caller
+(define-private (get-caller-profits) ;; returns the profit in STX of the contract-caller
     ;; profit = caller rewards - initial cost
     (ok 
         (- (get-caller-rewards) (/ (ft-get-balance SYPL contract-caller) (get-stx-price-in-sats)))    
@@ -163,21 +171,21 @@
     (if 
         (and 
             ;; 1: verify transaction was mined on the Bitcoin chain using supplied Merkle proof
-            (asserts! (unwrap! (contract-call? .clarity-bitcoin was-tx-mined?
+            (asserts! (unwrap-err! (contract-call? .clarity-bitcoin was-tx-mined?
                 btcBlock
                 rawTx
                 merkleProof
             )) (err ERR_MERKLE_PROOF_INVALID))
             ;; 2: verify that secret hashes to an entry in HashMap
-            (asserts! (unwrap! (verify-secret secret)) (err ERR_HASH_NOT_REGISTERED))
+            (asserts! (verify-secret secret) (err ERR_HASH_NOT_REGISTERED))
             ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool (not done yet)
-            (asserts! (unwrap! (get-outs-from-tx rawTx)) (err ERR_DOESNT_PAY_2_POOL))
+            (asserts! (unwrap! (get-outs-from-tx rawTx) (err ERR_COULD_NOT_GET_TX_OUTS)) (err ERR_DOESNT_PAY_2_POOL))
         )
 
         ;; if no errors occurred, continue to mint SYPL tokens
         (if (>= (get-contribution-value rawTx) u1000)
             (begin
-                (unwrap-panic (ft-mint? SYPL (get-contribution-value rawTx) (unwrap! (get tx-sender (map-get? HashMap { hash: (sha512 secret)})) (err ERR_TOKEN_MINT_FAILURE))))
+                (unwrap-panic (ft-mint? SYPL (get-contribution-value rawTx) (unwrap! (get tx-sender (map-get? HashMap { hash: (sha256 secret)})) (err ERR_COULD_NOT_GET_TX_SENDER))))
                 (ok true)
             )
             (err ERR_CONTRIBUTION_BELOW_MINIMUM)
@@ -199,13 +207,13 @@
                                 (begin
                                     ;; user receives 95% of profit + all non-profit
                                     (unwrap-panic (stx-transfer? (+ 
-                                        (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                        (/ (* u95 (unwrap-panic (get-caller-profits))) u100) 
                                         (- (get-caller-rewards) (get-caller-profits)))
                                         (as-contract tx-sender) contract-caller
                                     ))
                                     ;; 5% of profit to pool owner
                                     (unwrap-panic (stx-transfer? (/ 
-                                        (* u5 (unwrap-panic (get-caller-profit))) 
+                                        (* u5 (unwrap-panic (get-caller-profits))) 
                                         u100)
                                         contract-caller POOL_STX_ADDRESS
                                     ))
@@ -214,7 +222,7 @@
                                 (begin
                                     ;; user receives their proportion of rewards, no fee
                                     (unwrap-panic (stx-transfer? (+ 
-                                        (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                        (/ (* u95 (unwrap-panic (get-caller-profits))) u100) 
                                         (- (get-caller-rewards) (get-caller-profits)))
                                         (as-contract tx-sender) contract-caller
                                     ))
@@ -228,19 +236,19 @@
                                     (begin
                                         ;; user receives 95% of profit + all non-profit
                                         (unwrap-panic (stx-transfer? (+ 
-                                            (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                            (/ (* u95 (unwrap-panic (get-caller-profits))) u100) 
                                             (- (get-caller-rewards) (get-caller-profits)))
                                             (as-contract tx-sender) contract-caller
                                         ))
                                         ;; 4% of profit to pool owner
                                         (unwrap-panic (stx-transfer? (/ 
-                                            (* u4 (unwrap-panic (get-caller-profit))) 
+                                            (* u4 (unwrap-panic (get-caller-profits))) 
                                             u100)
                                             contract-caller POOL_STX_ADDRESS
                                         ))
                                         ;; 1% of profit to collateral providers
                                         (unwrap-panic (stx-transfer? (/ 
-                                            (* u1 (unwrap-panic (get-caller-profit))) 
+                                            (* u1 (unwrap-panic (get-caller-profits))) 
                                             u100)
                                             contract-caller collateralEngine
                                         ))
@@ -248,7 +256,7 @@
                                     (begin
                                         ;; user receives their proportion of rewards, no fee
                                         (unwrap-panic (stx-transfer? (+ 
-                                            (/ (* u95 (unwrap-panic (get-caller-profit))) u100) 
+                                            (/ (* u95 (unwrap-panic (get-caller-profits))) u100) 
                                             (- (get-caller-rewards) (get-caller-profits)))
                                             (as-contract tx-sender) contract-caller
                                         )) 
