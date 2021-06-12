@@ -6,7 +6,6 @@
 ;; TODO(psq): change address for mainnet, change to deployment address (ORACLE_STX)
 (define-constant contract-owner 'ST31HHVBKYCYQQJ5AQ25ZHA6W2A548ZADDQ6S16GP)
 
-;; "\x19Ethereum Signed Message:\n32"
 (define-constant eth-preamble 0x19457468657265756d205369676e6564204d6573736167653a0a3332)
 
 (define-map oracle-data
@@ -181,30 +180,6 @@
   (map-get? oracle-data {source: source, symbol: symbol})
 )
 
-(define-public (add-source (source (string-ascii 16)) (public-key (buff 33)))
-  ;; check sender
-  ;; insert source into known sources
-  (if (is-eq tx-sender contract-owner)
-    (begin
-      (map-set sources { source: source} { public-key: public-key })
-      (ok true)
-    )
-    err-not-owner
-  )
-)
-
-(define-public (revoke-source (source (string-ascii 16)))
-  ;; check sender
-  ;; remove source from known sources
-  (if (is-eq tx-sender contract-owner)
-    (begin
-      (map-delete sources { source: source})
-      (ok true)
-    )
-    err-not-owner
-  )
-)
-
 (define-read-only (check-source (source (string-ascii 16)))
   (map-get? sources { source: source})
 )
@@ -215,4 +190,3 @@
 (map-set sources {source: "okcoin"} {public-key: 0x0325df290b8c4930adcf8cd5c883616a1204ccc3d6ba3c4a636d6bcecd08e466d3})  ;; Eth: 0x419c555b739212684432050b7ce459ea8e7b8bda
 (map-set sources {source: "artifix-okcoin"} {public-key: 0x0367b2946150dfab1862457da80beb522440be5737ea51ba14cf8018a12911128f})  ;; stx: ST31HHVBKYCYQQJ5AQ25ZHA6W2A548ZADDQ6S16GP
 (map-set sources {source: "artifix-binance"} {public-key: 0x0367b2946150dfab1862457da80beb522440be5737ea51ba14cf8018a12911128f})  ;; stx: ST31HHVBKYCYQQJ5AQ25ZHA6W2A548ZADDQ6S16GP
-
