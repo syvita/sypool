@@ -180,6 +180,7 @@
             (asserts! (verify-secret secret) (err ERR_HASH_NOT_REGISTERED))
             ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool (not done yet)
             (asserts! (unwrap! (get-outs-from-tx rawTx) (err ERR_COULD_NOT_GET_TX_OUTS)) (err ERR_DOESNT_PAY_2_POOL))
+            ;; 4: verify that Bitcoin transaction has an OP_RETURN output of the hashed secret
         )
 
         ;; if no errors occurred, continue to mint SYPL tokens
