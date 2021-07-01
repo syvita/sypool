@@ -1,4 +1,4 @@
-![repo header gradient](readme-img/header.png "repo header gradient")
+<img src="https://x.syvita.org/repoheaders/sypool.png"></img>
 
 **UPDATE:** The grant request for mining hardware to the Stacks Foundation has [been approved.](https://github.com/stacksgov/Stacks-Grants/issues/83)
 
