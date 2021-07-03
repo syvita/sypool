@@ -28,7 +28,7 @@ What's that you say? That's not very business like? Oh well. we're just nice :)
 
 Once the pool gains 100K USD worth of bitcoin, Sypool will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). This will help to support Syvita significantly. 
 
-My current (maybe outdated) roadmap is available [here on my profile](https://github.com/asteriabtc). This constantly changes and we're adding new projects and members to Syvita rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita).
+My current (maybe outdated) roadmap is available [here on my profile](https://github.com/SyAsteria). This constantly changes and we're adding new projects and members to Syvita rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita).
 
 ### bro i got trust issues
 
