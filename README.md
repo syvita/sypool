@@ -10,7 +10,11 @@ Mining STX tokens is a game of numbers and probability. In order to mine profita
 
 This 'pool' combines lots of people's Bitcoin together to mine STX profitably. You put Bitcoin in and get STX tokens out. You commit Bitcoin at our site, which will then add you to the list of contributors in the smart contract.
 
-There is a 5% fee, so we can pay for servers and hosting etc. we pay for all the transaction fees out of this too. 20% of this fee is distributed to Sypool Collateral holders (when collateral gets activated).
+### Fee model
+
+There is a 5% fee on profits. 20% of this fee is distributed to Sypool Collateral holders (when collateral gets activated).
+
+If you contribute 1BTC and when you redeem your proportion of STX back you have 1.5BTC worth of STX, the fee will be `0.5BTC * 0.05 = 0.025BTC fee` so you would get 1.475BTC back.
 
 ### The Sypool ($SYPL) token
 
