@@ -74,11 +74,11 @@ There are 6 parts to the mining pool infrastructure wise.
 3. Website/UI
 4. The Bitcoin node, used to spend Bitcoin with
 5. Stacks node A, running in miner mode and connected to the local bitcoin node
-6. Stacks node B, running in follower mode as a publicly available API.
+6. Stacks nodes B, running in follower mode as a publicly available API.
 
 The web UI will be hosted as a static Next.js site on Cloudflare's edge, alike other Syvita sites. The static site will make API requests to Stacks node B as default. The code for this site is in this repo.
 
-The Bitcoin node & Stacks node A (the miner) will be hosted on a Mac Mini owned and managed by [Asteria](https://github.com/SyAsteria). This will be locally controlled and not accessable to the public internet as the private keys to the pool Bitcoin wallet are held here. The Mac is connected only via a VPN, as to not expose the IP address, open any public ports to the machine and reduce the attack surface. The Bitcoin node is [Bitcoin Core](https://bitcoincore.org/) and the Stacks node is the [one created by Hiro](https://github.com/blockstack/stacks-blockchain).
+The Bitcoin node & Stacks node A (the miner) will be hosted on a M1-based Mac Mini owned and managed by [Asteria](https://github.com/SyAsteria). This will be locally controlled and not accessable to the public internet as a private key to the pool Bitcoin wallet are held here. The Mac is connected only via a VPN, as to not expose the IP address, open any public ports to the machine and reduce the attack surface. The Bitcoin node is [Bitcoin Core](https://bitcoincore.org/) and the Stacks node is the [one created by Hiro](https://github.com/blockstack/stacks-blockchain).
 
 Stacks node B will be run as a VM on [Bitlaunch](https://bitlaunch.io/). No private keys or funds are stored on this machine. It will be connected to requests to it via a [Cloudflare Argo Tunnel](https://www.cloudflare.com/en-gb/products/argo-tunnel/), to protect from attacks. This node runs [stacks-blockchain-api](https://github.com/blockstack/stacks-blockchain-api), created by [Hiro](https://hiro.so).
 
