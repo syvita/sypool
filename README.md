@@ -32,9 +32,9 @@ What's that you say? That's not very business like? Oh well. we're just nice :)
 
 Once the pool gains 100K USD worth of bitcoin, Sypool will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). This will help to support Syvita significantly. 
 
-My current (maybe outdated) roadmap is available [here on my profile](https://github.com/SyAsteria). This constantly changes and we're adding new projects and members to Syvita rapidly. Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita).
+Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita).
 
-### bro i got trust issues
+### *I got trust issues*
 
 Understandably. We're as transparent as possible, and automate as much as we can so there's less grey area for us to go wrong.
 
@@ -46,7 +46,7 @@ The only trust is that we use the Bitcoin to mine. Basically everything else is 
 
 ## ok but how does it *really* work
 
-**Warning: nerdy bits ahead**
+**Warning: technical bits ahead**
 
 Syvita's pool is not unique in that it is primarily controlled by a smart contract. However, it is unique in how it verifies contributions cross-chain through hashing, merkle roots and some other cool stuff. Big s/o to [Jude](https://github.com/jcnelson) at the Stacks Foundation for how this works. He wrote the majority of the Bitcoin library functions that the pool uses to verify contributions.
 
