@@ -6,7 +6,7 @@
 
 ## How it works (simply)
 
-Mining STX tokens is a game of numbers and probability. In order to mine profitably, an estimated ~1BTC is required initially. Many people don't have 1BTC to throw at a new miner, so I made this!
+Mining STX tokens is a game of numbers and probability. In order to mine profitably, an estimated ~1BTC is required initially. Many people don't have 1BTC to throw at a new miner, so we made this!
 
 This 'pool' combines lots of people's Bitcoin together to mine STX profitably. You put Bitcoin in and get STX tokens out. You commit Bitcoin at our site, which will then add you to the list of contributors in the smart contract.
 
@@ -24,17 +24,7 @@ What can you do with these tokens? You can vote on decisions that we as a commun
 
 After 1000 blocks (1 cycle), you'll be able to redeem your STX rewards. You might not make a profit after this 1000 block cooldown, as not all of your Bitcoin would have been spent for mining yet. Don't worry if you don't make a profit, as the miner will eventually use up all your BTC.
 
-### dem fees seem a lil' high
-
-Many people will think the 5% cut is a lot and I understand that. I have the intention to make this mining pool free in the future. I don't currently have a source of income, so this will help me personally significantly. after some time, I'll lower the fees, potentially removing the fees all together when I can.
-
-What's that you say? That's not very business like? Oh well. we're just nice :)
-
-Once the pool gains 100K USD worth of bitcoin, Sypool will be able to redeem a bounty of 100K STX tokens from [Daemon Technologies](https://daemontechnologies.co/) (we love you Xan). This will help to support Syvita significantly. 
-
-Lots of the fees from this pool will go towards funding Syvita and its endeavours. you can see what projects we work on [here](https://github.com/syvita).
-
-### *I got trust issues*
+### *we got trust issues*
 
 Understandably. We're as transparent as possible, and automate as much as we can so there's less grey area for us to go wrong.
 
@@ -44,7 +34,7 @@ The only trust is that we use the Bitcoin to mine. Basically everything else is 
 
 ![repo header gradient](readme-img/repo-header.png "repo header gradient")
 
-## ok but how does it *really* work
+## How does it *really* work?
 
 **Warning: technical bits ahead**
 
