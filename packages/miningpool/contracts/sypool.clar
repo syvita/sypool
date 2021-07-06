@@ -1,5 +1,5 @@
-;; created by Asteria for the Syvita mining pool (https://pool.syvita.org)
-;;                                               (hypr://sypool)
+;; created by Asteria for the Syvita mining pool (https://sypool.syvita.org)
+;;                                               (ll://sypool)
 
 ;; Sypool ($SYPL) engine
 
@@ -9,7 +9,7 @@
 
 ;; during redemption of rewards:
 ;;    if the user has made a profit, they theoretically get 100% worth of what they put in
-;;    and 95% of the profit they made on top. 5% is taken as a fee which is split 4:1 to @pxydn's
+;;    and 95% of the profit they made on top. 5% is taken as a fee which is split 4:1 to Asteria's
 ;;    known address (SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66) and the configured collateral engine (if active)
 ;;
 ;;    if the user made a loss, they get their percentage back, and no profits (obv). the pool
@@ -69,10 +69,84 @@
 (define-read-only (get-token-uri) 
     (ok "https://x.syvita.org/ft/SYPL.json"))
 
-;; map for storing contributions to the pool
+;; maps
 
 (define-map HashMap {hash: (buff 32)} {tx-sender: principal})
 (define-map Contributions {address: principal} {committed-at-block: uint})
+(define-map SeenBTCTxs {txId: (buff 32)} {revealed: bool})
+
+;; cycle functionality
+
+(define-constant PREPARE_PHASE_CODE u1)
+(define-constant SPEND_PHASE_CODE u2)
+
+(define-constant INITIAL_PREPARE_PHASE_PERIOD u1008) ;; first prepare phase lasts for ~168h
+(define-constant INITIAL_SPEND_PHASE_PERIOD u992) ;; first prepare phase lasts for ~165h 20m
+(define-constant PREPARE_PHASE_PERIOD u144) ;; regular prepare phase lasts for ~24h
+(define-constant SPEND_PHASE_PERIOD u1856) ;; regular spend phase lasts for ~309h 20m
+(define-constant BTC_TX_FEE u40000) ;; how much miner spends on BTC tx fees per block in sats
+
+(define-data-var currentPhase uint u0)
+(define-data-var latestCycleId uint u0)
+
+(define-map Cycles ;; should be used for previous cycles, not current
+    { id: uint } 
+    { 
+        totalParticipants: uint,
+        totalBtcSpent: uint, ;; in satoshis
+        totalStxReturned: uint, ;; in microstacks
+        startedAtBlock: uint
+    }
+)
+
+(define-public (start-prepare-phase)
+    (begin
+
+        ;; TODO: make sure prepare phase is triggered on a correct block
+
+        (var-set latestCycleId (+ (var-get latestCycleId) u1))
+        (var-set currentPhase PREPARE_PHASE_CODE)
+        (ok true)
+    )
+)
+
+(define-public (start-spend-phase)
+    (begin
+        (asserts! (is-eq currentPhase PREPARE_PHASE_CODE) (err u0))
+        ;; TODO: calculate spending for this cycle
+        ;;   total (cycleTotalBtc)
+        ;;   average per block
+        ;; TODO: calculate cycleTotalParticipants
+        (asserts!
+            (map-insert
+                { id: (var-get latestCycleId) }
+                {
+                    totalParticipants: cycleTotalParticipants,
+                    totalBtcSpent: cycleTotalBtc, ;; in satoshis
+                    totalStxReturned: u0, ;; in microstacks
+                    startedAtBlock: (- block-height PREPARE_PHASE_PERIOD)
+                }
+            )
+        (err u0))
+        (var-set currentPhase SPEND_PHASE_CODE)
+        (ok true)
+    )
+)
+
+(define-read-only (get-latest-cycle-id)
+    (ok latestCycleId)
+)
+
+(define-read-only (get-latest-cycle)
+    (ok (map-get? Cycles latestCycleId))
+)
+
+(define-read-only (get-previous-cycle (cycleId uint))
+    (begin
+        ;; if cycleId is latest cycle fail
+        (asserts! (not (is-eq cycleId latestCycleId)) (err u0))
+    )
+)
 
 ;; private functions
 
