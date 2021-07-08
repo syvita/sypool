@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-const JoinSypoolButton = () => {
+const JoinSypoolButton = (props) => {
   return (
     <Link href="/join">
-      <button>JOIN</button>
+      <button>{props.name}</button>
     </Link>
   );
 };
