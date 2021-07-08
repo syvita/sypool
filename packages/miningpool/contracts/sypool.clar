@@ -81,10 +81,12 @@
 (define-constant SPEND_PHASE_CODE u2)
 
 (define-constant INITIAL_PREPARE_PHASE_PERIOD u1008) ;; first prepare phase lasts for ~168h
-(define-constant INITIAL_SPEND_PHASE_PERIOD u992) ;; first prepare phase lasts for ~165h 20m
+(define-constant INITIAL_SPEND_PHASE_PERIOD u1092) ;; first prepare phase lasts for ~182h
+
 (define-constant PREPARE_PHASE_PERIOD u144) ;; regular prepare phase lasts for ~24h
-(define-constant SPEND_PHASE_PERIOD u1856) ;; regular spend phase lasts for ~309h 20m
-(define-constant BTC_TX_FEE u40000) ;; how much miner spends on BTC tx fees per block in sats
+(define-constant SPEND_PHASE_PERIOD u1956) ;; regular spend phase lasts for ~326h
+
+(define-constant BTC_TX_FEE u10000) ;; how much miner spends on BTC tx fees per block in sats
 
 (define-data-var currentPhase uint u0)
 (define-data-var latestCycleId uint u0)
