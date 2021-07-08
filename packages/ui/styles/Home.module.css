@@ -1,1 +1,213 @@
+@import url('https://x.syvita.org/fonts/roobert/importme.css');
+@import url('https://x.syvita.org/fonts/inter/importme.css');
 
+.body {
+  width: 100%;
+  height: 100%;
+}
+.svg {
+  background-image: url('../public/homePageTopLeft.svg'),
+    url('../public/homePageTopRight.svg'), url('../public/syvitaHelmet.svg'),
+    url('../public/homePageBottomLeft.svg'),
+    url('../public/homePageBottomRight.svg');
+  background-repeat: no-repeat;
+  background-position: 0% 5%, 100% 10%, 0% 43%, 0% 87%, 100% 82%;
+}
+
+.heading {
+  text-align: center;
+}
+
+.heading h1 {
+  font-family: Roobert;
+  font-weight: 400;
+  font-size: 72px;
+  letter-spacing: -0.02em;
+  margin-top: 308px;
+  margin-bottom: 339px;
+}
+
+.heading h1 span {
+  color: #9146ff;
+}
+
+.custodial {
+  display: flex;
+  width: 1128px;
+  height: 288px;
+  margin-left: 64px;
+  margin-right: 64px;
+  letter-spacing: -0.02em;
+}
+
+.custodial p {
+  font-family: Roobert;
+  font-weight: 400;
+  line-height: 72px;
+  font-size: 64px;
+  letter-spacing: -0.02em;
+}
+
+.subheading1 {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: 128px;
+}
+
+.two {
+  margin-left: 64px;
+  margin-right: 516px;
+  text-align: left;
+}
+
+.two p {
+  font-family: Inter;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.two span {
+  font-style: italic;
+}
+
+.three {
+  margin-left: 50%;
+  margin-right: 64px;
+  text-align: left;
+}
+
+.three h2 {
+  font-family: Roobert;
+  font-size: 64px;
+}
+
+.built {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.strength {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 20px;
+}
+
+.quote {
+  font-size: 32px;
+  font-size: 32px;
+  line-height: 44px;
+  letter-spacing: -2%;
+}
+
+.quoteAuthor {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: uppercase;
+  margin-bottom: 64px;
+}
+
+.banner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  animation: bannermove 40s linear infinite;
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  color: #74777d;
+}
+.banner div {
+}
+
+@keyframes bannermove {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.four {
+  width: 700px;
+  height: 328px;
+  margin-left: 64px;
+}
+
+.nokyc {
+  font-family: Roobert;
+  font-size: 64px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  margin-top: 119px;
+  margin-bottom: 64px;
+  margin-left: 64px;
+}
+
+.private {
+  font-family: Inter;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.wallet {
+  font-family: Roobert;
+  font-size: 32px;
+  line-height: 44px;
+}
+
+.ridiculous {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.securityFeatures {
+  font-family: Roobert;
+  font-size: 24px;
+  line-height: 36px;
+  color: #74777d;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 64px;
+  margin-right: 64px;
+  margin-bottom: 121px;
+}
+
+.getStarted {
+  text-align: center;
+}
+.getStarted p {
+  font-family: Roobert;
+  font-size: 64px;
+  line-height: 72px;
+  letter-spacing: -0.02em;
+}
+
+.joinButton {
+  text-transform: uppercase;
+  width: 400px;
+  height: 48px;
+  margin-bottom: 500px;
+}
