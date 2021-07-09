@@ -10,9 +10,6 @@ const Dashboard = () => {
     }
   }, []);
 
-  if (!userSession.isUserSignedIn()) {
-  }
-
   return (
     <div>
       <h1>Dashboard</h1>
