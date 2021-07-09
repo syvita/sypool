@@ -1,0 +1,27 @@
+tasks:
+  - name: Install packages/miningpool
+    init: |
+      cd packages/miningpool
+      yarn
+  - name: Install packages/ui
+    init: |
+      cd packages/ui
+      yarn
+  - name: Start UI dev server
+    command: |
+      cd packages/ui
+      npm run dev
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: true
+    addBadge: true
