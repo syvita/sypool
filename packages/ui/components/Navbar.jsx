@@ -1,5 +1,5 @@
 import Link from "next/link";
-import JoinSypoolButton from "./JoinSypoolButton";
+import { userSession } from "./Stacks";
 
 const Navbar = () => {
   return (
@@ -21,7 +21,16 @@ const Navbar = () => {
       <Link href="/fees">
         <a>FEES</a>
       </Link>
-      <JoinSypoolButton name="JOIN"/>
+      {!userSession.isUserSignedIn() && (
+        <Link href="/join">
+          <button>Join</button>
+        </Link>
+      )}
+      {userSession.isUserSignedIn() && (
+        <Link href="/dashboard">
+          <button>Go to Dashboard</button>
+        </Link>
+      )}
     </nav>
   );
 };
