@@ -1,10 +1,13 @@
-<img src="https://x.syvita.org/repoheaders/sypool.png"></img>
+[![CodeFactor](https://www.codefactor.io/repository/github/syvita/sypool/badge)](https://www.codefactor.io/repository/github/syvita/sypool) 
+---
 
-[![CodeFactor](https://www.codefactor.io/repository/github/syvita/sypool/badge)](https://www.codefactor.io/repository/github/syvita/sypool)
+<img src="https://x.syvita.org/repoheaders/sypool.png"></img>
 
 **UPDATE:** The grant request for mining hardware to the Stacks Foundation has [been approved.](https://github.com/stacksgov/Stacks-Grants/issues/83)
 
 ---
+
+<a href="https://gitpod.io/#https://github.com/syvita/sypool"><img src="https://gitpod.io/button/open-in-gitpod.svg"/></a>
 
 ## How it works (simply)
 
