@@ -1,4 +1,4 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/syvita/sypool/badge)](https://www.codefactor.io/repository/github/syvita/sypool) 
+[![CodeFactor](https://www.codefactor.io/repository/github/syvita/sypool/badge)](https://www.codefactor.io/repository/github/syvita/sypool) [![Test contracts](https://github.com/syvita/sypool/actions/workflows/main.yml/badge.svg)](https://github.com/syvita/sypool/actions/workflows/main.yml)
 ---
 
 <img src="https://x.syvita.org/repoheaders/sypool.png"></img>
