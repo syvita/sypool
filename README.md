@@ -7,7 +7,7 @@
 
 ---
 
-<a href="https://gitpod.io/#https://github.com/syvita/sypool"><img src="https://gitpod.io/button/open-in-gitpod.svg"/></a>
+<a href="https://gitpod.io/#https://github.com/syvita/sypool"><img src="https://x.syvita.org/open-in-gitpod.png" width="160px"/></a>
 
 ## How it works (simply)
 
