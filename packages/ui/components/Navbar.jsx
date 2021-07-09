@@ -21,7 +21,7 @@ const Navbar = () => {
       <Link href="/fees">
         <a>FEES</a>
       </Link>
-      <JoinSypoolButton />
+      <JoinSypoolButton name="JOIN"/>
     </nav>
   );
 };
