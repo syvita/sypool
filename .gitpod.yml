@@ -1,17 +1,32 @@
 tasks:
-  - name: Install packages/miningpool
+  - name: Algorithm
+    before: |
+      cargo install wrangler
+      gp sync-done wrangler
+    init: |
+      cd packages/algo
+      yarn
+      wrangler build
+
+  - name: Contracts
+    before: |
+      sudo apt-get install build-essential pkg-config libssl-dev
+      git clone git@github.com:hirosystems/clarinet.git
+      cd clarinet
+      cargo install --path . --locked
     init: |
       cd packages/miningpool
       yarn
-  - name: Install packages/ui
+
+  - name: UI
     init: |
       cd packages/ui
       yarn
-  - name: Start UI dev server
+      yarn build
     command: |
       cd packages/ui
       npm run dev
-
+    
 ports:
   - port: 3000
     onOpen: open-preview
