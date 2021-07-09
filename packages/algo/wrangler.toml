@@ -1,7 +1,11 @@
 name = "algo"
 type = "webpack"
 
-account_id = ""
-workers_dev = true
-route = ""
-zone_id = ""
+account_id = "c60e829b3831ea5b11b2398ef68bda23"
+workers_dev = false
+route = "algo.sypool.co/*"
+zone_id = "1b0d6a250ce5f6f8bf3d889be176e959"
+
+kv_namespaces = [
+  { binding = "KV", id = "c3bd980b3c62484e8f9659cfcf3cfc62", preview_id = "fe1ca50a6e2c453991b4b35f05db8a06" },
+]
