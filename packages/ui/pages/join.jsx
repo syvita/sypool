@@ -1,5 +1,7 @@
+import { signIn } from "../components/Stacks";
+
 const Join = () => {
-  return <div>Join</div>;
+  return <button onClick={signIn}>Use Stacks Connect</button>;
 };
 
 export default Join;

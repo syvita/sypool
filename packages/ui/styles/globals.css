@@ -5,8 +5,7 @@ body {
   background: white;
   color: black;
   font-family: roobert;
-  width: 100%;
-  height: 100%;
+  margin: auto;
 }
 a {
   color: #74777d;
@@ -40,6 +39,7 @@ nav .logo a {
 }
 
 button {
+  text-transform: uppercase;
   padding: 14px 24px;
   letter-spacing: 0.1em;
   font-weight: bold;
