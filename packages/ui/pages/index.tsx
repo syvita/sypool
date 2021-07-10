@@ -1,4 +1,6 @@
-import styles from "../styles/Home.module.css";
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
 import Link from "next/link";
 import { userSession } from "../components/Stacks";
 
@@ -108,12 +110,12 @@ export default function Home() {
         <div className={styles.getStarted}>
           <p>Get started</p>
           {!userSession.isUserSignedIn() && (
-            <Link href="/join" passHref={true}>
+            <Link href="/join">
               <button className={styles.joinButton}>Join the Pool</button>
             </Link>
           )}
           {userSession.isUserSignedIn() && (
-            <Link href="/dashboard" passHref={true}>
+            <Link href="/dashboard">
               <button>Go to Dashboard</button>
             </Link>
           )}

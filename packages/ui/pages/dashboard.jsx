@@ -1,3 +1,4 @@
+import { getUserData } from "../components/Stacks";
 import { userSession, signOut } from "../components/Stacks";
 import router from "next/router";
 import { useEffect } from "react";
