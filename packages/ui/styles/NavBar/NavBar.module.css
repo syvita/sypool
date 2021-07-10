@@ -26,15 +26,12 @@
 .Navigation a{
     margin-right: 25px;
     font-weight: bold;
+    color: #74777d;
+    text-decoration: none;
 }
 
 .Navigation div{
     margin-left: auto;
-}
-
-.Navigation a{
-    color: #74777d;
-    text-decoration: none;
 }
 
 /* MOBILE NAVIGATION */
@@ -47,10 +44,7 @@
     .Navigation {
         display: none;
     }
-    .MobileNavigation {
-        display: flex;
-        align-items: center;
-    }
+
     .MobileNavigation .Hamburger{
         position: fixed;
         top: 2.5%;
@@ -69,7 +63,7 @@
 
     .MobileNavigation a {
         text-decoration: none;
-        padding: 20px 0px;
+        padding: 20px;
         display: flex;
         justify-content: center;
         border-bottom: 1px solid #f0f0ff;
