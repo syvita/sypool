@@ -1,0 +1,83 @@
+/* LOGO */
+.Logo {
+    position: absolute;
+    top: 30px;
+    left: 15px;
+}
+
+.Logo:hover {
+    cursor: pointer;
+}
+
+/* NAVIGATION */
+
+.Navigation {
+    font-family: inter;
+    margin: 10px auto 80px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0f0ff;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    width: 95%;
+}
+
+.Navigation a{
+    margin-right: 25px;
+    font-weight: bold;
+    color: #74777d;
+    text-decoration: none;
+}
+
+.Navigation div{
+    margin-left: auto;
+}
+
+/* MOBILE NAVIGATION */
+
+.MobileNavigation {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .Navigation {
+        display: none;
+    }
+
+    .MobileNavigation .Hamburger{
+        position: fixed;
+        top: 2.5%;
+        right: 5%;
+        cursor: pointer;
+    }
+
+    .MobileNavigation{
+        display: flex;
+        position: fixed;
+        flex-direction: column;
+        align-items: flex-end;
+        right: 15px;
+        top: 40px;
+    }
+
+    .MobileNavigation div{
+        text-align: center;
+    }
+
+    .MobileNavigation a {
+        text-decoration: none;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+  
+        letter-spacing: 0.1em;
+        font-size: 14px;
+        font-weight: bold;
+        color: #74777d;
+    }
+
+    .MobileNavigation a:hover {
+        background: rgb(191,171,255,0.5);
+    }
+}
