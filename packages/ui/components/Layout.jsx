@@ -1,9 +1,13 @@
-import NavBar from "./NavBar/NavBar";
+import Navbar from "./Navbar";
+import Head from 'next/head'
 
 const Layout = ({ children }) => {
   return (
     <div>
-      <NavBar />
+      <Head>
+      <script async src="https://arc.io/widget.min.js#3rsnfHXA"></script>
+    </Head>
+      <Navbar />
       {children}
     </div>
   );
