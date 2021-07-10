@@ -108,12 +108,12 @@ export default function Home() {
         <div className={styles.getStarted}>
           <p>Get started</p>
           {!userSession.isUserSignedIn() && (
-            <Link href="/join">
+            <Link href="/join" passHref={true}>
               <button className={styles.joinButton}>Join the Pool</button>
             </Link>
           )}
           {userSession.isUserSignedIn() && (
-            <Link href="/dashboard">
+            <Link href="/dashboard" passHref={true}>
               <button>Go to Dashboard</button>
             </Link>
           )}

@@ -61,12 +61,16 @@
         top: 40px;
     }
 
+    .MobileNavigation div{
+        text-align: center;
+    }
+
     .MobileNavigation a {
         text-decoration: none;
         padding: 20px;
         display: flex;
         justify-content: center;
-        border-bottom: 1px solid #f0f0ff;
+  
         letter-spacing: 0.1em;
         font-size: 14px;
         font-weight: bold;

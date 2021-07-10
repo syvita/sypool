@@ -19,14 +19,14 @@ const NavLinks = (props) => {
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>FEES</a>
       </Link>
       {!userSession.isUserSignedIn() && (
-        <Link href="/join">
+        <Link href="/join" passHref={true}>
           <button onClick={() => props.isMobile && props.closeMobileMenu()}>
             Join
           </button>
         </Link>
       )}
       {userSession.isUserSignedIn() && (
-        <Link href="/dashboard">
+        <Link href="/dashboard" passHref={true}>
           <button onClick={() => props.isMobile && props.closeMobileMenu()}>
             Go to Dashboard
           </button>
