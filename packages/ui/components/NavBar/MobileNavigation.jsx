@@ -1,28 +1,26 @@
 import NavLinks from "./NavLinks";
 import styles from "../../styles/NavBar/NavBar.module.css";
 import { useState } from "react";
-import Image from "next/image";
+
 
 const MobileNavigation = () => {
   const [open, setOpen] = useState(false);
   const hamburgerIcon = (
-    <Image
+    <img
       src="/hamburger.svg"
       width="30px"
       height="30px"
       onClick={() => setOpen(!open)}
       alt="Hamburger Icon"
-      unoptimized={true}
     />
   );
   const closeIcon = (
-    <Image
+    <img
       src="/close.svg"
       width="30px"
       height="30px"
       onClick={() => setOpen(!open)}
       alt="Close Icon"
-      unoptimized={true}
     />
   );
   const closeMobileMenu = () => setOpen(false);
