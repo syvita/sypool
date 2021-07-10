@@ -12,6 +12,7 @@ const MobileNavigation = () => {
       height="30px"
       onClick={() => setOpen(!open)}
       alt="Hamburger Icon"
+      unoptimized={true}
     />
   );
   const closeIcon = (
@@ -21,6 +22,7 @@ const MobileNavigation = () => {
       height="30px"
       onClick={() => setOpen(!open)}
       alt="Close Icon"
+      unoptimized={true}
     />
   );
   const closeMobileMenu = () => setOpen(false);

@@ -14,6 +14,7 @@ const NavBar = () => {
             width="60px"
             height="20px"
             alt="Sypool Name SVG"
+            unoptimized={true}
           />
         </Link>
       </div>
