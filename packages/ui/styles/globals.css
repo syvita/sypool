@@ -7,36 +7,6 @@ body {
   font-family: roobert;
   margin: auto;
 }
-a {
-  color: #74777d;
-  text-decoration: none;
-}
-nav {
-  font-family: inter;
-  margin: 10px auto 80px;
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #f0f0ff;
-  letter-spacing: 0.1em;
-  font-size: 14px;
-  width: 95%;
-}
-nav a {
-  margin-right: 25px;
-  font-weight: bold;
-}
-nav .logo {
-  margin-right: auto;
-  color: black;
-}
-nav .logo a {
-  font-size: 20px;
-  margin-right: auto;
-  letter-spacing: normal;
-  font-weight: normal;
-  color: black;
-}
 
 button {
   text-transform: uppercase;
@@ -54,3 +24,5 @@ button:hover {
   background: rgba(145, 70, 255, 0.8);
   cursor: pointer;
 }
+
+
