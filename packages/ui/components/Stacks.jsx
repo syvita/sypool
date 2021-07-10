@@ -1,6 +1,5 @@
 import { AppConfig, UserSession, showConnect } from '@stacks/connect';
-import router from 'next/router';
-import Image from "next/image";
+import router from "next/router";
 
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 

@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { useEffect } from "react";
-import styles from "../../styles/NavBar/NavBar.module.css";
 import { userSession } from "../Stacks";
 
 const NavLinks = (props) => {
