@@ -9,7 +9,7 @@ export function signIn() {
   showConnect({
     appDetails: {
       name: "Sypool",
-      icon: "/sypoolLogo.png",
+      icon: "https://x.syvita.org/sypool.png",
     },
     onFinish: () => {
       router.push("/dashboard");
