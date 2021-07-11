@@ -1,0 +1,51 @@
+.footer {
+  margin-top: 165px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.logo {
+  margin-left: 63px;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.syvita {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.syvita a {
+  color: #000000;
+}
+.syvita a:hover {
+  color: #9146ff;
+}
+
+.links {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1em;
+}
+
+.links a {
+  margin: 0px 24px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: #9146ff;
+}
