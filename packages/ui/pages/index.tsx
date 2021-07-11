@@ -4,7 +4,7 @@ import { userSession } from "../components/Stacks";
 
 export default function Home() {
   return (
-    <main className={styles.body}>
+    <main>
       <div className={styles.svg}>
         <div className={styles.heading}>
           <h1 className={styles.h1}>
