@@ -11,7 +11,7 @@
     url('../public/homePageBottomLeft.svg'),
     url('../public/homePageBottomRight.svg');
   background-repeat: no-repeat;
-  background-position: 0% 5%, 100% 10%, 0% 43%, 0% 87%, 100% 82%;
+  background-position: 0% 5%, 100% 10%, 0% 43%, 0% 100%, 100% 100%;
 }
 
 .heading {
@@ -118,10 +118,9 @@
 }
 
 .banner {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  animation: bannermove 40s linear infinite;
+  /* margin: 0 auto;
+  white-space: nowrap;
+  animation: bannermove 10s linear infinite;
   font-family: Roobert;
   font-style: normal;
   font-weight: normal;
@@ -129,10 +128,36 @@
   line-height: 36px;
   letter-spacing: -0.01em;
   color: #74777d;
-}
-.banner div {
+  overflow: hidden; */
+
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
+.banner span {
+  display: inline-block;
+  padding-left: 100%;
+  word-spacing: 150px;
+  animation: bannermove 10s linear infinite;
+}
+
+@keyframes bannermove {
+  100% {
+    transform: translate(0%);
+  }
+  0% {
+    transform: translate(-100%);
+  }
+}
+
+/* 
 @keyframes bannermove {
   0% {
     transform: translateX(-100%);
@@ -140,7 +165,7 @@
   100% {
     transform: translateX(100%);
   }
-}
+} */
 
 .four {
   width: 700px;
@@ -209,4 +234,5 @@
   text-transform: uppercase;
   width: 400px;
   height: 48px;
+  margin-bottom: 165px;
 }

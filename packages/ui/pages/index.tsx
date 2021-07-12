@@ -1,6 +1,6 @@
-import styles from "../styles/Home.module.css";
-import Link from "next/link";
-import { userSession } from "../components/Stacks";
+import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import { userSession } from '../components/Stacks';
 
 export default function Home() {
   return (
@@ -58,17 +58,10 @@ export default function Home() {
         </div>
 
         <div className={styles.banner}>
-          <div>Syphre</div>
-          <div>MiamiPool</div>
-          <div>ApexOS</div>
-          <div>Bithority</div>
-          <div>Lightlane</div>
-          <div>Scramblr</div>
-          <div>Hub</div>
-          <div>daoOS</div>
-          <div>Nothing token</div>
-          <div>Metaverse</div>
-          <div>Sypool</div>
+          <span>
+            Syphre MiamiPool ApexOS Bithority Lightlane Scramblr Hub daoOS
+            Nothing token Metaverse Sypool
+          </span>
         </div>
 
         <h2 className={styles.nokyc}>No KYC, no AML, no bullsh!t</h2>

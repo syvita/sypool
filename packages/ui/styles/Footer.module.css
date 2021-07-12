@@ -1,11 +1,14 @@
 .footer {
-  margin-top: 165px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
   margin-left: 63px;
+  flex: auto;
 }
 
 .logo:hover {
@@ -13,6 +16,8 @@
 }
 
 .syvita {
+  margin-left: 75px;
+  margin-right: 205px;
   font-family: Roobert;
   font-style: normal;
   font-weight: normal;
@@ -30,6 +35,8 @@
 }
 
 .links {
+  flex: auto;
+  margin-right: 5px;
   font-family: Inter;
   font-style: normal;
   font-weight: bold;
@@ -41,11 +48,34 @@
 }
 
 .links a {
-  margin: 0px 24px;
+  padding: 0px 24px;
   color: #000000;
   text-decoration: none;
 }
 
 .links a:hover {
   color: #9146ff;
+}
+
+@media (max-width: 1172px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    margin-left: 0;
+    margin-bottom: 30px;
+  }
+
+  .links {
+    margin: 0;
+  }
+
+  .syvita {
+    order: 3;
+    margin: 0;
+  }
 }
