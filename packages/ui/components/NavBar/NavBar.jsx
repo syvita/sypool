@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const NavBar = () => {
   return (
-    <div className={styles.NavBar}>
+    <div>
       <div className={styles.Logo}>
         <Link href="/" passHref={true}>
           <img

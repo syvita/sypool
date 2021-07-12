@@ -1,7 +1,7 @@
 /* LOGO */
 .Logo {
     position: absolute;
-    top: 25px;
+    top: 27px;
     left: 15px;
 }
 
@@ -9,23 +9,16 @@
     cursor: pointer;
 }
 
-/* NAVBAR */
-.NavBar {
-    border-bottom: 1px solid #f0f0ff;
-    height: 65px
-}
-
 /* DEKSTOP NAVIGATION */
 
 .Navigation {
     font-family: inter;
-    margin: 10px auto 80px;
-    padding: 10px 0;
+    padding: 15px;
     display: flex;
-    align-items: center;
     letter-spacing: 0.1em;
     font-size: 14px;
     width: 95%;
+    border-bottom: 1px solid #f0f0ff;
 }
 
 .Navigation a{
