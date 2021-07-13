@@ -1,7 +1,7 @@
 /* LOGO */
 .Logo {
     position: absolute;
-    top: 25px;
+    top: 27px;
     left: 15px;
 }
 
@@ -9,23 +9,16 @@
     cursor: pointer;
 }
 
-/* NAVBAR */
-.NavBar {
-    border-bottom: 1px solid #f0f0ff;
-    height: 65px
-}
-
 /* DEKSTOP NAVIGATION */
 
 .Navigation {
     font-family: inter;
-    margin: 10px auto 80px;
-    padding: 10px 0;
+    padding: 15px;
     display: flex;
-    align-items: center;
     letter-spacing: 0.1em;
     font-size: 14px;
     width: 95%;
+    border-bottom: 1px solid #f0f0ff;
 }
 
 .Navigation a{
@@ -35,8 +28,17 @@
     text-decoration: none;
 }
 
+.Navigation a:hover{
+    color: #303236;
+}
+
 .Navigation div{
     margin-left: auto;
+}
+
+.Navigation button {
+    width: auto;
+    display: inline-block;
 }
 
 .Hamburger{
@@ -62,7 +64,7 @@
     .Hamburger{
         display:flex;
         position:absolute;
-        top: 3%;
+        top: 2.5%;
         right: 5%;
         cursor: pointer;
     }

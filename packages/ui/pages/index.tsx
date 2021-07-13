@@ -114,7 +114,7 @@ export default function Home() {
           )}
           {userSession.isUserSignedIn() && (
             <Link href="/dashboard" passHref={true}>
-              <button>Go to Dashboard</button>
+              <button className={styles.joinButton}>Go to Dashboard</button>
             </Link>
           )}
         </div>
