@@ -4,7 +4,7 @@ import { userSession } from '../components/Stacks';
 
 export default function Home() {
   return (
-    <main className={styles.body}>
+    <main>
       <div className={styles.svg}>
         <div className={styles.heading}>
           <h1 className={styles.h1}>
@@ -107,7 +107,7 @@ export default function Home() {
           )}
           {userSession.isUserSignedIn() && (
             <Link href="/dashboard" passHref={true}>
-              <button>Go to Dashboard</button>
+              <button className={styles.joinButton}>Go to Dashboard</button>
             </Link>
           )}
         </div>

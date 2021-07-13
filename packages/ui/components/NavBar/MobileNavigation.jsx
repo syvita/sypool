@@ -7,18 +7,18 @@ const MobileNavigation = () => {
   const [open, setOpen] = useState(false);
   const hamburgerIcon = (
     <img
-      src="/hamburger.svg"
-      width="30px"
-      height="30px"
+      src="/nav-arrow.svg"
+      width="25px"
+      height="25px"
       onClick={() => setOpen(!open)}
-      alt="Hamburger Icon"
+      alt="Nav Arrow Icon"
     />
   );
   const closeIcon = (
     <img
       src="/close.svg"
-      width="30px"
-      height="30px"
+      width="25px"
+      height="25px"
       onClick={() => setOpen(!open)}
       alt="Close Icon"
     />
@@ -26,10 +26,12 @@ const MobileNavigation = () => {
   const closeMobileMenu = () => setOpen(false);
 
   return (
-    <nav className={styles.MobileNavigation}>
+    <div>
       <div className={styles.Hamburger}>{open ? closeIcon : hamburgerIcon}</div>
-      {open && <NavLinks isMobile={true} closeMobileMenu={closeMobileMenu}/>}
-    </nav>
+      <nav className={styles.MobileNavigation}>
+        {open && <NavLinks isMobile={true} closeMobileMenu={closeMobileMenu} />}
+      </nav>
+    </div>
   );
 };
 

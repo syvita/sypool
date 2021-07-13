@@ -1,7 +1,7 @@
 /* LOGO */
 .Logo {
     position: absolute;
-    top: 30px;
+    top: 27px;
     left: 15px;
 }
 
@@ -9,18 +9,16 @@
     cursor: pointer;
 }
 
-/* NAVIGATION */
+/* DEKSTOP NAVIGATION */
 
 .Navigation {
     font-family: inter;
-    margin: 10px auto 80px;
-    padding: 10px 0;
+    padding: 15px;
     display: flex;
-    align-items: center;
-    border-bottom: 1px solid #f0f0ff;
     letter-spacing: 0.1em;
     font-size: 14px;
     width: 95%;
+    border-bottom: 1px solid #f0f0ff;
 }
 
 .Navigation a{
@@ -30,8 +28,21 @@
     text-decoration: none;
 }
 
+.Navigation a:hover{
+    color: #303236;
+}
+
 .Navigation div{
     margin-left: auto;
+}
+
+.Navigation button {
+    width: auto;
+    display: inline-block;
+}
+
+.Hamburger{
+    display: none;
 }
 
 /* MOBILE NAVIGATION */
@@ -41,12 +52,18 @@
 }
 
 @media (max-width: 700px) {
+    .Logo {
+        transform: scale(1.5);
+        left: 40px;
+    }
+
     .Navigation {
         display: none;
     }
 
-    .MobileNavigation .Hamburger{
-        position: fixed;
+    .Hamburger{
+        display:flex;
+        position:absolute;
         top: 2.5%;
         right: 5%;
         cursor: pointer;
@@ -54,30 +71,67 @@
 
     .MobileNavigation{
         display: flex;
-        position: fixed;
+        position: absolute;
         flex-direction: column;
-        align-items: flex-end;
         right: 15px;
-        top: 40px;
+        top: 65px;
     }
 
     .MobileNavigation div{
         text-align: center;
+        background: white;
+        width: 90vw;
+        height: 100vh;
+        border-radius: 16px;
     }
 
+    /* LINKS */
+
     .MobileNavigation a {
+        font-family: inter;
         text-decoration: none;
+        box-sizing: border-box;
         padding: 20px;
+        height: 70px;
         display: flex;
-        justify-content: center;
-  
+        background: #F5F5F7;
         letter-spacing: 0.1em;
-        font-size: 14px;
+        font-size: 18px;
         font-weight: bold;
-        color: #74777d;
+        color: black;
+        margin-top: 17px;
+        margin-left: 21px;
+        border-radius: 16px;
+        width: 90%;
+        align-items: center;
+    }
+
+    .MobileNavigation a:nth-child(1) {
+        border-right: 8px solid #FEEE85;
+        flex-direction: row;
+        align-items: center;
+    }
+    .MobileNavigation a:nth-child(2) {
+        border-right: 8px solid #FAB4FF;
+    }
+    .MobileNavigation a:nth-child(3) {
+        border-right: 8px solid #BEFAE1;
+    }
+    .MobileNavigation a:nth-child(4) {
+        border-right: 8px solid #57BEE6;
+    }
+    .MobileNavigation a img {
+        margin-right: 15px;
     }
 
     .MobileNavigation a:hover {
-        background: rgb(191,171,255,0.5);
+        background: #EFEFEF
+    }
+
+    .MobileNavigation button {
+        position: relative;
+        top: 25%;
+        width: 90%;
+        height: 50px;
     }
 }

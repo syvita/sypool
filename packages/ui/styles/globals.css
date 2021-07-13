@@ -10,13 +10,14 @@ body {
 
 button {
   text-transform: uppercase;
-  padding: 14px 24px;
+  padding: 14px 26px;
   letter-spacing: 0.1em;
   font-weight: bold;
   color: white;
   background: #9146ff;
   border-radius: 10px;
-  width: 90px;
+  width: auto;
+  display: inline-block;
   border: none;
 }
 
@@ -24,5 +25,4 @@ button:hover {
   background: rgba(145, 70, 255, 0.8);
   cursor: pointer;
 }
-
 
