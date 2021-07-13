@@ -1,12 +1,10 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { userSession } from "../components/Stacks";
 
 export default function Home() {
   return (
-    <main className={styles.body}>
+    <main>
       <div className={styles.svg}>
         <div className={styles.heading}>
           <h1 className={styles.h1}>
@@ -110,13 +108,13 @@ export default function Home() {
         <div className={styles.getStarted}>
           <p>Get started</p>
           {!userSession.isUserSignedIn() && (
-            <Link href="/join">
+            <Link href="/join" passHref={true}>
               <button className={styles.joinButton}>Join the Pool</button>
             </Link>
           )}
           {userSession.isUserSignedIn() && (
-            <Link href="/dashboard">
-              <button>Go to Dashboard</button>
+            <Link href="/dashboard" passHref={true}>
+              <button className={styles.joinButton}>Go to Dashboard</button>
             </Link>
           )}
         </div>
