@@ -11,7 +11,7 @@
     url('../public/homePageBottomLeft.svg'),
     url('../public/homePageBottomRight.svg');
   background-repeat: no-repeat;
-  background-position: 0% 5%, 100% 10%, 0% 43%, 0% 100%, 100% 100%;
+  background-position: 0% 5%, 100% 10%, 0% 45%, 0% 100%, 100% 100%;
 }
 
 .heading {
@@ -33,10 +33,9 @@
 
 .custodial {
   display: flex;
-  width: 1128px;
-  height: 288px;
-  margin-left: 64px;
-  margin-right: 64px;
+  width: 60%;
+  margin-left: 3%;
+  margin-right: 3%;
   letter-spacing: -0.02em;
 }
 
@@ -53,12 +52,12 @@
   font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
-  margin-top: 128px;
+  margin-top: 65px;
 }
 
 .two {
-  margin-left: 64px;
-  margin-right: 516px;
+  margin-left: 3%;
+  width: 70%;
   text-align: left;
 }
 
@@ -73,8 +72,8 @@
 }
 
 .three {
-  margin-left: 50%;
-  margin-right: 64px;
+  margin-left: 30%;
+  margin-right: 3%;
   text-align: left;
 }
 
@@ -146,8 +145,8 @@
 }
 
 .four {
-  width: 700px;
-  height: 328px;
+  width: 40%;
+
   margin-left: 64px;
 }
 
@@ -158,7 +157,7 @@
   letter-spacing: -2%;
   margin-top: 119px;
   margin-bottom: 64px;
-  margin-left: 64px;
+  margin-left: 3%;
 }
 
 .private {
@@ -183,6 +182,7 @@
   line-height: 36px;
   letter-spacing: -0.01em;
   text-align: center;
+  margin-top: 64px;
 }
 
 .securityFeatures {
@@ -193,8 +193,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-left: 64px;
-  margin-right: 64px;
+  margin-left: 3%;
+  margin-right: 3%;
   margin-bottom: 121px;
 }
 
@@ -210,7 +210,44 @@
 
 .joinButton {
   text-transform: uppercase;
-  width: 400px;
-  height: 48px;
+  width: 27%;
+  height: 13%;
   margin-bottom: 165px;
+}
+
+@media (max-width: 1210px) {
+  .custodial {
+    display: flex;
+    width: 70%;
+    margin-left: 15px;
+    margin-right: 5px;
+    letter-spacing: -0.02em;
+  }
+
+  .custodial p {
+    font-family: Roobert;
+    font-weight: 400;
+    line-height: 72px;
+    font-size: 50px;
+    letter-spacing: -0.02em;
+  }
+
+  .four {
+    width: 60%;
+    margin-left: 64px;
+  }
+
+  .securityFeatures {
+    font-family: Roobert;
+    font-size: 24px;
+    line-height: 36px;
+    color: #74777d;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 65px;
+  }
 }
