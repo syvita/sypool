@@ -58,10 +58,54 @@ export default function Home() {
         </div>
 
         <div className={styles.banner}>
-          <span>
-            Syphre MiamiPool ApexOS Bithority Lightlane Scramblr Hub daoOS
-            Nothing token Metaverse Sypool
-          </span>
+          <div className={styles.bannerone}>
+            <span>Syphre</span>
+            <span>MiamiPool</span>
+            <span>ApexOS</span>
+            <span>Bithority</span>
+            <span>Lightlane</span>
+            <span>Scramblr</span>
+            <span>Hub</span> <span>daoOS</span>
+            <span>Nothing token</span>
+            <span>Metaverse</span>
+            <span>Sypool</span>&nbsp;&nbsp;&nbsp;
+          </div>
+          <div className={styles.bannertwo}>
+            <span>Syphre</span>
+            <span>MiamiPool</span>
+            <span>ApexOS</span>
+            <span>Bithority</span>
+            <span>Lightlane</span>
+            <span>Scramblr</span>
+            <span>Hub</span> <span>daoOS</span>
+            <span>Nothing token</span>
+            <span>Metaverse</span>
+            <span>Sypool</span>&nbsp;&nbsp;&nbsp;
+          </div>
+          <div className={styles.bannerthree}>
+            <span>Syphre</span>
+            <span>MiamiPool</span>
+            <span>ApexOS</span>
+            <span>Bithority</span>
+            <span>Lightlane</span>
+            <span>Scramblr</span>
+            <span>Hub</span> <span>daoOS</span>
+            <span>Nothing token</span>
+            <span>Metaverse</span>
+            <span>Sypool</span>&nbsp;&nbsp;&nbsp;
+          </div>
+          <div className={styles.bannerfour}>
+            <span>Syphre</span>
+            <span>MiamiPool</span>
+            <span>ApexOS</span>
+            <span>Bithority</span>
+            <span>Lightlane</span>
+            <span>Scramblr</span>
+            <span>Hub</span> <span>daoOS</span>
+            <span>Nothing token</span>
+            <span>Metaverse</span>
+            <span>Sypool</span>&nbsp;&nbsp;&nbsp;
+          </div>
         </div>
 
         <h2 className={styles.nokyc}>No KYC, no AML, no bullsh!t</h2>
