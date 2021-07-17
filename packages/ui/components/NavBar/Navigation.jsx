@@ -1,5 +1,5 @@
 import NavLinks from "./NavLinks";
-import styles from "../../styles/NavBar/NavBar.module.css";
+import styles from "../../styles/NavBar.module.css";
 
 const Navigation = () => {
   return (

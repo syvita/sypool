@@ -1,4 +1,4 @@
-import styles from "../../styles/NavBar/NavBar.module.css";
+import styles from "../../styles/NavBar.module.css";
 import Navigation from "./Navigation";
 import MobileNavigation from "./MobileNavigation";
 import Link from "next/link";
@@ -13,7 +13,6 @@ const NavBar = () => {
             width="60px"
             height="20px"
             alt="Sypool Name SVG"
-            unoptimized={true}
           />
         </Link>
       </div>

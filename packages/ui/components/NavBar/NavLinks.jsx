@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { userSession } from "../Stacks";
-import styles from "../../styles/NavBar/NavBar.module.css";
 
 const NavLinks = (props) => {
   return (
