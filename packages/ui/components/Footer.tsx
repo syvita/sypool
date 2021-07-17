@@ -1,10 +1,13 @@
-import styles from '../styles/Footer.module.css';
-import Link from 'next/link';
+import styles from "../styles/Footer.module.css";
+import Link from "next/link";
 import DarkModeSwitch from "./DarkModeSwitch";
+import { useContext } from "react";
+import { ThemeContext } from "./Layout";
 
 export default function Footer() {
+  const { theme } = useContext(ThemeContext);
   return (
-    <footer>
+    <footer className={theme === "light" ? styles.light : styles.dark}>
       <div className={styles.footer}>
         <div className={styles.logo}>
           <Link href="/" passHref={true}>

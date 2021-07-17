@@ -2,10 +2,13 @@ import styles from "../../styles/NavBar.module.css";
 import Navigation from "./Navigation";
 import MobileNavigation from "./MobileNavigation";
 import Link from "next/link";
+import { useContext } from "react";
+import { ThemeContext } from "../Layout";
 
 const NavBar = () => {
+  const { theme } = useContext(ThemeContext);
   return (
-    <div>
+    <div className={theme === "light" ? styles.light : styles.dark}>
       <div className={styles.Logo}>
         <Link href="/" passHref={true}>
           <img

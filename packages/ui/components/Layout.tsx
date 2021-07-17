@@ -1,9 +1,11 @@
-import NavBar from './NavBar/NavBar';
-import Footer from './Footer';
-import styles from "../styles/Theme.module.css";
+import NavBar from "./NavBar/NavBar";
+import Footer from "./Footer";
+import styles from "../styles/Layout.module.css";
 import { useState, createContext } from "react";
 
-export const ThemeContext = createContext({});
+export const ThemeContext = createContext(
+  {} as { theme: string; setTheme: any }
+);
 
 const Layout = ({ children }) => {
   const [theme, setTheme] = useState("light");
