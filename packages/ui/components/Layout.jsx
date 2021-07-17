@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className={theme === "light" ? styles.light : styles.dark}>
+      <div>
         <NavBar />
         {children}
         <Footer />
