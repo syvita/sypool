@@ -1,23 +1,10 @@
 @import url('https://x.syvita.org/fonts/roobert/importme.css');
 @import url('https://x.syvita.org/fonts/inter/importme.css');
 
-.body {
-  width: 100%;
-  height: 100%;
-}
-.svg {
-  background-image: url('../public/homePageTopLeft.svg'),
-    url('../public/homePageTopRight.svg'), url('../public/syvitaHelmet.svg'),
-    url('../public/homePageBottomLeft.svg'),
-    url('../public/homePageBottomRight.svg');
-  background-repeat: no-repeat;
-  background-position: 0% 5%, 100% 10%, 0% 45%, 0% 100%, 100% 100%;
-}
-
+/* COMMON */
 .heading {
   text-align: center;
 }
-
 .heading h1 {
   font-family: Roobert;
   font-weight: 400;
@@ -26,11 +13,9 @@
   margin-top: 308px;
   margin-bottom: 339px;
 }
-
 .heading h1 span {
   color: #9146ff;
 }
-
 .custodial {
   display: flex;
   width: 60%;
@@ -127,6 +112,7 @@
   line-height: 36px;
   width: 100%;
 }
+
 
 .banner .bannerone {
   animation: bannermove 40s linear infinite;
@@ -261,7 +247,6 @@
     width: 60%;
     margin-left: 64px;
   }
-
   .securityFeatures {
     font-family: Roobert;
     font-size: 24px;
@@ -275,4 +260,33 @@
     margin-right: 3%;
     margin-bottom: 65px;
   }
+}
+
+/* LIGHT MODE */
+
+.light {
+  background: white;
+  color: black;
+  transition: 0.5s;
+}
+.light .svg {
+  background-image: url('../public/homePageTopLeft.svg'),
+    url('../public/homePageTopRight.svg'), url('../public/syvitaHelmet.svg'),
+    url('../public/homePageBottomLeft.svg'),
+    url('../public/homePageBottomRight.svg');
+  background-repeat: no-repeat;
+  background-position: 0% 5%, 100% 10%, 0% 45%, 0% 100%, 100% 100%;
+}
+
+/* DARK MODE */
+
+.dark {
+  background: black;
+  color: white;
+  transition: 0.5s;
+}
+.dark .svg {
+  background-image: url('../public/syvitaHelmet.svg');
+  background-repeat: no-repeat;
+  background-position: 0% 45%;
 }

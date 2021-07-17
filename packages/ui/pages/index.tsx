@@ -1,10 +1,13 @@
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import { userSession } from '../components/Stacks';
+import { useContext } from "react";
+import { ThemeContext } from "../components/Layout";
 
 export default function Home() {
+  const { theme } = useContext(ThemeContext);
   return (
-    <main>
+    <main className={theme === "light" ? styles.light : styles.dark}>
       <div className={styles.svg}>
         <div className={styles.heading}>
           <h1 className={styles.h1}>
