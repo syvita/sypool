@@ -7,7 +7,12 @@ const NavLinks = (props) => {
       <Link href="/cycles">
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
-            <img src="/LinkImages/cycles.svg" height="18px" width="18px" />
+            <img
+              src="/LinkImages/cycles.svg"
+              height="18px"
+              width="18px"
+              alt="Cycles"
+            />
           )}
           CYCLES
         </a>
@@ -15,7 +20,12 @@ const NavLinks = (props) => {
       <Link href="/docs">
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
-            <img src="/LinkImages/docs.svg" height="18px" width="18px" />
+            <img
+              src="/LinkImages/docs.svg"
+              height="18px"
+              width="18px"
+              alt="Docs"
+            />
           )}
           DOCS
         </a>
@@ -23,7 +33,12 @@ const NavLinks = (props) => {
       <Link href="/security">
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
-            <img src="/LinkImages/security.svg" height="18px" width="18px" />
+            <img
+              src="/LinkImages/security.svg"
+              height="18px"
+              width="18px"
+              alt="Security"
+            />
           )}
           SECURITY
         </a>
@@ -31,7 +46,12 @@ const NavLinks = (props) => {
       <Link href="/fees">
         <a onClick={() => props.isMobile && props.closeMobileMenu()}>
           {props.isMobile && (
-            <img src="/LinkImages/fees.svg" height="18px" width="18px" />
+            <img
+              src="/LinkImages/fees.svg"
+              height="18px"
+              width="18px"
+              alt="Fees"
+            />
           )}
           FEES
         </a>
