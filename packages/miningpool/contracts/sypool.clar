@@ -1,19 +1,4 @@
-;; created by Asteria for the Syvita mining pool (https://sypool.syvita.org)
-;;                                               (ll://sypool)
-
-;; Sypool ($SYPL) engine
-
-;; this token is the primary token of the pool
-;; it manages native Bitcoin contributions to the pool that will be used to mine
-;; SYPL token holders are allocated 95% of profits
-
-;; during redemption of rewards:
-;;    if the user has made a profit, they theoretically get 100% worth of what they put in
-;;    and 95% of the profit they made on top. 5% is taken as a fee which is split 4:1 to Asteria's
-;;    known address (SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66) and the configured collateral engine (if active)
-;;
-;;    if the user made a loss, they get their percentage back, and no profits (obv). the pool
-;;    doesn't take fees on losses.
+;; created by Asteria for the Syvita mining pool (https://sypool.co)
 
 ;; error codes
 
@@ -29,67 +14,37 @@
 (define-constant ERR_COULD_NOT_GET_TX_OUTS u10)
 (define-constant ERR_COULD_NOT_GET_TX_SENDER u11)
 
-(define-constant POOL_STX_ADDRESS 'SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66)
+(define-constant FEE_PRINCIPLE 'SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66)
 (define-constant POOL_BTC_ADDRESS 0x123456)
-(define-constant POOL_BTC_ADDRESS_AS_SCRIPT_PUB_KEY (concat (concat 0xa914 POOL_BTC_ADDRESS) 0x87)))
+(define-constant POOL_BTC_SCRIPT_PUB_KEY (concat (concat 0xa914 POOL_BTC_ADDRESS) 0x87))
+
 (define-data-var collateralEngine principal 'SP000000000000000000002Q6VF78)
 (define-data-var hasCollateralEngineBeenSet bool false)
-
-(define-fungible-token SYPL)
-;; the token implements the SIP-010 standard
-;; (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-10-ft-standard.ft-trait')
-
-;; get the token balance of owner
-(define-read-only (balance-of (owner principal))
-  (begin
-    (ok (ft-get-balance SYPL owner))))
-
-;; returns the total number of tokens
-(define-read-only (total-supply)
-  (ok (ft-get-supply SYPL)))
-
-;; returns the token name
-(define-read-only (name)
-  (ok "Sypool"))
-
-;; the symbol or "ticker" for this token
-(define-read-only (symbol)
-  (ok "SYPL"))
-
-;; the number of decimals used
-(define-read-only (decimals)
-  (ok u0))
-
-;; Transfers tokens to a recipient
-(define-public (transfer (amount uint) (sender principal) (recipient principal))
-  (if (is-eq tx-sender sender)
-    (ft-transfer? SYPL amount sender recipient)
-    (err u4)))
-
-(define-read-only (get-token-uri) 
-    (ok "https://x.syvita.org/ft/SYPL.json"))
 
 ;; maps
 
 (define-map HashMap {hash: (buff 32)} {tx-sender: principal})
 (define-map Contributions {address: principal} {committed-at-block: uint})
-(define-map SeenBTCTxs {txId: (buff 32)} {revealed: bool})
+(define-map BTCTxs {txId: (buff 32)} {revealed: bool})
 
 ;; cycle functionality
 
 (define-constant PREPARE_PHASE_CODE u1)
 (define-constant SPEND_PHASE_CODE u2)
 
-(define-constant INITIAL_PREPARE_PHASE_PERIOD u1008) ;; first prepare phase lasts for ~168h
-(define-constant INITIAL_SPEND_PHASE_PERIOD u992) ;; first prepare phase lasts for ~165h 20m
-(define-constant PREPARE_PHASE_PERIOD u144) ;; regular prepare phase lasts for ~24h
-(define-constant SPEND_PHASE_PERIOD u1856) ;; regular spend phase lasts for ~309h 20m
-(define-constant BTC_TX_FEE u40000) ;; how much miner spends on BTC tx fees per block in sats
+(define-constant INITIAL_PREPARE_PHASE_PERIOD u1050)
+(define-constant INITIAL_SPEND_PHASE_PERIOD u1050)
+
+(define-constant PREPARE_PHASE_PERIOD u150)
+(define-constant SPEND_PHASE_PERIOD u1950)
+
+(define-constant BTC_TX_FEE u10000) ;; how much miner spends on BTC tx fees per block in sats
 
 (define-data-var currentPhase uint u0)
 (define-data-var latestCycleId uint u0)
+(define-data-var cycleParticipants (optional list) none)
 
-(define-map Cycles ;; should be used for previous cycles, not current
+(define-map Cycles ;; stores previous cycles
     { id: uint } 
     { 
         totalParticipants: uint,
@@ -101,7 +56,6 @@
 
 (define-public (start-prepare-phase)
     (begin
-
         ;; TODO: make sure prepare phase is triggered on a correct block
 
         (var-set latestCycleId (+ (var-get latestCycleId) u1))
@@ -191,8 +145,7 @@
     ))
 )
 
-(define-private (get-caller-profits) ;; returns the profit in STX of the contract-caller
-    ;; profit = caller rewards - initial cost
+(define-private (get-caller-profits) ;; in microstacks
     (ok 
         (- (get-caller-rewards) (/ (ft-get-balance SYPL contract-caller) (get-stx-price-in-sats)))    
     )
@@ -218,7 +171,7 @@
 (define-public (register-collateral-engine (enginePrincipal principal))
     (if (not (var-get hasCollateralEngineBeenSet))
         (if 
-            (is-eq contract-caller POOL_STX_ADDRESS)
+            (is-eq contract-caller FEE_PRINCIPLE)
             (begin
                 (var-set collateralEngine enginePrincipal)
                 (var-set hasCollateralEngineBeenSet true)
@@ -238,9 +191,6 @@
 ;; verifies that the contribution indeed happened, the secret provided hashes 
 ;; to a stacks address for rewards and that the contribution was to the pool
 
-;; Sypool tokens are minted 1:1 to sats contributed to the pool btc address. 
-;; rewards are calculated based on the proportion of sats user has contributed overall
-
 (define-public (reveal-hash (btcBlock { header: (buff 80), height: uint }) (rawTx (buff 1024)) (merkleProof { tx-index: uint, hashes: (list 12 (buff 32)), tree-depth: uint }) (secret (buff 32)))
     (if 
         (and 
@@ -254,10 +204,11 @@
             (asserts! (verify-secret secret) (err ERR_HASH_NOT_REGISTERED))
             ;; 3: verify that Bitcoin transaction pays out to the expected Bitcoin address of the pool (not done yet)
             (asserts! (unwrap! (get-outs-from-tx rawTx) (err ERR_COULD_NOT_GET_TX_OUTS)) (err ERR_DOESNT_PAY_2_POOL))
-            ;; 4: verify that Bitcoin transaction has an OP_RETURN output of the hashed secret
+            ;; TODO - 4: verify that Bitcoin transaction has an OP_RETURN output of the hashed secret
         )
 
-        ;; if no errors occurred, continue to mint SYPL tokens
+        ;; if no errors occurred, continue to append their contribution to cycleParticipants
+        ;; TODO - remove sypool token, use list instead
         (if (>= (get-contribution-value rawTx) u1000)
             (begin
                 (unwrap-panic (ft-mint? SYPL (get-contribution-value rawTx) (unwrap! (get tx-sender (map-get? HashMap { hash: (sha256 secret)})) (err ERR_COULD_NOT_GET_TX_SENDER))))
@@ -290,7 +241,7 @@
                                     (unwrap-panic (stx-transfer? (/ 
                                         (* u5 (unwrap-panic (get-caller-profits))) 
                                         u100)
-                                        contract-caller POOL_STX_ADDRESS
+                                        contract-caller FEE_PRINCIPLE
                                     ))
                                 )
                                 ;; if user hasn't made profit
@@ -319,7 +270,7 @@
                                         (unwrap-panic (stx-transfer? (/ 
                                             (* u4 (unwrap-panic (get-caller-profits))) 
                                             u100)
-                                            contract-caller POOL_STX_ADDRESS
+                                            contract-caller FEE_PRINCIPLE
                                         ))
                                         ;; 1% of profit to collateral providers
                                         (unwrap-panic (stx-transfer? (/ 
