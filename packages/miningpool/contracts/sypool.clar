@@ -13,6 +13,7 @@
 (define-constant ERR_COULD_NOT_VERIFY_SECRET u9)
 (define-constant ERR_COULD_NOT_GET_TX_OUTS u10)
 (define-constant ERR_COULD_NOT_GET_TX_SENDER u11)
+(define-constant FIRST_CYCLE u697450)
 
 (define-constant FEE_PRINCIPLE 'SP343J7DNE122AVCSC4HEK4MF871PW470ZSXJ5K66)
 (define-constant POOL_BTC_ADDRESS 0x123456)
@@ -103,6 +104,22 @@
 )
 
 ;; private functions
+
+(define-private (check-block (phase uint))
+    (if (is-eq phase u1)
+        (if (is-eq (mod (- block-height FIRST_CYCLE) u2100) u0) 
+            true 
+            false
+        )
+        (if (is-eq phase u2)
+            (if (is-eq (mod (- block-height (+ FIRST_CYCLE u150)) u2100) u0) 
+                true 
+                false
+            )
+            false ;; isn't phase 1 or 2
+        )
+    )
+)
 
 (define-private (scriptpubkey-to-p2pkh (scriptPubKey (buff 128)))
     (hash160 (sha256 scriptPubKey)))
