@@ -13,15 +13,16 @@
   font-size: 72px;
   letter-spacing: -0.02em;
   margin-top: 315px;
-  margin-bottom: 339px;
+  margin-bottom: 400px;
 }
 .heading h1 span {
   color: #9146ff;
 }
+
 .custodial {
   position: relative;
-  display: flex;
-  width: 60%;
+  width: 95%;
+  max-width: 1152px;
   margin-left: 3%;
   margin-right: 3%;
   letter-spacing: -0.02em;
@@ -45,9 +46,10 @@
 }
 
 .two {
+  max-width: 700px;
   position: relative;
   margin-left: 3%;
-  width: 70%;
+  float: left;
   text-align: left;
 }
 
@@ -63,9 +65,10 @@
 
 .three {
   position: relative;
-  margin-left: 30%;
-  margin-right: 3%;
-  text-align: left;
+  margin: 2%;
+  float: right;
+  margin-right: 5%;
+  max-width: 700px;
 }
 
 .three h2 {
@@ -161,7 +164,7 @@
 }
 
 .four {
-  width: 40%;
+  max-width: 1152px;
   position: relative;
   margin-left: 64px;
 }
@@ -219,6 +222,7 @@
 
 .getStarted {
   text-align: center;
+  position: relative;
 }
 .getStarted p {
   font-family: Roobert;
@@ -228,45 +232,60 @@
 }
 
 .joinButton {
+  position: relative;
   text-transform: uppercase;
-  width: 27%;
+  width: 100%;
+  max-width: 317px;
   height: 13%;
   margin-bottom: 165px;
 }
 
-@media (max-width: 1210px) {
-  .custodial {
-    display: flex;
-    width: 70%;
-    margin-left: 15px;
-    margin-right: 5px;
-    letter-spacing: -0.02em;
+.getStartedButton {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .heading h1 {
+    margin-top: 150px;
+    margin-bottom: 160px;
+  }
+
+  .getStartedButton {
+    display: block;
+    position: relative;
+    text-transform: uppercase;
+    margin: auto;
+    margin-bottom: 105px;
+    width: 100%;
+    max-width: 317px;
+    height: 13%;
+    z-index: 1;
   }
 
   .custodial p {
-    font-family: Roobert;
-    font-weight: 400;
-    line-height: 72px;
-    font-size: 50px;
-    letter-spacing: -0.02em;
+    font-size: 55px;
+  }
+
+  .three {
+    float: left;
+    margin-left: 3%;
   }
 
   .four {
-    width: 60%;
-    margin-left: 64px;
+    float: left;
+    margin-left: 3%;
   }
+
+  .nokyc {
+    float: center;
+    text-align: left;
+  }
+
   .securityFeatures {
-    font-family: Roobert;
-    font-size: 24px;
-    line-height: 36px;
-    color: #74777d;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-bottom: 65px;
   }
 }
 
@@ -277,6 +296,10 @@
   color: black;
   transition: 0.5s;
 }
+
+/* .light .shapes {
+  overflow: hidden;
+} */
 
 .light .shape:nth-of-type(1) {
   width: 637.96px;
