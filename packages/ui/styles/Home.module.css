@@ -5,26 +5,31 @@
 .heading {
   text-align: center;
 }
+
 .heading h1 {
+  position: relative;
   font-family: Roobert;
   font-weight: 400;
   font-size: 72px;
   letter-spacing: -0.02em;
-  margin-top: 308px;
-  margin-bottom: 339px;
+  margin-top: 315px;
+  margin-bottom: 400px;
 }
 .heading h1 span {
   color: #9146ff;
 }
+
 .custodial {
-  display: flex;
-  width: 60%;
+  position: relative;
+  width: 95%;
+  max-width: 1152px;
   margin-left: 3%;
   margin-right: 3%;
   letter-spacing: -0.02em;
 }
 
 .custodial p {
+  position: relative;
   font-family: Roobert;
   font-weight: 400;
   line-height: 72px;
@@ -41,8 +46,10 @@
 }
 
 .two {
+  max-width: 700px;
+  position: relative;
   margin-left: 3%;
-  width: 70%;
+  float: left;
   text-align: left;
 }
 
@@ -57,9 +64,11 @@
 }
 
 .three {
-  margin-left: 30%;
-  margin-right: 3%;
-  text-align: left;
+  position: relative;
+  margin: 2%;
+  float: right;
+  margin-right: 5%;
+  max-width: 700px;
 }
 
 .three h2 {
@@ -113,7 +122,6 @@
   width: 100%;
 }
 
-
 .banner .bannerone {
   animation: bannermove 40s linear infinite;
 }
@@ -156,8 +164,8 @@
 }
 
 .four {
-  width: 40%;
-
+  max-width: 1152px;
+  position: relative;
   margin-left: 64px;
 }
 
@@ -169,6 +177,7 @@
   margin-top: 119px;
   margin-bottom: 64px;
   margin-left: 3%;
+  position: relative;
 }
 
 .private {
@@ -194,6 +203,7 @@
   letter-spacing: -0.01em;
   text-align: center;
   margin-top: 64px;
+  position: relative;
 }
 
 .securityFeatures {
@@ -207,10 +217,12 @@
   margin-left: 3%;
   margin-right: 3%;
   margin-bottom: 121px;
+  position: relative;
 }
 
 .getStarted {
   text-align: center;
+  position: relative;
 }
 .getStarted p {
   font-family: Roobert;
@@ -220,45 +232,60 @@
 }
 
 .joinButton {
+  position: relative;
   text-transform: uppercase;
-  width: 27%;
+  width: 100%;
+  max-width: 317px;
   height: 13%;
   margin-bottom: 165px;
 }
 
-@media (max-width: 1210px) {
-  .custodial {
-    display: flex;
-    width: 70%;
-    margin-left: 15px;
-    margin-right: 5px;
-    letter-spacing: -0.02em;
+.getStartedButton {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .heading h1 {
+    margin-top: 150px;
+    margin-bottom: 160px;
+  }
+
+  .getStartedButton {
+    display: block;
+    position: relative;
+    text-transform: uppercase;
+    margin: auto;
+    margin-bottom: 105px;
+    width: 100%;
+    max-width: 317px;
+    height: 13%;
+    z-index: 1;
   }
 
   .custodial p {
-    font-family: Roobert;
-    font-weight: 400;
-    line-height: 72px;
-    font-size: 50px;
-    letter-spacing: -0.02em;
+    font-size: 55px;
+  }
+
+  .three {
+    float: left;
+    margin-left: 3%;
   }
 
   .four {
-    width: 60%;
-    margin-left: 64px;
+    float: left;
+    margin-left: 3%;
   }
+
+  .nokyc {
+    float: center;
+    text-align: left;
+  }
+
   .securityFeatures {
-    font-family: Roobert;
-    font-size: 24px;
-    line-height: 36px;
-    color: #74777d;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-bottom: 65px;
   }
 }
 
@@ -269,13 +296,126 @@
   color: black;
   transition: 0.5s;
 }
+
+/* .light .shapes {
+  overflow: hidden;
+} */
+
+.light .shape:nth-of-type(1) {
+  width: 637.96px;
+  height: 539.24px;
+  position: absolute;
+  left: -5%;
+  top: 20%;
+  background: #befae1;
+  animation: wave 8s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(2) {
+  width: 700px;
+  height: 700px;
+  background: #f0f0ff;
+  position: absolute;
+  top: 80%;
+  left: 0%;
+  animation: wave 5s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(3) {
+  width: 500px;
+  height: 500px;
+  background: #feee85;
+  position: absolute;
+  top: 35%;
+  right: 15%;
+  animation: wave 12s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(4) {
+  width: 450px;
+  height: 350px;
+  background: #facdcd;
+  position: absolute;
+  top: 75%;
+  right: -5%;
+  animation: wave 6s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(5) {
+  width: 350px;
+  height: 350px;
+  background: #bfabff;
+  position: absolute;
+  top: 115%;
+  right: 25%;
+  animation: wave 15s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(6) {
+  width: 900px;
+  height: 900px;
+  background: #00c8af;
+  position: absolute;
+  top: 230%;
+  left: -25%;
+  transform: rotate(90deg);
+  animation: wave 15s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(7) {
+  width: 700px;
+  height: 700px;
+  background: #facdcd;
+  position: absolute;
+  top: 230%;
+  left: 25%;
+  animation: wave 5s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(8) {
+  width: 450px;
+  height: 350px;
+  background: #fab4ff;
+  position: absolute;
+  top: 230%;
+  left: 45%;
+  animation: wave 6s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(9) {
+  width: 637.96px;
+  height: 539.24px;
+  position: absolute;
+  top: 255%;
+  right: -5%;
+  background: #befae1;
+  animation: wave 8s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(10) {
+  width: 350px;
+  height: 350px;
+  background: #bfabff;
+  position: absolute;
+  top: 300%;
+  right: 15%;
+  animation: wave 15s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    border-radius: 66% 34% 37% 63% / 57% 31% 69% 43%;
+  }
+  50% {
+    border-radius: 26% 74% 51% 49% / 22% 53% 47% 78%;
+  }
+}
+
 .light .svg {
-  background-image: url('../public/homePageTopLeft.svg'),
-    url('../public/homePageTopRight.svg'), url('../public/syvitaHelmet.svg'),
-    url('../public/homePageBottomLeft.svg'),
-    url('../public/homePageBottomRight.svg');
+  background-image: url('../public/syvitaHelmet.svg');
   background-repeat: no-repeat;
-  background-position: 0% 5%, 100% 10%, 0% 45%, 0% 100%, 100% 100%;
+  background-position: 0% 45%;
 }
 
 /* DARK MODE */

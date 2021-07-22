@@ -1,19 +1,43 @@
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import { userSession } from '../components/Stacks';
-import { useContext } from "react";
-import { ThemeContext } from "../components/Layout";
+import { useContext } from 'react';
+import { ThemeContext } from '../components/Layout';
 
 export default function Home() {
   const { theme } = useContext(ThemeContext);
   return (
-    <main className={theme === "light" ? styles.light : styles.dark}>
+    <main className={theme === 'light' ? styles.light : styles.dark}>
+      <div className={styles.shapes}>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+        <div className={styles.shape}></div>
+      </div>
       <div className={styles.svg}>
         <div className={styles.heading}>
           <h1 className={styles.h1}>
             The <span>first</span> STX mining pool.
           </h1>
         </div>
+
+        {!userSession.isUserSignedIn() && (
+          <Link href="/join" passHref={true}>
+            <button className={styles.getStartedButton}>Join the Pool</button>
+          </Link>
+        )}
+        {userSession.isUserSignedIn() && (
+          <Link href="/dashboard" passHref={true}>
+            <button className={styles.joinButton}>Go to Dashboard</button>
+          </Link>
+        )}
+
         <div className={styles.custodial}>
           <p>
             Sypool is a custodial STX mining pool using smart contracts on the
