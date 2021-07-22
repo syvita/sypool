@@ -1,6 +1,3 @@
-;; Bitcoin parsing library for Clarity
-;; provides merkle proof parsing & verification, btc block header parsing, btc tx parsing & more
-
 ;; Error codes
 (define-constant ERR-OUT-OF-BOUNDS u1)
 (define-constant ERR-TOO-MANY-TXINS u2)
@@ -639,14 +636,16 @@
     }))
 )
 
+(define-read-only (get-bc-h-hash (bh uint))
+  (get-block-info? burnchain-header-hash bh))
+
 ;; Verify that a block header hashes to a burnchain header hash at a given height.
 ;; Returns true if so; false if not.
 (define-read-only (verify-block-header (headerbuff (buff 80)) (expected-block-height uint))
-    (match (get-block-info? burnchain-header-hash expected-block-height)
+    (match (get-bc-h-hash expected-block-height)
         bhh (is-eq bhh (reverse-buff32 (sha256 (sha256 headerbuff))))
         false
-    )
-)
+    ))
 
 ;; Get the txid of a transaction, but big-endian.
 ;; This is the reverse of what you see on block explorers.
@@ -742,9 +741,45 @@
 ;; Returns (ok true) if the proof checks out.
 ;; Returns (ok false) if not.
 ;; Returns (err ERR-PROOF-TOO-SHORT) if the proof doesn't contain enough intermediate hash nodes in the merkle tree.
-(define-read-only (was-tx-mined? (block { header: (buff 80), height: uint }) (tx (buff 1024)) (proof { tx-index: uint, hashes: (list 12 (buff 32)), tree-depth: uint }))
+(define-read-only (was-tx-mined-compact (block { header: (buff 80), height: uint }) (tx (buff 1024)) (proof { tx-index: uint, hashes: (list 12 (buff 32)), tree-depth: uint }))
     (if (verify-block-header (get header block) (get height block))
-        (verify-merkle-proof (get-reversed-txid tx) (get merkle-root (try! (parse-block-header (get header block)))) proof)
+        (verify-merkle-proof (get-reversed-txid tx) (reverse-buff32 (get merkle-root (try! (parse-block-header (get header block))))) proof)
         (ok false)
+    )
+)
+
+(define-read-only (concat-header (block { version: (buff 4), parent: (buff 32), merkle-root: (buff 32), timestamp: (buff 4), nbits: (buff 4), nonce: (buff 4), height: uint }))
+  (concat (concat (concat (concat (concat (get version block) (get parent block)) (get merkle-root block)) (get timestamp block)) (get nbits block)) (get nonce block))
+)
+
+(define-read-only (concat-var (buffer (buff 256)))
+  (concat (unwrap-panic (element-at BUFF_TO_BYTE (len buffer))) buffer))
+
+(define-read-only (concat-in (in {outpoint: {hash: (buff 32), index: (buff 4)}, scriptSig: (buff 256), sequence: (buff 4)}) (result (buff 1024)))
+  (unwrap-panic (as-max-len? (concat (concat (concat (concat result (get hash (get outpoint in))) (get index (get outpoint in))) (concat-var (get scriptSig in))) (get sequence in)) u1024 )))
+
+(define-read-only (concat-ins (ins (list 8
+        {outpoint: {hash: (buff 32), index: (buff 4)}, scriptSig: (buff 256), sequence: (buff 4)})))
+       (unwrap-panic (as-max-len? (concat (unwrap-panic (element-at BUFF_TO_BYTE (len ins))) (fold concat-in ins 0x)) u1024)))
+
+(define-read-only (concat-out (out {value: (buff 8), scriptPubKey: (buff 128)}) (result (buff 1024)))
+  (unwrap-panic (as-max-len? (concat (concat result (get value out)) (concat-var (get scriptPubKey out))) u1024)))
+
+(define-read-only (concat-outs (outs (list 8
+        {value: (buff 8), scriptPubKey: (buff 128)})))
+       (unwrap-panic (as-max-len? (concat (unwrap-panic (element-at BUFF_TO_BYTE (len outs))) (fold concat-out outs 0x)) u1024)))
+
+(define-read-only (concat-tx (tx {version: (buff 4),
+      ins: (list 8
+        {outpoint: {hash: (buff 32), index: (buff 4)}, scriptSig: (buff 256), sequence: (buff 4)}),
+      outs: (list 8
+        {value: (buff 8), scriptPubKey: (buff 128)}),
+      locktime: (buff 4)}))
+ (unwrap-panic (as-max-len?  (concat (concat (concat (get version tx) (concat-ins (get ins tx))) (concat-outs (get outs tx))) (get locktime tx)) u1024)))
+
+(define-read-only (was-tx-mined (block { version: (buff 4), parent: (buff 32), merkle-root: (buff 32), timestamp: (buff 4), nbits: (buff 4), nonce: (buff 4), height: uint }) (tx (buff 1024)) (proof { tx-index: uint, hashes: (list 12 (buff 32)), tree-depth: uint }))
+    (if (verify-block-header (concat-header block) (get height block))
+        (verify-merkle-proof (get-reversed-txid tx) (get merkle-root block) proof)
+        (err u1)
     )
 )
