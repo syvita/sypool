@@ -49,13 +49,14 @@
   max-width: 700px;
   position: relative;
   margin-left: 3%;
+  margin-right: 3%;
   float: left;
   text-align: left;
 }
 
 .two p {
   font-family: Inter;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
 }
 
@@ -69,6 +70,10 @@
   float: right;
   margin-right: 5%;
   max-width: 700px;
+}
+
+.three p {
+  font-size: 16px;
 }
 
 .three h2 {
@@ -95,7 +100,6 @@
 
 .quote {
   font-size: 32px;
-  font-size: 32px;
   line-height: 44px;
   letter-spacing: -2%;
 }
@@ -120,10 +124,8 @@
   line-height: 36px;
   min-width: 200vw;
   /* ADDED */
-  animation: bannermove 30s linear infinite;
+  animation: bannermove 10s linear infinite;
   display: flex;
-  flex-wrap: nowrap;
-  justify-between: space-between;
 }
 
 .banner:hover {
@@ -140,7 +142,9 @@
 }
 
 .banner div {
-  padding: 10px;
+  padding: 25px;
+  width: 130px;
+  white-space: nowrap;
   /* just to ensure there is space between even on small devices */
 }
 
@@ -205,6 +209,10 @@
   /* just to ensure there is space between even on small devices */
 }
 
+.securityFeaturesMobile {
+  display: none;
+}
+
 .getStarted {
   text-align: center;
   position: relative;
@@ -229,6 +237,65 @@
   display: none;
 }
 
+@media (max-width: 815px) {
+  .custodial {
+    width: 95%;
+  }
+
+  .custodial p {
+    font-size: 35px;
+    font-weight: 400;
+  }
+
+  .two p {
+    font-size: 18px;
+  }
+
+  .strength {
+    font-size: 17px;
+  }
+
+  .built {
+    font-size: 20px;
+  }
+
+  .ridiculous {
+    font-size: 26px;
+  }
+
+  .private {
+    font-size: 16px;
+  }
+
+  .three {
+    float: left;
+    margin-left: 3%;
+  }
+
+  .three p {
+    font-size: 20px;
+  }
+
+  .four {
+    float: left;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 20px;
+  }
+
+  .wallet {
+    font-family: Roobert;
+    font-size: 32px;
+    line-height: 44px;
+  }
+
+  .quote {
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -2%;
+  }
+}
+
 @media (max-width: 700px) {
   .heading h1 {
     font-size: 65px;
@@ -241,29 +308,11 @@
     position: relative;
     text-transform: uppercase;
     margin: auto;
-    margin-bottom: 245px;
+    margin-bottom: 160px;
     width: 100%;
     max-width: 317px;
     height: 13%;
     z-index: 1;
-  }
-  .custodial {
-    width: 95%;
-  }
-  .custodial p {
-    font-size: 35px;
-    font-weight: 400;
-  }
-
-  .three {
-    float: left;
-    margin-left: 3%;
-  }
-
-  .four {
-    float: left;
-    margin-left: 3%;
-    margin-right: 3%;
   }
 
   .nokyc {
@@ -409,7 +458,7 @@
 }
 
 @media (max-width: 1400px) {
-  .securityFeatures {
+  .securityFeaturesMobile {
     /* font-family: Roobert;
   font-size: 24px;
   line-height: 36px;
@@ -431,13 +480,16 @@
     line-height: 36px;
     min-width: 200vw;
     /* ADDED */
-    animation: securityBanner 20s linear infinite;
+    animation: securityBanner 10s linear infinite;
     display: flex;
-    justify-between: space-between;
   }
 
-  .securityFeatures:hover {
+  .securityFeaturesMobile:hover {
     animation-play-state: paused;
+  }
+
+  .securityFeatures {
+    display: none;
   }
 
   @keyframes securityBanner {
@@ -449,8 +501,10 @@
     }
   }
 
-  .securityFeatures div {
-    padding: 15px;
+  .securityFeaturesMobile div {
+    padding: 20px;
+    width: 325px;
+    white-space: nowrap;
     /* just to ensure there is space between even on small devices */
   }
 
@@ -532,7 +586,16 @@
   color: white;
   transition: 0.5s;
 }
-.dark .svg {
+
+.dark .body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.dark .rectangle .dark .svg {
   background-image: url('../public/syvitaHelmet.svg');
   background-repeat: no-repeat;
   background-position: 0% 45%;

@@ -195,9 +195,9 @@ export default function Home() {
               designed privacy-first and dunked in the finest
               cryptographically-ensured security dip.
             </p>
-            <p className={styles.wallet}>
-              You only need a Bitcoin wallet and Stacks wallet.
-            </p>
+            <div className={styles.wallet}>
+              <p>You only need a Bitcoin wallet and Stacks wallet.</p>
+            </div>
             <p>
               Data minimalisation, no central databases and dummy-thicc privacy
               walls allow us to run Sypool without even knowing who you are.
@@ -218,7 +218,35 @@ export default function Home() {
               <div>ECDSA</div>
               <div>Keccak256</div>
             </div>
+
+            <div className={styles.securityFeaturesMobile}>
+              <div>Always-on HTTPS</div>
+              <div>HTTP Strict Transport Security</div>
+              <div>Min. TLS 1.3</div>
+              <div>DNSSEC</div>
+              <div>ECDSA</div>
+              <div>Keccak256</div>
+              <div>Always-on HTTPS</div>
+              <div>HTTP Strict Transport Security</div>
+              <div>Min. TLS 1.3</div>
+              <div>DNSSEC</div>
+              <div>ECDSA</div>
+              <div>Keccak256</div>
+              <div>Always-on HTTPS</div>
+              <div>HTTP Strict Transport Security</div>
+              <div>Min. TLS 1.3</div>
+              <div>DNSSEC</div>
+              <div>ECDSA</div>
+              <div>Keccak256</div>
+              <div>Always-on HTTPS</div>
+              <div>HTTP Strict Transport Security</div>
+              <div>Min. TLS 1.3</div>
+              <div>DNSSEC</div>
+              <div>ECDSA</div>
+              <div>Keccak256</div>
+            </div>
           </div>
+
           <div className={styles.getStarted}>
             <p>Get started</p>
             {!userSession.isUserSignedIn() && (
