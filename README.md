@@ -9,7 +9,7 @@
 
 <div align="right"><a href="https://gitpod.io/#https://github.com/syvita/sypool"><img src="https://x.syvita.org/open-in-gitpod.png" width="160px"/></a> <a href="https://twitter.com/poweredbywaifu"><img src="https://x.syvita.org/twitter.png" width="160px"/></a></div>
 
-## How it works (simply)
+## How it works (simply) 
 
 Mining STX tokens is a game of numbers and probability. In order to mine profitably, an estimated ~1BTC is required initially. Many people don't have 1BTC to throw at a new miner, so we made this!
 
@@ -37,9 +37,9 @@ Once you commit Bitcoin, after the cooldown, you can take your share out (if you
 
 The only trust is that we use the Bitcoin to mine. Basically everything else is automated and trustless through the contract. And if we don't use the Bitcoin to mine, 20% of the 5% fee goes towards collateral providers, to reduce risk (when activated).
 
-![repo header gradient](readme-img/repo-header.png "repo header gradient")
-
 ## How does it *really* work?
+
+#### _most likely outdated, updates to come soon_
 
 **Warning: technical bits ahead**
 
@@ -72,14 +72,7 @@ The 5% fee only applies on profit. The contract will get the current STX/BTC fro
 
 ### Architecture
 
-There are 6 parts to the mining pool infrastructure wise.
-
-1. Sypool Engine (smart contract on the Stacks blockchain)
-2. Sypool Collateral Engine (smart contract on the Stacks blockchain)
-3. Website/UI
-4. The Bitcoin node, used to spend Bitcoin with
-5. Stacks node A, running in miner mode and connected to the local bitcoin node
-6. Stacks nodes B, running in follower mode as a publicly available API.
+<img src="/architecture.png"></img>
 
 The web UI will be hosted as a static Next.js site on Cloudflare's edge, alike other Syvita sites. The static site will make API requests to Stacks node B as default. The code for this site is in this repo.
 
