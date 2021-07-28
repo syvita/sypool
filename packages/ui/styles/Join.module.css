@@ -1,0 +1,20 @@
+.connect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15%;
+}
+
+.connect h1 {
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+}
+
+.connect button {
+    width: 400px;
+    height: 48px;
+    margin-top: 10px;
+}

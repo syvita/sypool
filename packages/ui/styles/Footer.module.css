@@ -1,0 +1,113 @@
+/* COMMON */
+.footer {
+  margin-top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+}
+.syvita {
+  margin-left: 75px;
+  margin-right: 205px;
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+}
+.links {
+  flex: auto;
+  margin-right: 5px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1em;
+}
+.links a {
+  padding: 0 24px;
+  text-decoration: none;
+}
+.logo {
+  margin-left: 63px;
+  flex: auto;
+}
+.logo:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 1172px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo {
+    margin-left: 0;
+    margin-bottom: 30px;
+  }
+  .links {
+    margin: 0;
+  }
+  .links a {
+    padding: 0 12px;
+  }
+  .syvita {
+    order: 3;
+    margin: 0;
+  }
+}
+
+/* LIGHT MODE */
+
+.light .footer {
+  background-color: white;
+}
+.light .syvita a {
+  color: black;
+}
+.light .syvita {
+  color: black;
+}
+.light .links a {
+  color: black;
+}
+.light .syvita a:hover {
+  color: #9146ff;
+}
+.light .links a:hover {
+  color: #9146ff;
+}
+
+/* DARK MODE */
+
+.dark .footer {
+  background-color: black;
+}
+.dark .syvita a {
+  color:white;
+}
+.dark .syvita {
+  color: white;
+}
+.dark .links a{
+  color: white;
+}
+.dark .syvita a:hover {
+  color: #9146ff;
+}
+.dark .links a:hover {
+  color: #9146ff;
+}
+.dark .logo{
+  filter: invert(1)
+}
+
+/* WAIFU THEME?? */
+/* EASTER EGG #1 */
+/* EASTER EGG #2 */

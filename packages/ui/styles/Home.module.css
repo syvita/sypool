@@ -1,0 +1,602 @@
+@import url('https://x.syvita.org/fonts/roobert/importme.css');
+@import url('https://x.syvita.org/fonts/inter/importme.css');
+
+/* COMMON */
+.heading {
+  text-align: center;
+}
+
+.heading h1 {
+  position: relative;
+  font-family: Roobert;
+  font-weight: 400;
+  font-size: 72px;
+  letter-spacing: -0.02em;
+  margin-top: 315px;
+  margin-bottom: 400px;
+}
+.heading h1 span {
+  color: #9146ff;
+}
+
+.custodial {
+  position: relative;
+  width: 95%;
+  max-width: 1152px;
+  margin-left: 3%;
+  margin-right: 3%;
+  letter-spacing: -0.02em;
+}
+
+.custodial p {
+  position: relative;
+  font-family: Roobert;
+  font-weight: 400;
+  line-height: 72px;
+  font-size: 64px;
+  letter-spacing: -0.02em;
+}
+
+.subheading1 {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: 65px;
+}
+
+.two {
+  max-width: 700px;
+  position: relative;
+  margin-left: 3%;
+  margin-right: 3%;
+  float: left;
+  text-align: left;
+}
+
+.two p {
+  font-family: Inter;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.two span {
+  font-style: italic;
+}
+
+.three {
+  position: relative;
+  margin: 2%;
+  float: right;
+  margin-right: 5%;
+  max-width: 700px;
+}
+
+.three p {
+  font-size: 16px;
+}
+
+.three h2 {
+  font-family: Roobert;
+  font-size: 64px;
+}
+
+.built {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.strength {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 20px;
+}
+
+.quote {
+  font-size: 32px;
+  line-height: 44px;
+  letter-spacing: -2%;
+}
+
+.quoteAuthor {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: uppercase;
+  margin-bottom: 64px;
+}
+
+.banner {
+  position: relative;
+  overflow: hidden;
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  min-width: 200vw;
+  /* ADDED */
+  animation: bannermove 10s linear infinite;
+  display: flex;
+}
+
+.banner:hover {
+  animation-play-state: paused;
+}
+
+@keyframes bannermove {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.banner div {
+  padding: 25px;
+  width: 130px;
+  white-space: nowrap;
+  /* just to ensure there is space between even on small devices */
+}
+
+.four {
+  max-width: 1152px;
+  position: relative;
+  margin-left: 64px;
+}
+
+.nokyc {
+  font-family: Roobert;
+  font-size: 64px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  margin-top: 119px;
+  margin-bottom: 64px;
+  margin-left: 3%;
+  position: relative;
+}
+
+.private {
+  font-family: Inter;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.wallet {
+  font-family: Roobert;
+  font-size: 32px;
+  line-height: 44px;
+}
+
+.ridiculous {
+  font-family: Roobert;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-top: 64px;
+  position: relative;
+}
+
+.securityFeatures {
+  font-family: Roobert;
+  font-size: 24px;
+  line-height: 36px;
+  color: #74777d;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-bottom: 121px;
+  position: relative;
+}
+.securityFeatures div {
+  padding: 15px;
+  /* just to ensure there is space between even on small devices */
+}
+
+.securityFeaturesMobile {
+  display: none;
+}
+
+.getStarted {
+  text-align: center;
+  position: relative;
+}
+.getStarted p {
+  font-family: Roobert;
+  font-size: 64px;
+  line-height: 72px;
+  letter-spacing: -0.02em;
+}
+
+.joinButton {
+  position: relative;
+  text-transform: uppercase;
+  width: 100%;
+  max-width: 317px;
+  height: 13%;
+  margin-bottom: 165px;
+}
+
+.getStartedButton {
+  display: none;
+}
+
+@media (max-width: 815px) {
+  .custodial {
+    width: 95%;
+  }
+
+  .custodial p {
+    font-size: 35px;
+    font-weight: 400;
+  }
+
+  .two p {
+    font-size: 18px;
+  }
+
+  .strength {
+    font-size: 17px;
+  }
+
+  .built {
+    font-size: 20px;
+  }
+
+  .ridiculous {
+    font-size: 26px;
+  }
+
+  .private {
+    font-size: 16px;
+  }
+
+  .three {
+    float: left;
+    margin-left: 3%;
+  }
+
+  .three p {
+    font-size: 20px;
+  }
+
+  .four {
+    float: left;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 20px;
+  }
+
+  .wallet {
+    font-family: Roobert;
+    font-size: 32px;
+    line-height: 44px;
+  }
+
+  .quote {
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -2%;
+  }
+}
+
+@media (max-width: 700px) {
+  .heading h1 {
+    font-size: 65px;
+    margin-top: 250px;
+    margin-bottom: 155px;
+  }
+
+  .getStartedButton {
+    display: block;
+    position: relative;
+    text-transform: uppercase;
+    margin: auto;
+    margin-bottom: 160px;
+    width: 100%;
+    max-width: 317px;
+    height: 13%;
+    z-index: 1;
+  }
+
+  .nokyc {
+    float: center;
+    text-align: left;
+    margin-top: 60px;
+  }
+}
+
+/* LIGHT MODE */
+
+.light {
+  background: white;
+  color: black;
+  transition: 0.5s;
+}
+
+.light .body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.light .shapes {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.light .shape {
+  position: absolute;
+}
+
+.light .shape:nth-of-type(1) {
+  width: 637.96px;
+  height: 539.24px;
+  left: -5%;
+  top: 0%;
+  background: #befae1;
+  animation: wave 8s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(2) {
+  width: 700px;
+  height: 700px;
+  background: #f0f0ff;
+  top: 20%;
+  left: 0%;
+  animation: wave 5s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(3) {
+  width: 500px;
+  height: 500px;
+  background: #feee85;
+  top: 2%;
+  right: 10%;
+  animation: wave 12s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(4) {
+  width: 450px;
+  height: 350px;
+  background: #facdcd;
+  top: 20%;
+  right: 15%;
+  animation: wave 6s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(5) {
+  width: 350px;
+  height: 350px;
+  background: #bfabff;
+  top: 35%;
+  right: 25%;
+  animation: wave 6s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(6) {
+  width: 900px;
+  height: 900px;
+  background: #00c8af;
+  top: 70%;
+  left: -25%;
+  transform: rotate(90deg);
+  animation: wave 15s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(7) {
+  width: 700px;
+  height: 700px;
+  background: #facdcd;
+  top: 45%;
+  right: 0%;
+  animation: wave 5s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(8) {
+  width: 450px;
+  height: 350px;
+  background: #fab4ff;
+  top: 50%;
+  left: 35%;
+  animation: wave 6s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(9) {
+  width: 637.96px;
+  height: 539.24px;
+  top: 70%;
+  right: -5%;
+  background: #befae1;
+  animation: wave 8s ease-in-out infinite;
+}
+
+.light .shape:nth-of-type(10) {
+  width: 350px;
+  height: 350px;
+  background: #bfabff;
+  top: 88%;
+  right: 15%;
+  animation: wave 15s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    border-radius: 66% 34% 37% 63% / 57% 31% 69% 43%;
+  }
+  50% {
+    border-radius: 26% 74% 51% 49% / 22% 53% 47% 78%;
+  }
+}
+
+.light .svg {
+  background-image: url('../public/syvitaHelmet.svg');
+  background-repeat: no-repeat;
+  background-position: 0% 45%;
+  position: relative;
+}
+
+@media (max-width: 1400px) {
+  .securityFeaturesMobile {
+    /* font-family: Roobert;
+  font-size: 24px;
+  line-height: 36px;
+  color: #74777d; */
+    /* display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-bottom: 121px;
+  position: relative; */
+    position: relative;
+    overflow: hidden;
+    font-family: Roobert;
+    font-style: normal;
+    font-weight: normal;
+    color: #74777d;
+    font-size: 24px;
+    line-height: 36px;
+    min-width: 200vw;
+    /* ADDED */
+    animation: securityBanner 10s linear infinite;
+    display: flex;
+  }
+
+  .securityFeaturesMobile:hover {
+    animation-play-state: paused;
+  }
+
+  .securityFeatures {
+    display: none;
+  }
+
+  @keyframes securityBanner {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  .securityFeaturesMobile div {
+    padding: 20px;
+    width: 325px;
+    white-space: nowrap;
+    /* just to ensure there is space between even on small devices */
+  }
+
+  .light .shape:nth-of-type(1) {
+    display: none;
+  }
+
+  .light .shape:nth-of-type(2) {
+    display: none;
+  }
+
+  .light .shape:nth-of-type(3) {
+    width: 500px;
+    height: 500px;
+    background: #feee85;
+    top: 2%;
+    right: 10%;
+    animation: wave 12s ease-in-out infinite;
+  }
+
+  .light .shape:nth-of-type(4) {
+    width: 450px;
+    height: 350px;
+    background: #facdcd;
+    top: 20%;
+    right: 15%;
+    animation: wave 6s ease-in-out infinite;
+  }
+
+  .light .shape:nth-of-type(5) {
+    width: 350px;
+    height: 350px;
+    background: #bfabff;
+    top: 30%;
+    right: 15%;
+    animation: wave 6s ease-in-out infinite;
+  }
+
+  .light .shape:nth-of-type(6) {
+    display: none;
+  }
+
+  .light .shape:nth-of-type(7) {
+    display: none;
+  }
+
+  .light .shape:nth-of-type(8) {
+    width: 450px;
+    height: 350px;
+    background: #fab4ff;
+    top: 60%;
+    left: 35%;
+    animation: wave 6s ease-in-out infinite;
+  }
+
+  .light .shape:nth-of-type(9) {
+    width: 637.96px;
+    height: 539.24px;
+    top: 70%;
+    right: -5%;
+    background: #befae1;
+    animation: wave 8s ease-in-out infinite;
+  }
+
+  .light .shape:nth-of-type(10) {
+    width: 350px;
+    height: 350px;
+    background: #bfabff;
+    top: 90%;
+    right: 15%;
+    animation: wave 15s ease-in-out infinite;
+  }
+}
+
+/* DARK MODE */
+
+.dark {
+  background: black;
+  color: white;
+  transition: 0.5s;
+}
+
+.dark .body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.dark .rectangle .dark .svg {
+  background-image: url('../public/syvitaHelmet.svg');
+  background-repeat: no-repeat;
+  background-position: 0% 45%;
+}

@@ -1,0 +1,10 @@
+.light {
+    background: white;
+    color: black;
+    transition: 0.5s;
+  }
+.dark {
+    background: black;
+    color: white;
+    transition: 0.5s;
+  }
