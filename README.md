@@ -9,7 +9,7 @@
 
 <div align="right"><a href="https://gitpod.io/#https://github.com/syvita/sypool"><img src="https://x.syvita.org/open-in-gitpod.png" width="160px"/></a> <a href="https://twitter.com/poweredbywaifu"><img src="https://x.syvita.org/twitter.png" width="160px"/></a></div>
 
-## How it works (simply) _most likely outdated, updates to come soon_
+## How it works (simply) 
 
 Mining STX tokens is a game of numbers and probability. In order to mine profitably, an estimated ~1BTC is required initially. Many people don't have 1BTC to throw at a new miner, so we made this!
 
@@ -38,6 +38,8 @@ Once you commit Bitcoin, after the cooldown, you can take your share out (if you
 The only trust is that we use the Bitcoin to mine. Basically everything else is automated and trustless through the contract. And if we don't use the Bitcoin to mine, 20% of the 5% fee goes towards collateral providers, to reduce risk (when activated).
 
 ## How does it *really* work?
+
+#### _most likely outdated, updates to come soon_
 
 **Warning: technical bits ahead**
 
