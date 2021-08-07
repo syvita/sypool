@@ -2,9 +2,9 @@
 
 /* LOGO */
 .Logo {
-  position: absolute;
-  top: 27px;
-  left: 15px;
+  position: relative;
+  top: 40px;
+  margin-left: 30px;
 }
 
 .Logo:hover {
@@ -31,6 +31,8 @@
 
 .Navigation div {
   margin-left: auto;
+  position: relative;
+  bottom: 9.5px
 }
 
 .Navigation button {
@@ -84,6 +86,7 @@
 @media (max-width: 700px) {
   /* COMMON */
   .Logo {
+    position: absolute;
     transform: scale(1.5);
     left: 40px;
     z-index: 1;
@@ -98,7 +101,7 @@
     justify-content: flex-end;
     position: relative;
     cursor: pointer;
-    top: 23px;
+    top: 37px;
     right: 25px;
   }
 
