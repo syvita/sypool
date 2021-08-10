@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { userSession } from "../Stacks";
+import { userSessionState } from "../../lib/auth";
+import { useAtom } from "jotai";
 
 const NavLinks = (props) => {
+  const [userSession] = useAtom(userSessionState);
+
   return (
     <div>
       <Link href="/cycles">

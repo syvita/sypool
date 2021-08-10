@@ -3,9 +3,7 @@ import Footer from "./Footer";
 import styles from "../styles/Layout.module.css";
 import { useState, createContext } from "react";
 
-export const ThemeContext = createContext(
-  {} as { theme: string; setTheme: any }
-);
+export const ThemeContext = createContext({});
 
 const Layout = ({ children }) => {
   const [theme, setTheme] = useState("light");
