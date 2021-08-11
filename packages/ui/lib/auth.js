@@ -19,7 +19,7 @@ export const useConnect = () => {
     setAuthResponse(payload.authResponse);
     const userData = await payload.userSession.loadUserData();
     setUserData(userData);
-    Router.push("/dashboard");
+    Router.push("/");
   };
 
   const authOptions = {

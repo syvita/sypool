@@ -69,7 +69,7 @@ const NavLinks = (props) => {
       {userSession.isUserSignedIn() && (
         <Link href="/dashboard" passHref={true}>
           <button onClick={() => props.isMobile && props.closeMobileMenu()}>
-            Go to Dashboard
+            Add Funds
           </button>
         </Link>
       )}

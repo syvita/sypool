@@ -1,17 +1,9 @@
 import { useConnect, userSessionState } from "../lib/auth";
-import router from "next/router";
-import { useEffect } from "react";
 import { useAtom } from "jotai";
 
 const Dashboard = () => {
   const [userSession] = useAtom(userSessionState);
   const { handleSignOut } = useConnect();
-
-  useEffect(() => {
-    if (!userSession.isUserSignedIn()) {
-      router.push("/join");
-    }
-  }, []);
 
   let STXAddress = "";
 
