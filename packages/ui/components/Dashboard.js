@@ -21,6 +21,18 @@ const Dashboard = () => {
 
   console.log(STXAddress);
 
+  const buttonSelectedStyle =
+    theme === "light"
+      ? {
+          backgroundColor: "rgba(0, 0, 0, 0.1)",
+          borderRadius: "10px",
+        }
+      : {
+          color: "white",
+          backgroundColor: "rgba(38, 38, 38, 1)",
+          borderRadius: "10px",
+        };
+
   return (
     <div className={theme === "light" ? styles.light : styles.dark}>
       <div className={styles.dashboard}>
@@ -33,12 +45,7 @@ const Dashboard = () => {
               <a>
                 <button
                   style={
-                    renderedComponent === "Summary"
-                      ? {
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
-                          borderRadius: "10px",
-                        }
-                      : {}
+                    renderedComponent === "Summary" ? buttonSelectedStyle : {}
                   }
                   onClick={() => {
                     setRenderedComponent("Summary");
@@ -50,12 +57,7 @@ const Dashboard = () => {
               <a>
                 <button
                   style={
-                    renderedComponent === "Activity"
-                      ? {
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
-                          borderRadius: "10px",
-                        }
-                      : {}
+                    renderedComponent === "Activity" ? buttonSelectedStyle : {}
                   }
                   onClick={() => {
                     setRenderedComponent("Activity");
@@ -67,12 +69,7 @@ const Dashboard = () => {
               <a>
                 <button
                   style={
-                    renderedComponent === "Data"
-                      ? {
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
-                          borderRadius: "10px",
-                        }
-                      : {}
+                    renderedComponent === "Data" ? buttonSelectedStyle : {}
                   }
                   onClick={() => {
                     setRenderedComponent("Data");
@@ -84,29 +81,19 @@ const Dashboard = () => {
               <a>
                 <button
                   style={
-                    renderedComponent === "ContractInterface"
-                      ? {
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
-                          borderRadius: "10px",
-                        }
-                      : {}
+                    renderedComponent === "Contract" ? buttonSelectedStyle : {}
                   }
                   onClick={() => {
-                    setRenderedComponent("ContractInterface");
+                    setRenderedComponent("Contract");
                   }}
                 >
-                  Contract Interface
+                  Contract
                 </button>
               </a>
               <a>
                 <button
                   style={
-                    renderedComponent === "Settings"
-                      ? {
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
-                          borderRadius: "10px",
-                        }
-                      : {}
+                    renderedComponent === "Settings" ? buttonSelectedStyle : {}
                   }
                   onClick={() => {
                     setRenderedComponent("Settings");

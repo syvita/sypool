@@ -5,11 +5,15 @@ import { ThemeContext } from "./Layout";
 const DarkModeSwitch = () => {
   const { theme, setTheme } = useContext(ThemeContext);
 
+  function changeTheme() {
+    setTheme(theme === "light" ? "dark" : "light");
+    window.localStorage.setItem("theme", theme === "light" ? "dark" : "light");
+  }
   return (
     <label className={styles.Switch}>
       <input
         type="checkbox"
-        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+        onChange={changeTheme}
         checked={theme === "light"}
       />
       <span className={styles.Slider} />

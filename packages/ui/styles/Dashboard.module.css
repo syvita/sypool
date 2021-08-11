@@ -11,8 +11,10 @@
   position: relative;
   margin-left: 50px;
   top: 45px;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   font-size: large;
+  font-weight: normal;
+  line-height: 44px;
 }
 .Logo:hover {
   cursor: pointer;
@@ -37,11 +39,11 @@
   all: unset;
   width: 80px;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 160%;
   align-items: center;
   text-align: center;
-  padding: 2px;
+  padding: 9px;
   /* will show what button they are  */
 }
 .Navigation button:hover {
