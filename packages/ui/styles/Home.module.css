@@ -1,5 +1,5 @@
-@import url('https://x.syvita.org/fonts/roobert/importme.css');
-@import url('https://x.syvita.org/fonts/inter/importme.css');
+@import url("https://x.syvita.org/fonts/roobert/importme.css");
+@import url("https://x.syvita.org/fonts/inter/importme.css");
 
 /* COMMON */
 .heading {
@@ -327,7 +327,6 @@
 .light {
   background: white;
   color: black;
-  transition: 0.5s;
 }
 
 .light .body {
@@ -451,7 +450,7 @@
 }
 
 .light .svg {
-  background-image: url('../public/syvitaHelmet.svg');
+  background-image: url("../public/syvitaHelmet.svg");
   background-repeat: no-repeat;
   background-position: 0% 45%;
   position: relative;
@@ -584,7 +583,6 @@
 .dark {
   background: black;
   color: white;
-  transition: 0.5s;
 }
 
 .dark .body {
@@ -596,7 +594,7 @@
 }
 
 .dark .rectangle .dark .svg {
-  background-image: url('../public/syvitaHelmet.svg');
+  background-image: url("../public/syvitaHelmet.svg");
   background-repeat: no-repeat;
   background-position: 0% 45%;
 }

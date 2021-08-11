@@ -1,0 +1,35 @@
+/* COMMON */
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+.contribution {
+  display: flex;
+  align-items: center;
+  width: 670px;
+  height: 116px;
+  border-radius: 16px;
+}
+
+.contribution p {
+  margin-left: 20px;
+}
+
+/* DARK */
+.light .contribution {
+  color: black;
+  background: white;
+}
+
+/* DARK */
+.dark .contribution {
+  color: white;
+  background: #171717;
+}

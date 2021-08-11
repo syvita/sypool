@@ -5,7 +5,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  transition: 0.5s;
 }
 .syvita {
   margin-left: 75px;
@@ -90,12 +89,12 @@
   background-color: black;
 }
 .dark .syvita a {
-  color:white;
+  color: white;
 }
 .dark .syvita {
   color: white;
 }
-.dark .links a{
+.dark .links a {
   color: white;
 }
 .dark .syvita a:hover {
@@ -104,8 +103,8 @@
 .dark .links a:hover {
   color: #9146ff;
 }
-.dark .logo{
-  filter: invert(1)
+.dark .logo {
+  filter: invert(1);
 }
 
 /* WAIFU THEME?? */

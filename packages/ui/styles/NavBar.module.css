@@ -20,7 +20,6 @@
   letter-spacing: 0.1em;
   font-size: 14px;
   width: 95%;
-  transition: 0.5s;
 }
 
 .Navigation a {
@@ -32,7 +31,7 @@
 .Navigation div {
   margin-left: auto;
   position: relative;
-  bottom: 9.5px
+  bottom: 9.5px;
 }
 
 .Navigation button {
