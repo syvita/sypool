@@ -17,9 +17,20 @@ const Summary = () => {
               (~5.7h) from now.
             </p>
           </div>
-          <div className={styles.blocks}></div>
-          <div className={styles.rates}></div>
-          <div className={styles.stats}></div>
+          <div className={styles.blocks}>
+            <div>STX BLK:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 36,094</div>
+            <div>BTC BLK:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 710,373</div>
+            <div>STX/BTC:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 7,397</div>
+          </div>
+          <div className={styles.rates}>
+            <div>9.7K POX TRANSFER RATE</div>
+            <div>227 EH/s BITCOIN HASHRATE</div>
+          </div>
+          <div className={styles.stats}>
+            <div>STX BLK:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 36,094</div>
+            <div>BTC BLK:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 710,373</div>
+            <div>STX/BTC:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 7,397</div>
+          </div>
         </div>
         <div className={styles.graphs}>
           <h1>put graphs here</h1>
