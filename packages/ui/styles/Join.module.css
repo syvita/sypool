@@ -1,20 +1,40 @@
-.connect{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 15%;
+/* COMMON */
+
+.join {
+  height: 84.2vh;
+}
+.connect {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: 270px;
 }
 
 .connect h1 {
-    font-weight: normal;
-    font-size: 32px;
-    line-height: 44px;
-    letter-spacing: -0.02em;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
 }
 
 .connect button {
-    width: 400px;
-    height: 48px;
-    margin-top: 10px;
+  width: 400px;
+  height: 48px;
+  margin-top: 10px;
+}
+
+/* LIGHT MODE */
+
+.light .join {
+  background: url(/join/blobs.svg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* DARK MODE */
+
+.dark .join {
+  background: url(/join/shapes.svg) no-repeat center center fixed;
+  background-size: cover;
 }

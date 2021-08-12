@@ -1,11 +1,11 @@
-@import url('https://x.syvita.org/fonts/roobert/importme.css');
-@import url('https://x.syvita.org/fonts/inter/importme.css');
+@import url("https://x.syvita.org/fonts/roobert/importme.css");
+@import url("https://x.syvita.org/fonts/inter/importme.css");
 
 html {
   background-image: url(/background.svg);
   background-repeat: no-repeat;
   background-size: cover;
-  }
+}
 body {
   font-family: roobert;
   margin: auto;
