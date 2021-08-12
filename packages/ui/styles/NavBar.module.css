@@ -3,7 +3,7 @@
 /* LOGO */
 .Logo {
   position: relative;
-  top: 40px;
+  top: 26px;
   margin-left: 30px;
 }
 
@@ -15,11 +15,11 @@
 
 .Navigation {
   font-family: inter;
-  padding: 15px;
   display: flex;
   letter-spacing: 0.1em;
   font-size: 14px;
   width: 95%;
+  margin-bottom: 2px;
 }
 
 .Navigation a {

@@ -3,9 +3,9 @@
 .dashboard {
   margin-left: auto;
   margin-right: auto;
-
-  min-width: 1100px;
-  min-height: 700px;
+  margin-top: -24px;
+  width: 100vw;
+  height: 84.2vh;
 }
 .Title {
   position: relative;
@@ -21,10 +21,9 @@
 }
 .Navigation {
   position: relative;
-  margin-top: -15px;
+  bottom: 22px;
   display: flex;
   font-size: 16px;
-  width: 95%;
 }
 .Navigation a {
   margin-right: 25px;

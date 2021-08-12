@@ -68,7 +68,10 @@ const NavLinks = (props) => {
       )}
       {userSession.isUserSignedIn() && (
         <Link href="/dashboard" passHref={true}>
-          <button onClick={() => props.isMobile && props.closeMobileMenu()}>
+          <button
+            style={{ padding: "14px 24px" }}
+            onClick={() => props.isMobile && props.closeMobileMenu()}
+          >
             Add Funds
           </button>
         </Link>
