@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
     if (localStorage.getItem("theme") === null) {
       setTheme("light");
     } else {
-      setTheme(window.localStorage.getItem("theme"));
+      setTheme(localStorage.getItem("theme"));
     }
   }, []);
 

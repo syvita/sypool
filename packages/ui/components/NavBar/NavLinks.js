@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { userSessionState } from "../../lib/auth";
 import { useAtom } from "jotai";
+import Popup from "../Popup";
+import { useState } from "react";
 
 const NavLinks = (props) => {
   const [userSession] = useAtom(userSessionState);
+  const [buttonPopup, setButtonPopup] = useState(false);
 
   return (
     <div>
@@ -67,15 +70,17 @@ const NavLinks = (props) => {
         </Link>
       )}
       {userSession.isUserSignedIn() && (
-        <Link href="/dashboard" passHref={true}>
-          <button
-            style={{ padding: "14px 24px" }}
-            onClick={() => props.isMobile && props.closeMobileMenu()}
-          >
-            Add Funds
-          </button>
-        </Link>
+        <button
+          style={{ padding: "14px 24px" }}
+          onClick={() => {
+            props.isMobile && props.closeMobileMenu();
+            setButtonPopup(true);
+          }}
+        >
+          Add Funds
+        </button>
       )}
+      <Popup trigger={buttonPopup} setTrigger={setButtonPopup}></Popup>
     </div>
   );
 };
