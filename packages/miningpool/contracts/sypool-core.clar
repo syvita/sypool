@@ -1,4 +1,4 @@
-;; created by Asteria for the Syvita mining pool (https://sypool.co)
+;; created by Asteria for the Syvita STX mining pool (https://sypool.co)
 
 ;; WAIFU SQUADDD
 
