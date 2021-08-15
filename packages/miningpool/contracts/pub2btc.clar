@@ -1,13 +1,6 @@
 ;; built by asteria for sypool
 
-;; this takes a secp256k1 signature, a target bitcoin address and
-;; a sha256 hash to verify the signature came from the address. 
 
-;; it uses the native secp256k1-recover? to recover the public key,
-;; then matches the passed bitcoin address to its type to attempt to
-;; derive an address from the public key. if this address matches the
-;; one passed, the function returns (ok true). if it doesn't, it'll throw
-;; an error detailing the point where it went wrong.
 
 (define-read-only (verify-bitcoin-address 
         (signature (buff 65))
@@ -18,7 +11,7 @@
         (if () () ())
     )
 )
-igm
+
 ;; this contract can identify:
 ;;  1. P2PKH (legacy, start with '1')
 ;;  2. P2SH (start with '3')
