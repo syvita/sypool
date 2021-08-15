@@ -102,7 +102,7 @@
 (define-data-var currentCycle tuple ;; stores current cycle
     {
         id: uint,
-        parTITTYpants: list,
+        partittypants: list,
         phase: uint,
         btcSpend: uint,
         startedAt: uint,
@@ -112,7 +112,7 @@
 (define-map Cycles ;; stores previous cycles
     { id: uint } 
     { 
-        parTITTYpants: list,
+        partittypants: list,
         btcSpend: uint,
         stxReturn: uint,
         startedAt: uint
@@ -141,12 +141,12 @@
         ;; TODO: calculate spending for this cycle
         ;;   total (cycleTotalBtc)
         ;;   average per block
-        ;; TODO: calculate cycleTotalparTITTYpants
+        ;; TODO: calculate cycleTotalpartittypants
         (asserts!
             (map-insert
                 { id: (var-get (get id currentCycle)) }
                 {
-                    totalparTITTYpants: cycleTotalparTITTYpants,
+                    totalpartittypants: cycleTotalpartittypants,
                     totalBtcSpent: cycleTotalBtc, ;; in satoshis
                     totalStxReturned: u0, ;; in microstacks
                     startedAtBlock: (- block-height PREPARE_PHASE_PERIOD)
