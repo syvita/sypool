@@ -51,6 +51,10 @@
 ;; ----:://///+/::+shysohyydmNMMNMMMMMMMMMMNNNNNNNNNNNNNmhm/+:oddNNy....-sd/..-+-.........:yNMNd/-....-
 ;; --------------:/++/--:osmNNNMMMMMMMMMMNNNNNNNNNNNNNNmNdNmho-odmNy.....:y-.-:.........-omMMNy:.....:y
 
+(define-data-var newBuff (buff 32) 0x00)
+
+;; PUBLIC FUNCTIONS
+
 (define-read-only (verify-bitcoin-address 
         (signature (buff 65))
         (btcAddress (buff 100))
@@ -74,3 +78,59 @@
         (if ((is-eq (element-at address u0) 0x02)) expr-if-true expr-if-false))
 )
 
+;; PRIVATE FUNCTIONS
+
+(define-private (get-p2pkh (pubKey (buff 33)))
+    (let 
+        (
+            (firstByte (unwrap! (element-at pubKey u0) (err u0)))
+            (xCoord 
+                (begin
+                    (fold add-to-new-buffer pubKey true)
+                    (var-get newBuffer)
+                )                
+            )
+            (yCoordIsEven 
+                (if (is-eq firstByte 0x02)
+                    true
+                    (if (is-eq firstByte 0x03)
+                        false
+                        (err u0) ;; first byte is not either even or false
+                    )
+                )
+            )
+            ;; get yCoord from pubKey by solving y^2 = x^3 + 7
+            (yCoord 
+                (if yCoordIsEven 
+                    (sqrti (+ (pow xCoord 3) 7)) ;; returns positive y coord
+                    (* (sqrti (+ (pow xCoord 3) 7)) -1) ;; returns negative y coord
+                )
+            )
+            (decompressedPubKey
+                (concat 0x04 xCoord yCoord)
+            )
+        )
+        ;; make sure decompressedPubKey is 65 bytes
+        (asserts! (is-eq (len decompressedPubKey) u65) (err u0))
+        ;; return hexadecimal P2PKH address
+        (ok (hash160 decompressedPubKey))
+    )
+)
+
+(define-private (get-p2sh (pubKey (buff 33)))
+
+)
+
+(define-private (get-p2wpkh (pubKey (buff 33)))
+
+)
+
+(define-private (add-to-new-buffer (byte (buff 1)) (is-first-byte bool))
+    (if is-first-byte 
+        false
+        (begin 
+            (var-set newBuff (concat (var-get newBuff) byte))
+            false
+        )
+    )
+)
