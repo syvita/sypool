@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@stacks/blockchain-api-client": "^0.62.3",
+    "@stacks/blockchain-api-client": "^0.63.0",
     "@stacks/network": "1.2.2",
     "@syvita/connect": "^6.1.0",
     "@syvita/connect-react": "^11.1.0",
