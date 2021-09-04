@@ -1281,10 +1281,10 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-itty-router@^2.1.9:
-  version "2.3.10"
-  resolved "https://registry.yarnpkg.com/itty-router/-/itty-router-2.3.10.tgz#758910f3bc46e1e0c054e1aea112912adfb67966"
-  integrity sha512-ul8quBGpHWZ1HAutnyXm9f9EAz9rLMEA+9bL/E31DviAb0skFhblxQrZLgq/IwgHRjt3HNoqmv8KuVYe094x4g==
+itty-router@^2.4.0:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/itty-router/-/itty-router-2.4.2.tgz#5680f880f618ef9dc14148f47b9885bd09e5a015"
+  integrity sha512-VCJPoGKYrCoFSGQ9kko5prt66SHVppde498kj9XkMuZVrLCaG6xSIMIz/qaqW/mWk34BJPYGzhvWMf6l8g/CnA==
 
 json-parse-better-errors@^1.0.2:
   version "1.0.2"
