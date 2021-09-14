@@ -3849,10 +3849,10 @@ node-addon-api@^2.0.0:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-2.0.2.tgz#432cfa82962ce494b132e9d72a15b29f71ff5d32"
   integrity sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==
 
-node-binance-api@^0.12.5:
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/node-binance-api/-/node-binance-api-0.12.5.tgz#53b4e4bf7b9601aa7c9c3ff5f822004cf6622661"
-  integrity sha512-tapf/OCGaMiHrfvOgPu67osXwq03jFq+WtKgDB0XR6uRvSnOf+fMWMsnbyioHcJSXpd3sdcyR5VkjPGZmkUuHw==
+node-binance-api@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/node-binance-api/-/node-binance-api-0.13.0.tgz#e99d68a914ec6b7570b8cc97e613d4bf706bed09"
+  integrity sha512-jFjax3wcmHGDnhWdvZWXc7h3ecq0BLS3syyX8o5vK7ZTgRNzhlSgQOozM0Y0RJV1nguIL+yg0mVzpl3oX5mskA==
   dependencies:
     async "^3.1.0"
     https-proxy-agent "^3.0.1"
